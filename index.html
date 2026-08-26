@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SkillBridge Pakistan | Learn Skills. Earn Certificates. Build Your Future.</title>
-    <meta name="description" content="SkillBridge Pakistan connects learners with practical, career-focused skills through structured courses, assessments and verified certificates.">
-    
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -18,12 +15,8 @@
             }
         }
     </script>
-    
-    <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Certificate Generation Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -37,11 +30,7 @@
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; }
         ::-webkit-scrollbar-thumb { background: #4F46E5; border-radius: 4px; }
-        
-        #certificate-template {
-            width: 800px; height: 600px; background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            border: 20px solid #D4AF37; padding: 40px; position: relative;
-        }
+        #certificate-template { width: 800px; height: 600px; background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); border: 20px solid #D4AF37; padding: 40px; position: relative; }
         #certificate-template::before { content: ''; position: absolute; top: 10px; left: 10px; right: 10px; bottom: 10px; border: 2px solid #4F46E5; }
         .glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
         .hover-lift { transition: transform 0.3s ease, box-shadow 0.3s ease; }
@@ -49,8 +38,6 @@
         .hidden-view { display: none !important; }
         .loader { border: 3px solid #f3f3f3; border-top: 3px solid #4F46E5; border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; display: inline-block; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        
-        /* Modal Styles */
         .modal-overlay { background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); }
     </style>
 </head>
@@ -189,7 +176,7 @@
             </div>
         </section>
 
-        <!-- COURSE DETAIL VIEW -->
+        <!-- COURSE DETAIL VIEW (WITH TRAIL VIDEO) -->
         <section id="view-course-detail" class="view hidden-view fade-in py-20">
             <div class="max-w-6xl mx-auto px-4">
                 <button onclick="router.navigate('courses')" class="mb-6 text-gray-600 hover:text-primary font-medium"><i class="fas fa-arrow-left mr-2"></i>Back to Courses</button>
@@ -513,19 +500,25 @@
     <!-- JAVASCRIPT LOGIC -->
     <script>
         // ==========================================
-        // DATABASE SIMULATION
+        // DATABASE SIMULATION (WITH EXPLICIT VIDEO IDs)
         // ==========================================
         const db = {
             get: (key) => JSON.parse(localStorage.getItem(`sb_${key}`) || 'null'),
             set: (key, value) => localStorage.setItem(`sb_${key}`, JSON.stringify(value)),
             init: () => {
+                // FORCE CLEAR OLD CACHE IF IT DOESN'T HAVE videoId
+                const oldCourses = db.get('courses');
+                if (!oldCourses || !oldCourses[0].videoId) {
+                    localStorage.removeItem('sb_courses');
+                }
+
                 if (!db.get('courses')) {
                     db.set('courses', [
                         {
                             id: 'ai', title: 'AI Automation', category: 'AI', price: 4999, duration: '6 Weeks', level: 'Beginner',
                             image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80',
                             description: 'Master AI tools, prompt engineering, and no-code automation workflows.',
-                            trailVideo: 'https://youtu.be/KCdurte9vp0?si=rwk6p1KlbwKhv50_',
+                            videoId: 'KCdurte9vp0', // EXPLICIT YOUTUBE VIDEO ID
                             modules: [
                                 { title: 'Module 1: Introduction to AI', duration: '1 Week', lessons: [
                                     { id: 'ai_m1_l1', title: 'Artificial Intelligence', duration: '15 mins', quiz: [{ q: 'What does AI stand for?', options: ['Automated Intelligence', 'Artificial Intelligence', 'Advanced Integration'], correct: 1 }] },
@@ -541,7 +534,7 @@
                             id: 'design', title: 'Graphic Designing', category: 'Design', price: 4499, duration: '6 Weeks', level: 'Beginner',
                             image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=800&q=80',
                             description: 'Learn Canva, Photoshop, Illustrator, and brand identity design.',
-                            trailVideo: 'https://youtu.be/CY25svrgxC0?si=0AvjeDtUUf4jA4cD',
+                            videoId: 'CY25svrgxC0', // EXPLICIT YOUTUBE VIDEO ID
                             modules: [
                                 { title: 'Module 1: Design Fundamentals', duration: '1 Week', lessons: [
                                     { id: 'des_m1_l1', title: 'Color Theory', duration: '20 mins', quiz: [{ q: 'Which color model is used for screens?', options: ['CMYK', 'RGB', 'Pantone'], correct: 1 }] },
@@ -557,7 +550,7 @@
                             id: 'security', title: 'Cyber Security', category: 'Security', price: 5499, duration: '6 Weeks', level: 'Intermediate',
                             image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80',
                             description: 'Defensive cybersecurity fundamentals, network security, and best practices.',
-                            trailVideo: 'https://youtu.be/wUed_5EVDNg?si=jXCStFkp4z59c0nJ',
+                            videoId: 'wUed_5EVDNg', // EXPLICIT YOUTUBE VIDEO ID
                             modules: [
                                 { title: 'Module 1: Security Basics', duration: '1 Week', lessons: [
                                     { id: 'sec_m1_l1', title: 'The CIA Triad', duration: '20 mins', quiz: [{ q: 'What does CIA stand for in security?', options: ['Confidentiality, Integrity, Availability', 'Central Intelligence Agency', 'Computer Internet Access'], correct: 0 }] },
@@ -573,7 +566,7 @@
                             id: 'writing', title: 'Content Writing', category: 'Writing', price: 3999, duration: '5 Weeks', level: 'Beginner',
                             image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800&q=80',
                             description: 'Master blog writing, SEO, social media content, and AI-assisted writing.',
-                            trailVideo: 'https://youtu.be/lzMLMYeqCpE?si=6_29-LUy3TPouwyv',
+                            videoId: 'lzMLMYeqCpE', // EXPLICIT YOUTUBE VIDEO ID
                             modules: [
                                 { title: 'Module 1: Writing Fundamentals', duration: '1 Week', lessons: [
                                     { id: 'wri_m1_l1', title: 'Grammar and Tone', duration: '20 mins', quiz: [{ q: 'What determines the tone of writing?', options: ['Font size', 'Word choice and attitude', 'Paragraph length'], correct: 1 }] },
@@ -707,11 +700,6 @@
                 }
             },
 
-            getYoutubeId: (url) => {
-                const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^&?]+)/);
-                return match ? match[1] : null;
-            },
-
             renderCourses: () => {
                 const courses = db.get('courses');
                 const container = document.getElementById('courses-grid') || document.getElementById('home-courses-grid');
@@ -729,13 +717,18 @@
                     const isEnrolled = app.isEnrolled(c.id);
                     return `
                         <div class="bg-white rounded-xl shadow-lg overflow-hidden hover-lift border border-gray-100 flex flex-col">
-                            <img src="${c.image}" class="w-full h-48 object-cover">
+                            <div class="relative">
+                                <img src="${c.image}" class="w-full h-48 object-cover">
+                                <div class="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded-full font-bold flex items-center gap-1 shadow-lg">
+                                    <i class="fas fa-play"></i> Trail Video
+                                </div>
+                            </div>
                             <div class="p-6 flex-1 flex flex-col">
                                 <div class="flex justify-between items-start mb-2">
                                     <span class="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full font-semibold">${c.category}</span>
                                     <span class="text-gold font-bold">PKR ${c.price.toLocaleString()}</span>
                                 </div>
-                                <h3 class="text-xl font-bold mb-2">${c.title}</h3>
+                                <h3 class="text-xl font-bold mb-2 cursor-pointer hover:text-primary" onclick="app.showCourseDetail('${c.id}')">${c.title}</h3>
                                 <p class="text-gray-600 text-sm mb-4 flex-1">${c.description}</p>
                                 <div class="flex items-center text-sm text-gray-500 mb-4 space-x-4">
                                     <span><i class="far fa-clock mr-1"></i> ${c.duration}</span>
@@ -842,9 +835,9 @@
                 }, 1500);
             },
 
-            renderCourseDetail: (courseId) => {
+            showCourseDetail: (courseId) => {
+                app.currentCourseId = courseId;
                 const course = db.get('courses').find(c => c.id === courseId);
-                const videoId = app.getYoutubeId(course.trailVideo);
                 const isEnrolled = app.isEnrolled(courseId);
                 
                 let curriculumHtml = course.modules.map((m, mIdx) => `
@@ -872,13 +865,14 @@
                             <p class="text-gray-600 text-lg leading-relaxed">${course.description}</p>
                         </div>
                         
-                        <div class="bg-dark rounded-2xl overflow-hidden shadow-lg">
+                        <!-- EXPLICIT YOUTUBE TRAIL VIDEO EMBED -->
+                        <div class="bg-dark rounded-2xl overflow-hidden shadow-lg border-2 border-primary/20">
                             <div class="aspect-video">
-                                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/${videoId}" title="Course Trail Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/${course.videoId}" title="Course Trail Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                             </div>
                             <div class="p-4 bg-gray-900 text-white flex items-center gap-3">
-                                <i class="fas fa-play-circle text-primary text-xl"></i>
-                                <span class="font-semibold">Course Trail Video</span>
+                                <i class="fas fa-play-circle text-red-500 text-xl"></i>
+                                <span class="font-semibold">Watch Course Trail Video</span>
                             </div>
                         </div>
 
@@ -906,6 +900,7 @@
                         </div>
                     </div>
                 `;
+                router.navigate('course-detail');
             },
 
             renderDashboard: () => {
@@ -983,14 +978,12 @@
                         </div>
                         <div class="hidden">
                             ${m.lessons.map((l, lIdx) => {
-                                const isCompleted = enrollment.completedLessons.includes(l.id);
-                                const isLocked = !isCompleted && (mIdx > 0 || lIdx > 0) && !enrollment.completedLessons.includes(course.modules[mIdx].lessons[lIdx > 0 ? lIdx - 1 : 0]?.id || 'start');
-                                // Simplified lock: locked if previous lesson not completed
                                 let prevLessonId = null;
                                 if (lIdx > 0) prevLessonId = course.modules[mIdx].lessons[lIdx - 1].id;
                                 else if (mIdx > 0) prevLessonId = course.modules[mIdx - 1].lessons[course.modules[mIdx - 1].lessons.length - 1].id;
                                 
                                 const actuallyLocked = prevLessonId && !enrollment.completedLessons.includes(prevLessonId);
+                                const isCompleted = enrollment.completedLessons.includes(l.id);
 
                                 return `
                                     <div onclick="${actuallyLocked ? '' : `app.loadLesson(${mIdx}, ${lIdx}, '${l.id}')`}" class="p-3 pl-6 text-sm border-t cursor-pointer hover:bg-primary/5 flex justify-between items-center ${actuallyLocked ? 'text-gray-400 bg-gray-50' : (isCompleted ? 'text-success font-semibold' : 'text-gray-700')}">
@@ -1006,7 +999,6 @@
                     </div>
                 `).join('');
 
-                // Load first available lesson
                 const firstLesson = course.modules[0].lessons[0];
                 app.loadLesson(0, 0, firstLesson.id);
                 router.navigate('learn');
@@ -1069,7 +1061,7 @@
                 });
                 
                 const score = Math.round((correct / lesson.quiz.length) * 100);
-                const passed = score >= 50; // Simple pass mark
+                const passed = score >= 50;
                 
                 const resultDiv = document.getElementById('quiz-result');
                 resultDiv.classList.remove('hidden');
@@ -1080,7 +1072,6 @@
                     document.getElementById('quiz-submit-btn').classList.add('hidden');
                     document.getElementById('quiz-close-btn').classList.remove('hidden');
                     
-                    // Update enrollment
                     const enrollments = db.get('enrollments');
                     const enrollment = enrollments.find(e => e.id === app.currentEnrollment.id);
                     if (!enrollment.completedLessons.includes(app.currentLessonId)) {
@@ -1092,7 +1083,6 @@
                         app.currentEnrollment = enrollment;
                     }
                     
-                    // Refresh sidebar to show unlock
                     setTimeout(() => {
                         document.getElementById('quiz-modal').classList.add('hidden');
                         app.openCourse(app.currentEnrollment.id);
@@ -1104,7 +1094,6 @@
             },
 
             nextLesson: () => {
-                // Find next lesson logic
                 let found = false;
                 for(let m=0; m<app.currentCourse.modules.length; m++) {
                     for(let l=0; l<app.currentCourse.modules[m].lessons.length; l++) {
@@ -1185,7 +1174,7 @@
                 else if (score >= 60) grade = 'B';
                 else if (score >= 50) grade = 'C';
                 
-                const passed = score >= 60; // 60% to pass final
+                const passed = score >= 60;
                 
                 if (passed) {
                     alert(`Congratulations! You passed with ${score}%. Your Grade: ${grade}`);
@@ -1408,74 +1397,7 @@
                 router.navigate('verify');
                 app.verifyCertificate();
             }
-            // Handle course detail routing if needed, but we use app.renderCourseDetail from course card click
-            // For simplicity, we can add a data attribute or just call it directly
         });
-
-        // Override course card click to show detail
-        const originalRender = app.renderCourses;
-        app.renderCourses = () => {
-            originalRender();
-            // Attach detail view listeners
-            document.querySelectorAll('.hover-lift').forEach(card => {
-                // We'll add a "View Details" button dynamically or make the title clickable
-                // For now, let's just add a button to the generated HTML in originalRender
-            });
-        };
-        
-        // Patch the course card generation to include a "View Details" button
-        const originalCreate = app.renderCourses; 
-        // Actually, let's just update the HTML string in renderCourses to include a detail button
-        // Done inline above: I will add a small "View Details" link under the title.
-        // Let's patch it:
-        const _renderCourses = app.renderCourses;
-        app.renderCourses = function() {
-            const courses = db.get('courses');
-            const container = document.getElementById('courses-grid') || document.getElementById('home-courses-grid');
-            if (!container) return;
-            const search = document.getElementById('course-search')?.value.toLowerCase() || '';
-            const filter = document.getElementById('course-filter')?.value || 'all';
-            const filtered = courses.filter(c => {
-                const matchesSearch = c.title.toLowerCase().includes(search) || c.description.toLowerCase().includes(search);
-                const matchesFilter = filter === 'all' || c.category === filter;
-                return matchesSearch && matchesFilter;
-            });
-            container.innerHTML = filtered.map(c => {
-                const isEnrolled = app.isEnrolled(c.id);
-                return `
-                    <div class="bg-white rounded-xl shadow-lg overflow-hidden hover-lift border border-gray-100 flex flex-col">
-                        <div class="relative">
-                            <img src="${c.image}" class="w-full h-48 object-cover">
-                            <button onclick="event.stopPropagation(); app.showCourseDetail('${c.id}')" class="absolute top-2 right-2 bg-white/90 text-dark p-2 rounded-full hover:bg-white shadow-md" title="View Details">
-                                <i class="fas fa-info-circle"></i>
-                            </button>
-                        </div>
-                        <div class="p-6 flex-1 flex flex-col">
-                            <div class="flex justify-between items-start mb-2">
-                                <span class="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full font-semibold">${c.category}</span>
-                                <span class="text-gold font-bold">PKR ${c.price.toLocaleString()}</span>
-                            </div>
-                            <h3 class="text-xl font-bold mb-2 cursor-pointer hover:text-primary" onclick="app.showCourseDetail('${c.id}')">${c.title}</h3>
-                            <p class="text-gray-600 text-sm mb-4 flex-1">${c.description}</p>
-                            <div class="flex items-center text-sm text-gray-500 mb-4 space-x-4">
-                                <span><i class="far fa-clock mr-1"></i> ${c.duration}</span>
-                                <span><i class="fas fa-signal mr-1"></i> ${c.level}</span>
-                            </div>
-                            ${isEnrolled ? 
-                                `<button onclick="router.navigate('dashboard')" class="w-full bg-success text-white py-2 rounded-lg font-semibold cursor-default">Already Enrolled</button>` :
-                                `<button onclick="app.initiateEnroll('${c.id}')" class="w-full bg-primary text-white py-2 rounded-lg font-semibold hover:bg-indigo-700 transition">Enroll Now</button>`
-                            }
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        };
-
-        app.showCourseDetail = (courseId) => {
-            app.currentCourseId = courseId;
-            app.renderCourseDetail(courseId);
-            router.navigate('course-detail');
-        };
     </script>
 </body>
 </html>
