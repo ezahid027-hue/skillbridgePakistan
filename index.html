@@ -21,9 +21,7 @@
                         warning: '#F59E0B',
                         gold: '#D4AF37'
                     },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    }
+                    fontFamily: { sans: ['Inter', 'sans-serif'] }
                 }
             }
         }
@@ -40,44 +38,33 @@
 
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #F8FAFC; }
-        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        .fade-in { animation: fadeIn 0.4s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .slide-in { animation: slideIn 0.3s ease-out; }
         @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
-        
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; }
         ::-webkit-scrollbar-thumb { background: #4F46E5; border-radius: 4px; }
         
-        /* Certificate Styling */
         #certificate-template {
-            width: 800px;
-            height: 600px;
-            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            border: 20px solid #D4AF37;
-            padding: 40px;
-            position: relative;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            width: 800px; height: 600px; background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 20px solid #D4AF37; padding: 40px; position: relative;
         }
         #certificate-template::before {
-            content: '';
-            position: absolute;
-            top: 10px; left: 10px; right: 10px; bottom: 10px;
-            border: 2px solid #4F46E5;
+            content: ''; position: absolute; top: 10px; left: 10px; right: 10px; bottom: 10px; border: 2px solid #4F46E5;
         }
-        
-        .glass { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); }
+        .glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
         .hover-lift { transition: transform 0.3s ease, box-shadow 0.3s ease; }
         .hover-lift:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
-        
         .hidden-view { display: none !important; }
+        .loader { border: 3px solid #f3f3f3; border-top: 3px solid #4F46E5; border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; display: inline-block; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body class="text-dark antialiased">
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 glass border-b border-gray-200 transition-all duration-300" id="navbar">
+    <nav class="fixed w-full z-50 glass border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex items-center cursor-pointer" onclick="router.navigate('home')">
@@ -91,17 +78,13 @@
                 </div>
                 
                 <div class="hidden md:flex space-x-8 items-center" id="nav-links">
-                    <a onclick="router.navigate('home')" class="cursor-pointer hover:text-primary transition">Home</a>
-                    <a onclick="router.navigate('about')" class="cursor-pointer hover:text-primary transition">About Us</a>
-                    <a onclick="router.navigate('courses')" class="cursor-pointer hover:text-primary transition">Courses</a>
-                    <a onclick="router.navigate('contact')" class="cursor-pointer hover:text-primary transition">Contact</a>
+                    <a onclick="router.navigate('home')" class="cursor-pointer hover:text-primary transition font-medium">Home</a>
+                    <a onclick="router.navigate('about')" class="cursor-pointer hover:text-primary transition font-medium">About Us</a>
+                    <a onclick="router.navigate('courses')" class="cursor-pointer hover:text-primary transition font-medium">Courses</a>
+                    <a onclick="router.navigate('contact')" class="cursor-pointer hover:text-primary transition font-medium">Contact</a>
                 </div>
 
                 <div class="flex items-center space-x-4" id="auth-buttons">
-                    <button onclick="router.navigate('cart')" class="relative p-2 hover:bg-gray-100 rounded-full transition">
-                        <i class="fas fa-shopping-cart text-gray-600"></i>
-                        <span id="cart-count" class="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center hidden">0</span>
-                    </button>
                     <button onclick="router.navigate('login')" class="text-primary font-semibold hover:text-indigo-700 transition">Login</button>
                     <button onclick="router.navigate('signup')" class="bg-primary text-white px-5 py-2 rounded-lg font-semibold hover:bg-indigo-700 transition shadow-lg shadow-indigo-500/30">Get Started</button>
                 </div>
@@ -120,17 +103,16 @@
                     </div>
                 </div>
                 
-                <button class="md:hidden text-gray-600" onclick="toggleMobileMenu()">
+                <button class="md:hidden text-gray-600" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
                     <i class="fas fa-bars text-2xl"></i>
                 </button>
             </div>
         </div>
-        <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200 p-4 space-y-3">
-            <a onclick="router.navigate('home')" class="block py-2">Home</a>
-            <a onclick="router.navigate('courses')" class="block py-2">Courses</a>
-            <a onclick="router.navigate('dashboard')" class="block py-2">Dashboard</a>
-            <a onclick="auth.logout()" class="block py-2 text-red-600">Logout</a>
+            <a onclick="router.navigate('home')" class="block py-2 font-medium">Home</a>
+            <a onclick="router.navigate('courses')" class="block py-2 font-medium">Courses</a>
+            <a onclick="router.navigate('dashboard')" class="block py-2 font-medium">Dashboard</a>
+            <a onclick="auth.logout()" class="block py-2 text-red-600 font-medium">Logout</a>
         </div>
     </nav>
 
@@ -156,42 +138,10 @@
                 </div>
             </div>
 
-            <!-- Why SkillBridge -->
-            <div class="py-20 bg-white">
-                <div class="max-w-7xl mx-auto px-4">
-                    <h2 class="text-3xl font-bold text-center mb-12">Why SkillBridge?</h2>
-                    <div class="grid md:grid-cols-4 gap-8">
-                        <div class="p-6 bg-background rounded-xl hover-lift border border-gray-100">
-                            <div class="w-12 h-12 bg-primary/10 text-primary rounded-lg flex items-center justify-center mb-4"><i class="fas fa-laptop-code text-2xl"></i></div>
-                            <h3 class="font-bold text-lg mb-2">Practical Skills</h3>
-                            <p class="text-gray-600 text-sm">Industry-relevant curriculum designed for immediate application.</p>
-                        </div>
-                        <div class="p-6 bg-background rounded-xl hover-lift border border-gray-100">
-                            <div class="w-12 h-12 bg-secondary/10 text-secondary rounded-lg flex items-center justify-center mb-4"><i class="fas fa-chalkboard-teacher text-2xl"></i></div>
-                            <h3 class="font-bold text-lg mb-2">Expert-Structured</h3>
-                            <p class="text-gray-600 text-sm">Courses built by professionals with years of field experience.</p>
-                        </div>
-                        <div class="p-6 bg-background rounded-xl hover-lift border border-gray-100">
-                            <div class="w-12 h-12 bg-success/10 text-success rounded-lg flex items-center justify-center mb-4"><i class="fas fa-clock text-2xl"></i></div>
-                            <h3 class="font-bold text-lg mb-2">Flexible Learning</h3>
-                            <p class="text-gray-600 text-sm">Learn at your own pace with lifetime access to materials.</p>
-                        </div>
-                        <div class="p-6 bg-background rounded-xl hover-lift border border-gray-100">
-                            <div class="w-12 h-12 bg-gold/10 text-gold rounded-lg flex items-center justify-center mb-4"><i class="fas fa-certificate text-2xl"></i></div>
-                            <h3 class="font-bold text-lg mb-2">Verified Certificates</h3>
-                            <p class="text-gray-600 text-sm">QR-coded, verifiable certificates to boost your career.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Featured Courses -->
             <div class="py-20 bg-background">
                 <div class="max-w-7xl mx-auto px-4">
                     <h2 class="text-3xl font-bold text-center mb-12">Featured Courses</h2>
-                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6" id="home-courses-grid">
-                        <!-- Populated by JS -->
-                    </div>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6" id="home-courses-grid"></div>
                     <div class="text-center mt-12">
                         <button onclick="router.navigate('courses')" class="bg-primary text-white px-8 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition">View All Courses</button>
                     </div>
@@ -200,32 +150,72 @@
         </section>
 
         <!-- ABOUT VIEW -->
+                <!-- ABOUT VIEW -->
         <section id="view-about" class="view hidden-view fade-in py-20">
             <div class="max-w-7xl mx-auto px-4">
                 <h2 class="text-4xl font-bold text-center mb-4">About Us</h2>
-                <p class="text-center text-gray-600 max-w-2xl mx-auto mb-16">Bridging the gap between ambition and achievement through accessible, high-quality digital education.</p>
+                <p class="text-center text-gray-600 max-w-3xl mx-auto mb-16">
+                    Bridging the gap between ambition and achievement through accessible, high-quality digital education. 
+                    Meet the dedicated team driving SkillBridge Pakistan forward.
+                </p>
                 
-                <div class="grid md:grid-cols-2 gap-12">
-                    <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 text-center">
-                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" class="w-32 h-32 rounded-full mx-auto mb-6 object-cover border-4 border-primary">
-                        <h3 class="text-2xl font-bold">Eman Zahid</h3>
-                        <p class="text-primary font-semibold mb-4">Co-Founder & Director — Learning, Strategy & Operations</p>
-                        <ul class="text-left text-gray-600 space-y-2 text-sm">
-                            <li><i class="fas fa-check text-success mr-2"></i>Business strategy & Course planning</li>
-                            <li><i class="fas fa-check text-success mr-2"></i>Learning experience & Student management</li>
-                            <li><i class="fas fa-check text-success mr-2"></i>Operations & Quality management</li>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- M. Wasif -->
+                    <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 text-center hover-lift">
+                        <div class="w-20 h-20 bg-primary/10 text-primary rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6 border-2 border-primary">
+                            MW
+                        </div>
+                        <h3 class="text-2xl font-bold text-dark">M. Wasif</h3>
+                        <p class="text-primary font-semibold mb-2">Founder & Team Leader</p>
+                        <p class="text-sm text-gray-500 mb-6">Vision, Strategy & Operations</p>
+                        <ul class="text-left text-gray-600 space-y-3 text-sm">
+                            <li class="flex items-start"><i class="fas fa-check-circle text-success mt-1 mr-3"></i><span>Overall business strategy & long-term vision</span></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-success mt-1 mr-3"></i><span>Team leadership & daily operations management</span></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-success mt-1 mr-3"></i><span>Strategic partnerships & organizational growth</span></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-success mt-1 mr-3"></i><span>Quality assurance & educational standards</span></li>
                         </ul>
                     </div>
-                    <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 text-center">
-                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" class="w-32 h-32 rounded-full mx-auto mb-6 object-cover border-4 border-secondary">
-                        <h3 class="text-2xl font-bold">Zunaira Zahid</h3>
-                        <p class="text-secondary font-semibold mb-4">Co-Founder & Director — Technology, Creative & Digital Development</p>
-                        <ul class="text-left text-gray-600 space-y-2 text-sm">
-                            <li><i class="fas fa-check text-success mr-2"></i>Technology & AI integration</li>
-                            <li><i class="fas fa-check text-success mr-2"></i>Digital platform & Creative direction</li>
-                            <li><i class="fas fa-check text-success mr-2"></i>Digital marketing & Innovation</li>
+
+                    <!-- Muzamil -->
+                    <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 text-center hover-lift">
+                        <div class="w-20 h-20 bg-secondary/10 text-secondary rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6 border-2 border-secondary">
+                            MU
+                        </div>
+                        <h3 class="text-2xl font-bold text-dark">Muzamil</h3>
+                        <p class="text-secondary font-semibold mb-2">Co-Founder & Head of Technology</p>
+                        <p class="text-sm text-gray-500 mb-6">Platform Development & AI Integration</p>
+                        <ul class="text-left text-gray-600 space-y-3 text-sm">
+                            <li class="flex items-start"><i class="fas fa-check-circle text-success mt-1 mr-3"></i><span>Platform architecture & full-stack development</span></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-success mt-1 mr-3"></i><span>AI integration & automation systems</span></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-success mt-1 mr-3"></i><span>Database security & cloud infrastructure</span></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-success mt-1 mr-3"></i><span>Technical innovation & system scaling</span></li>
                         </ul>
                     </div>
+
+                    <!-- Umar -->
+                    <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 text-center hover-lift">
+                        <div class="w-20 h-20 bg-gold/10 text-gold rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6 border-2 border-gold">
+                            UM
+                        </div>
+                        <h3 class="text-2xl font-bold text-dark">Umar</h3>
+                        <p class="text-gold font-semibold mb-2">Co-Founder & Head of Creative</p>
+                        <p class="text-sm text-gray-500 mb-6">Curriculum Design & Digital Marketing</p>
+                        <ul class="text-left text-gray-600 space-y-3 text-sm">
+                            <li class="flex items-start"><i class="fas fa-check-circle text-success mt-1 mr-3"></i><span>Course curriculum & learning experience design</span></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-success mt-1 mr-3"></i><span>Creative direction & brand identity</span></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-success mt-1 mr-3"></i><span>Student engagement & community building</span></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-success mt-1 mr-3"></i><span>Digital marketing & outreach strategies</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Mission Statement -->
+                <div class="mt-20 bg-primary/5 rounded-2xl p-8 md:p-12 text-center border border-primary/10">
+                    <i class="fas fa-bullseye text-4xl text-primary mb-4"></i>
+                    <h3 class="text-2xl font-bold text-dark mb-4">Our Mission</h3>
+                    <p class="text-gray-700 max-w-3xl mx-auto text-lg leading-relaxed">
+                        To empower the youth of Pakistan with industry-ready digital skills, providing a seamless learning journey from enrollment to certification, and ultimately bridging the gap between education and employability.
+                    </p>
                 </div>
             </div>
         </section>
@@ -234,10 +224,8 @@
         <section id="view-courses" class="view hidden-view fade-in py-20">
             <div class="max-w-7xl mx-auto px-4">
                 <h2 class="text-4xl font-bold text-center mb-12">Our Courses</h2>
-                
-                <!-- Search & Filter -->
                 <div class="mb-8 flex flex-col md:flex-row gap-4">
-                    <input type="text" id="course-search" placeholder="Search courses..." class="flex-1 px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent" onkeyup="app.filterCourses()">
+                    <input type="text" id="course-search" placeholder="Search courses..." class="flex-1 px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary" onkeyup="app.filterCourses()">
                     <select id="course-filter" class="px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary" onchange="app.filterCourses()">
                         <option value="all">All Categories</option>
                         <option value="AI">AI Automation</option>
@@ -246,89 +234,65 @@
                         <option value="Writing">Content Writing</option>
                     </select>
                 </div>
-
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6" id="courses-grid">
-                    <!-- Populated by JS -->
-                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6" id="courses-grid"></div>
             </div>
         </section>
 
-        <!-- COURSE DETAIL VIEW -->
-        <section id="view-course-detail" class="view hidden-view fade-in py-20">
-            <div class="max-w-7xl mx-auto px-4">
-                <button onclick="router.navigate('courses')" class="mb-6 text-gray-600 hover:text-primary"><i class="fas fa-arrow-left mr-2"></i>Back to Courses</button>
-                <div id="course-detail-content" class="grid lg:grid-cols-3 gap-8">
-                    <!-- Populated by JS -->
-                </div>
-            </div>
-        </section>
-
-        <!-- CART VIEW -->
-        <section id="view-cart" class="view hidden-view fade-in py-20">
-            <div class="max-w-4xl mx-auto px-4">
-                <h2 class="text-3xl font-bold mb-8">Shopping Cart</h2>
-                <div id="cart-content" class="bg-white rounded-2xl shadow-lg p-6">
-                    <!-- Populated by JS -->
-                </div>
-            </div>
-        </section>
-
-        <!-- CHECKOUT VIEW -->
+        <!-- CHECKOUT / PAYMENT VIEW -->
         <section id="view-checkout" class="view hidden-view fade-in py-20">
             <div class="max-w-3xl mx-auto px-4">
-                <h2 class="text-3xl font-bold mb-8">Secure Checkout</h2>
+                <button onclick="router.navigate('courses')" class="mb-6 text-gray-600 hover:text-primary"><i class="fas fa-arrow-left mr-2"></i>Back to Courses</button>
+                <h2 class="text-3xl font-bold mb-8">Enroll & Pay</h2>
                 <div class="bg-white rounded-2xl shadow-lg p-8">
-                    <div id="checkout-summary" class="mb-8 pb-8 border-b border-gray-200">
+                    <div id="checkout-summary" class="mb-8 pb-8 border-b border-gray-200 flex items-center gap-4">
                         <!-- Populated by JS -->
                     </div>
                     
-                    <form id="checkout-form" onsubmit="app.processCheckout(event)">
-                        <h3 class="text-xl font-bold mb-4">Payment Method</h3>
+                    <form id="checkout-form" onsubmit="app.processPayment(event)">
+                        <h3 class="text-xl font-bold mb-4">Select Payment Method</h3>
                         <div class="space-y-4 mb-6">
-                            <label class="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-gray-50 transition">
-                                <input type="radio" name="payment_method" value="jazzcash" class="mr-3 text-primary" required>
+                            <label class="flex items-center p-4 border-2 border-primary bg-primary/5 rounded-lg cursor-pointer transition">
+                                <input type="radio" name="payment_method" value="direct" class="mr-3 text-primary" required onchange="app.togglePaymentFields()">
                                 <div class="flex-1">
-                                    <span class="font-semibold">JazzCash</span>
-                                    <p class="text-sm text-gray-500">Pay via JazzCash Mobile Account</p>
+                                    <span class="font-bold text-primary">Direct Online Payment</span>
+                                    <p class="text-sm text-gray-600">Credit/Debit Card. Course unlocks instantly upon successful payment.</p>
                                 </div>
-                                <i class="fas fa-mobile-alt text-red-600 text-2xl"></i>
+                                <i class="fas fa-credit-card text-primary text-2xl"></i>
                             </label>
                             <label class="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-gray-50 transition">
-                                <input type="radio" name="payment_method" value="easypaisa" class="mr-3 text-primary">
+                                <input type="radio" name="payment_method" value="manual" class="mr-3 text-primary" onchange="app.togglePaymentFields()">
                                 <div class="flex-1">
-                                    <span class="font-semibold">Easypaisa</span>
-                                    <p class="text-sm text-gray-500">Pay via Easypaisa Mobile Account</p>
+                                    <span class="font-semibold">Manual Transfer (JazzCash / Easypaisa / Bank)</span>
+                                    <p class="text-sm text-gray-500">Transfer funds and upload proof. Admin will verify within 24 hours.</p>
                                 </div>
-                                <i class="fas fa-mobile-alt text-green-600 text-2xl"></i>
-                            </label>
-                            <label class="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-gray-50 transition">
-                                <input type="radio" name="payment_method" value="bank" class="mr-3 text-primary">
-                                <div class="flex-1">
-                                    <span class="font-semibold">Bank Transfer (Punjab Bank)</span>
-                                    <p class="text-sm text-gray-500">Manual transfer with proof upload</p>
-                                </div>
-                                <i class="fas fa-university text-blue-600 text-2xl"></i>
+                                <i class="fas fa-university text-gray-600 text-2xl"></i>
                             </label>
                         </div>
 
-                        <div id="payment-instructions" class="bg-blue-50 p-4 rounded-lg mb-6 hidden">
-                            <p class="text-sm text-blue-800 font-semibold mb-2">Payment Instructions:</p>
-                            <p class="text-sm text-blue-700" id="instruction-text">Please complete the payment and upload the screenshot below.</p>
-                        </div>
-
-                        <div class="space-y-4 mb-6">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Transaction ID / Reference Number</label>
-                                <input type="text" name="transaction_id" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary">
+                        <!-- Manual Payment Fields -->
+                        <div id="manual-payment-fields" class="hidden space-y-4 mb-6">
+                            <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                                <p class="text-sm text-blue-800 font-semibold mb-2">Payment Instructions:</p>
+                                <ul class="text-sm text-blue-700 list-disc list-inside space-y-1">
+                                    <li>JazzCash: 0300-1234567 (Title: SkillBridge)</li>
+                                    <li>Easypaisa: 0300-1234567 (Title: SkillBridge)</li>
+                                    <li>Bank: Punjab Bank, Account: 1234567890123</li>
+                                </ul>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Payment Proof (Screenshot)</label>
-                                <input type="file" name="payment_proof" accept="image/*" required class="w-full px-4 py-2 border rounded-lg" onchange="app.handleFileSelect(this)">
-                                <img id="proof-preview" class="mt-2 max-w-xs rounded-lg hidden">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Transaction ID / Reference Number *</label>
+                                <input type="text" name="transaction_id" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Payment Proof (Screenshot) *</label>
+                                <input type="file" name="payment_proof" accept="image/*" class="w-full px-4 py-2 border rounded-lg" onchange="app.handleFileSelect(this)">
+                                <img id="proof-preview" class="mt-2 max-w-xs rounded-lg hidden border">
                             </div>
                         </div>
 
-                        <button type="submit" class="w-full bg-primary text-white py-3 rounded-lg font-bold hover:bg-indigo-700 transition">Submit Payment for Verification</button>
+                        <button type="submit" id="pay-btn" class="w-full bg-primary text-white py-3 rounded-lg font-bold hover:bg-indigo-700 transition flex justify-center items-center gap-2">
+                            <span>Complete Enrollment</span>
+                        </button>
                     </form>
                 </div>
             </div>
@@ -356,7 +320,7 @@
                         <p class="text-3xl font-bold" id="stat-certificates">0</p>
                     </div>
                     <div class="bg-white p-6 rounded-xl shadow border-l-4 border-warning">
-                        <p class="text-gray-500 text-sm">Pending Payments</p>
+                        <p class="text-gray-500 text-sm">Pending Verification</p>
                         <p class="text-3xl font-bold" id="stat-pending">0</p>
                     </div>
                 </div>
@@ -372,21 +336,17 @@
         <section id="view-learn" class="view hidden-view fade-in py-20">
             <div class="max-w-7xl mx-auto px-4 h-[calc(100vh-6rem)]">
                 <div class="grid lg:grid-cols-4 gap-6 h-full">
-                    <!-- Sidebar -->
                     <div class="lg:col-span-1 bg-white rounded-xl shadow overflow-y-auto">
                         <div class="p-4 border-b">
                             <h3 class="font-bold" id="learn-course-title">Course Title</h3>
                             <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
-                                <div id="learn-progress-bar" class="bg-primary h-2.5 rounded-full" style="width: 0%"></div>
+                                <div id="learn-progress-bar" class="bg-primary h-2.5 rounded-full transition-all duration-500" style="width: 0%"></div>
                             </div>
                             <p class="text-xs text-gray-500 mt-1"><span id="learn-progress-text">0</span>% Complete</p>
                         </div>
-                        <div id="learn-modules" class="p-2 space-y-2">
-                            <!-- Populated by JS -->
-                        </div>
+                        <div id="learn-modules" class="p-2 space-y-2"></div>
                     </div>
                     
-                    <!-- Content -->
                     <div class="lg:col-span-3 bg-white rounded-xl shadow p-6 overflow-y-auto">
                         <div id="learn-content-area">
                             <div class="aspect-video bg-dark rounded-lg flex items-center justify-center text-white mb-6">
@@ -394,15 +354,12 @@
                             </div>
                             <h2 class="text-2xl font-bold mb-4" id="learn-lesson-title">Select a lesson</h2>
                             <p class="text-gray-600 mb-6" id="learn-lesson-desc">Choose a module from the sidebar to begin learning.</p>
-                            
                             <div class="flex justify-between mt-8">
                                 <button onclick="app.prevLesson()" class="px-6 py-2 border rounded-lg hover:bg-gray-50">Previous</button>
-                                <button onclick="app.completeLesson()" class="px-6 py-2 bg-success text-white rounded-lg hover:bg-green-700">Mark Complete</button>
+                                <button onclick="app.completeLesson()" class="px-6 py-2 bg-success text-white rounded-lg hover:bg-green-700 font-semibold">Mark Complete</button>
                                 <button onclick="app.nextLesson()" class="px-6 py-2 border rounded-lg hover:bg-gray-50">Next</button>
                             </div>
                         </div>
-                        
-                        <!-- Assessment Unlock -->
                         <div id="final-assessment-unlock" class="hidden mt-8 p-6 bg-gold/10 border border-gold rounded-xl text-center">
                             <h3 class="text-xl font-bold text-gold mb-2">Final Assessment Unlocked!</h3>
                             <p class="mb-4">You have completed all modules. Take the final exam to earn your certificate.</p>
@@ -418,12 +375,10 @@
             <div class="max-w-3xl mx-auto px-4">
                 <div class="bg-white rounded-2xl shadow-lg p-8">
                     <div class="flex justify-between items-center mb-6">
-                        <h2 class="text-2xl font-bold" id="assessment-title">Entry Assessment</h2>
-                        <span class="bg-primary text-white px-3 py-1 rounded-full text-sm" id="assessment-progress">Question 1/10</span>
+                        <h2 class="text-2xl font-bold" id="assessment-title">Assessment</h2>
+                        <span class="bg-primary text-white px-3 py-1 rounded-full text-sm" id="assessment-progress">Question 1/3</span>
                     </div>
-                    <div id="assessment-questions" class="space-y-6">
-                        <!-- Populated by JS -->
-                    </div>
+                    <div id="assessment-questions" class="space-y-6"></div>
                     <button onclick="app.submitAssessment()" class="w-full mt-8 bg-primary text-white py-3 rounded-lg font-bold hover:bg-indigo-700">Submit Assessment</button>
                 </div>
             </div>
@@ -433,9 +388,7 @@
         <section id="view-certificates" class="view hidden-view fade-in py-20">
             <div class="max-w-7xl mx-auto px-4">
                 <h2 class="text-3xl font-bold mb-8">My Certificates</h2>
-                <div id="certificates-list" class="grid md:grid-cols-2 gap-6">
-                    <!-- Populated by JS -->
-                </div>
+                <div id="certificates-list" class="grid md:grid-cols-2 gap-6"></div>
             </div>
         </section>
 
@@ -448,12 +401,10 @@
                     <input type="text" id="verify-input" placeholder="e.g., SBP-2026-XXXX" class="flex-1 px-4 py-3 border rounded-lg text-center text-lg uppercase tracking-wider">
                     <button onclick="app.verifyCertificate()" class="bg-primary text-white px-8 py-3 rounded-lg font-bold hover:bg-indigo-700">Verify</button>
                 </div>
-                <div id="verify-result" class="hidden bg-white p-8 rounded-2xl shadow-lg border-2 border-success">
-                    <i class="fas fa-check-circle text-success text-5xl mb-4"></i>
-                    <h3 class="text-2xl font-bold text-success mb-2">Certificate Valid</h3>
-                    <div class="text-left space-y-2 mt-4" id="verify-details">
-                        <!-- Populated by JS -->
-                    </div>
+                <div id="verify-result" class="hidden bg-white p-8 rounded-2xl shadow-lg border-2">
+                    <i id="verify-icon" class="fas fa-check-circle text-success text-5xl mb-4"></i>
+                    <h3 id="verify-title" class="text-2xl font-bold text-success mb-2">Certificate Valid</h3>
+                    <div class="text-left space-y-2 mt-4" id="verify-details"></div>
                 </div>
             </div>
         </section>
@@ -462,17 +413,12 @@
         <section id="view-admin" class="view hidden-view fade-in py-20">
             <div class="max-w-7xl mx-auto px-4">
                 <h2 class="text-3xl font-bold mb-8">Admin Dashboard</h2>
-                
-                <div class="grid md:grid-cols-4 gap-4 mb-8">
-                    <button onclick="admin.showTab('users')" class="bg-white p-4 rounded-lg shadow hover:bg-gray-50 text-left">User Management</button>
-                    <button onclick="admin.showTab('payments')" class="bg-white p-4 rounded-lg shadow hover:bg-gray-50 text-left">Payment Verification <span id="admin-pending-badge" class="bg-red-500 text-white text-xs px-2 py-1 rounded-full ml-2 hidden">0</span></button>
-                    <button onclick="admin.showTab('courses')" class="bg-white p-4 rounded-lg shadow hover:bg-gray-50 text-left">Course Management</button>
-                    <button onclick="admin.showTab('certificates')" class="bg-white p-4 rounded-lg shadow hover:bg-gray-50 text-left">Certificates</button>
+                <div class="grid md:grid-cols-3 gap-4 mb-8">
+                    <button onclick="admin.showTab('payments')" class="bg-white p-4 rounded-lg shadow hover:bg-gray-50 text-left font-semibold">Payment Verification <span id="admin-pending-badge" class="bg-red-500 text-white text-xs px-2 py-1 rounded-full ml-2 hidden">0</span></button>
+                    <button onclick="admin.showTab('users')" class="bg-white p-4 rounded-lg shadow hover:bg-gray-50 text-left font-semibold">User Management</button>
+                    <button onclick="admin.showTab('certificates')" class="bg-white p-4 rounded-lg shadow hover:bg-gray-50 text-left font-semibold">Certificates</button>
                 </div>
-
-                <div id="admin-content" class="bg-white rounded-xl shadow-lg p-6">
-                    <!-- Populated by JS -->
-                </div>
+                <div id="admin-content" class="bg-white rounded-xl shadow-lg p-6"></div>
             </div>
         </section>
 
@@ -483,26 +429,16 @@
                 <div class="grid md:grid-cols-2 gap-12">
                     <div>
                         <h3 class="text-xl font-bold mb-4">Get in Touch</h3>
-                        <p class="text-gray-600 mb-6">Have questions about courses, payments, or certifications? We're here to help.</p>
-                        <div class="space-y-4">
+                        <div class="space-y-4 text-gray-600">
                             <div class="flex items-center"><i class="fas fa-envelope w-8 text-primary"></i> support@skillbridge.pk</div>
                             <div class="flex items-center"><i class="fas fa-phone w-8 text-primary"></i> +92 300 1234567</div>
                             <div class="flex items-center"><i class="fas fa-map-marker-alt w-8 text-primary"></i> Islamabad, Pakistan</div>
                         </div>
                     </div>
-                    <form onsubmit="app.submitContact(event)" class="bg-white p-6 rounded-xl shadow-lg">
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium mb-1">Name</label>
-                            <input type="text" name="name" required class="w-full px-4 py-2 border rounded-lg">
-                        </div>
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium mb-1">Email</label>
-                            <input type="email" name="email" required class="w-full px-4 py-2 border rounded-lg">
-                        </div>
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium mb-1">Message</label>
-                            <textarea name="message" rows="4" required class="w-full px-4 py-2 border rounded-lg"></textarea>
-                        </div>
+                    <form onsubmit="event.preventDefault(); alert('Message sent successfully!'); event.target.reset();" class="bg-white p-6 rounded-xl shadow-lg">
+                        <input type="text" placeholder="Name" required class="w-full px-4 py-2 border rounded-lg mb-4">
+                        <input type="email" placeholder="Email" required class="w-full px-4 py-2 border rounded-lg mb-4">
+                        <textarea placeholder="Message" rows="4" required class="w-full px-4 py-2 border rounded-lg mb-4"></textarea>
                         <button type="submit" class="w-full bg-primary text-white py-2 rounded-lg font-bold hover:bg-indigo-700">Send Message</button>
                     </form>
                 </div>
@@ -517,10 +453,6 @@
                     <button onclick="auth.googleLogin()" class="w-full flex items-center justify-center gap-2 border border-gray-300 py-2 rounded-lg mb-4 hover:bg-gray-50 transition">
                         <i class="fab fa-google text-red-500"></i> Continue with Google
                     </button>
-                    <div class="relative my-6">
-                        <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-gray-300"></div></div>
-                        <div class="relative flex justify-center text-sm"><span class="px-2 bg-white text-gray-500">Or continue with email</span></div>
-                    </div>
                     <form onsubmit="auth.login(event)">
                         <input type="email" name="email" placeholder="Email" required class="w-full px-4 py-2 border rounded-lg mb-4">
                         <input type="password" name="password" placeholder="Password" required class="w-full px-4 py-2 border rounded-lg mb-6">
@@ -543,15 +475,7 @@
                         <input type="password" name="password" placeholder="Password" required class="px-4 py-2 border rounded-lg">
                         <input type="password" name="confirmPassword" placeholder="Confirm Password" required class="px-4 py-2 border rounded-lg">
                         <input type="text" name="guardian" placeholder="Father/Guardian Name" required class="px-4 py-2 border rounded-lg">
-                        <input type="text" name="education" placeholder="Education" required class="px-4 py-2 border rounded-lg">
                         <input type="text" name="city" placeholder="City" required class="px-4 py-2 border rounded-lg">
-                        <input type="date" name="dob" placeholder="Date of Birth" required class="px-4 py-2 border rounded-lg">
-                        <select name="gender" required class="px-4 py-2 border rounded-lg">
-                            <option value="">Select Gender</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Other">Other</option>
-                        </select>
                         <div class="md:col-span-2">
                             <button type="submit" class="w-full bg-primary text-white py-3 rounded-lg font-bold hover:bg-indigo-700">Create Account</button>
                         </div>
@@ -577,27 +501,20 @@
                 <ul class="space-y-2 text-sm text-gray-400">
                     <li><a onclick="router.navigate('home')" class="cursor-pointer hover:text-white">Home</a></li>
                     <li><a onclick="router.navigate('courses')" class="cursor-pointer hover:text-white">Courses</a></li>
-                    <li><a onclick="router.navigate('about')" class="cursor-pointer hover:text-white">About Us</a></li>
                     <li><a onclick="router.navigate('verify')" class="cursor-pointer hover:text-white">Verify Certificate</a></li>
                 </ul>
             </div>
             <div>
                 <h4 class="font-bold mb-4">Legal</h4>
                 <ul class="space-y-2 text-sm text-gray-400">
-                    <li><a onclick="router.navigate('privacy')" class="cursor-pointer hover:text-white">Privacy Policy</a></li>
-                    <li><a onclick="router.navigate('terms')" class="cursor-pointer hover:text-white">Terms & Conditions</a></li>
-                    <li><a onclick="router.navigate('refund')" class="cursor-pointer hover:text-white">Refund Policy</a></li>
+                    <li><a class="cursor-pointer hover:text-white">Privacy Policy</a></li>
+                    <li><a class="cursor-pointer hover:text-white">Terms & Conditions</a></li>
                 </ul>
             </div>
             <div>
                 <h4 class="font-bold mb-4">Contact</h4>
-                <p class="text-sm text-gray-400 mb-2">support@skillbridge.pk</p>
-                <p class="text-sm text-gray-400 mb-4">+92 300 1234567</p>
-                <div class="flex space-x-4">
-                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook text-xl"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter text-xl"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin text-xl"></i></a>
-                </div>
+                <p class="text-sm text-gray-400">support@skillbridge.pk</p>
+                <p class="text-sm text-gray-400">+92 300 1234567</p>
             </div>
         </div>
         <div class="max-w-7xl mx-auto px-4 mt-8 pt-8 border-t border-gray-800 text-center text-sm text-gray-500">
@@ -609,16 +526,11 @@
     <div id="chatbot-widget" class="fixed bottom-6 right-6 z-50">
         <div id="chatbot-window" class="hidden bg-white w-80 h-96 rounded-2xl shadow-2xl border border-gray-200 flex flex-col mb-4 slide-in">
             <div class="bg-primary text-white p-4 rounded-t-2xl flex justify-between items-center">
-                <div class="flex items-center gap-2">
-                    <i class="fas fa-robot"></i>
-                    <span class="font-bold">SkillBridge AI</span>
-                </div>
+                <div class="flex items-center gap-2"><i class="fas fa-robot"></i><span class="font-bold">SkillBridge AI</span></div>
                 <button onclick="chatbot.toggle()" class="hover:text-gray-200"><i class="fas fa-times"></i></button>
             </div>
             <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-50">
-                <div class="bg-white p-3 rounded-lg rounded-tl-none shadow-sm text-sm border border-gray-100">
-                    Hello! I'm SkillBridge AI. Ask me about courses, prices, payments, or certificates.
-                </div>
+                <div class="bg-white p-3 rounded-lg rounded-tl-none shadow-sm text-sm border border-gray-100">Hello! Ask me about courses, prices, payments, or certificates.</div>
             </div>
             <div class="p-3 border-t bg-white rounded-b-2xl">
                 <form onsubmit="chatbot.send(event)" class="flex gap-2">
@@ -632,14 +544,12 @@
         </button>
     </div>
 
-    <!-- Hidden Certificate Template for Generation -->
+    <!-- Hidden Certificate Template -->
     <div id="certificate-template" class="hidden absolute -left-9999px">
         <div class="text-center h-full flex flex-col justify-between relative z-10">
             <div>
                 <div class="flex justify-center mb-4">
-                    <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white text-2xl">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
+                    <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white text-2xl"><i class="fas fa-graduation-cap"></i></div>
                 </div>
                 <h1 class="text-4xl font-bold text-dark tracking-wider mb-2">SKILLBRIDGE PAKISTAN</h1>
                 <h2 class="text-2xl text-primary font-semibold mb-8">CERTIFICATE OF COMPLETION</h2>
@@ -671,7 +581,7 @@
     <!-- JAVASCRIPT LOGIC -->
     <script>
         // ==========================================
-        // DATABASE SIMULATION (LocalStorage)
+        // DATABASE SIMULATION
         // ==========================================
         const db = {
             get: (key) => JSON.parse(localStorage.getItem(`sb_${key}`) || 'null'),
@@ -679,92 +589,16 @@
             init: () => {
                 if (!db.get('courses')) {
                     db.set('courses', [
-                        {
-                            id: 'ai-auto',
-                            title: 'AI Automation',
-                            category: 'AI',
-                            price: 4999,
-                            duration: '6 Weeks',
-                            level: 'Beginner to Intermediate',
-                            image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                            description: 'Master AI tools, prompt engineering, and no-code automation workflows.',
-                            roadmap: 'https://youtu.be/KCdurte9vp0?si=rwk6p1KlbwKhv50_',
-                            modules: [
-                                { title: 'Introduction to AI', lessons: ['Artificial Intelligence', 'Generative AI', 'AI ecosystem', 'Prompt engineering'] },
-                                { title: 'AI Productivity', lessons: ['AI assistants', 'Research', 'Document automation', 'Productivity'] },
-                                { title: 'Automation Fundamentals', lessons: ['Automation', 'Triggers', 'Actions', 'APIs', 'Webhooks'] },
-                                { title: 'No-Code Automation', lessons: ['Workflow builders', 'Application integrations', 'Data automation'] },
-                                { title: 'AI Content Automation', lessons: ['Text', 'Images', 'Social media', 'Content workflows'] },
-                                { title: 'Business Automation', lessons: ['Customer support', 'Lead management', 'Email automation', 'Business workflows'] },
-                                { title: 'Final Project', lessons: ['Create a practical AI automation project'] }
-                            ]
-                        },
-                        {
-                            id: 'graphic-design',
-                            title: 'Graphic Designing',
-                            category: 'Design',
-                            price: 4499,
-                            duration: '6 Weeks',
-                            level: 'Beginner',
-                            image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                            description: 'Learn Canva, Photoshop, Illustrator, and brand identity design.',
-                            roadmap: 'https://youtu.be/CY25svrgxC0?si=0AvjeDtUUf4jA4cD',
-                            modules: [
-                                { title: 'Design Fundamentals', lessons: ['Color theory', 'Typography', 'Layout'] },
-                                { title: 'Canva Mastery', lessons: ['Templates', 'Animations', 'Brand kits'] },
-                                { title: 'Photoshop', lessons: ['Photo editing', 'Compositing', 'Retouching'] },
-                                { title: 'Illustrator', lessons: ['Vector graphics', 'Logo design', 'Illustrations'] },
-                                { title: 'Brand Identity', lessons: ['Brand guidelines', 'Stationery design'] },
-                                { title: 'Social Media Design', lessons: ['Post design', 'Story templates', 'Ad creatives'] },
-                                { title: 'Portfolio Project', lessons: ['Build a complete brand identity'] }
-                            ]
-                        },
-                        {
-                            id: 'cyber-security',
-                            title: 'Cyber Security',
-                            category: 'Security',
-                            price: 5499,
-                            duration: '6 Weeks',
-                            level: 'Intermediate',
-                            image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                            description: 'Defensive cybersecurity fundamentals, network security, and best practices.',
-                            roadmap: 'https://youtu.be/wUed_5EVDNg?si=jXCStFkp4z59c0nJ',
-                            modules: [
-                                { title: 'Cybersecurity Fundamentals', lessons: ['CIA Triad', 'Threat landscape'] },
-                                { title: 'Network Security', lessons: ['Firewalls', 'VPN', 'Secure protocols'] },
-                                { title: 'Cyber Threats', lessons: ['Malware', 'Phishing', 'Social engineering'] },
-                                { title: 'Ethical Security Concepts', lessons: ['White hat hacking', 'Vulnerability assessment'] },
-                                { title: 'Data Protection', lessons: ['Encryption', 'Backup strategies'] },
-                                { title: 'Security Best Practices', lessons: ['Password management', '2FA', 'Secure browsing'] },
-                                { title: 'Final Assessment', lessons: ['Comprehensive security evaluation'] }
-                            ]
-                        },
-                        {
-                            id: 'content-writing',
-                            title: 'Content Writing',
-                            category: 'Writing',
-                            price: 3999,
-                            duration: '5 Weeks',
-                            level: 'Beginner',
-                            image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                            description: 'Master blog writing, SEO, social media content, and AI-assisted writing.',
-                            roadmap: 'https://youtu.be/lzMLMYeqCpE?si=6_29-LUy3TPouwyv',
-                            modules: [
-                                { title: 'Content Writing Fundamentals', lessons: ['Grammar', 'Tone', 'Audience analysis'] },
-                                { title: 'Blog Writing', lessons: ['Structure', 'Headlines', 'Storytelling'] },
-                                { title: 'SEO Writing', lessons: ['Keyword research', 'On-page SEO', 'Meta descriptions'] },
-                                { title: 'Social Media Content', lessons: ['Captions', 'Threads', 'Engagement strategies'] },
-                                { title: 'AI-Assisted Writing', lessons: ['Prompting for writers', 'Editing AI output'] },
-                                { title: 'Portfolio Development', lessons: ['Building a writing portfolio', 'Freelancing basics'] }
-                            ]
-                        }
+                        { id: 'ai', title: 'AI Automation', category: 'AI', price: 4999, duration: '6 Weeks', level: 'Beginner', image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80', description: 'Master AI tools, prompt engineering, and no-code automation workflows.', modules: [{ title: 'Intro to AI', lessons: ['What is AI', 'Prompt Engineering'] }, { title: 'Automation', lessons: ['Triggers', 'Actions', 'Webhooks'] }] },
+                        { id: 'design', title: 'Graphic Designing', category: 'Design', price: 4499, duration: '6 Weeks', level: 'Beginner', image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=800&q=80', description: 'Learn Canva, Photoshop, Illustrator, and brand identity design.', modules: [{ title: 'Fundamentals', lessons: ['Color Theory', 'Typography'] }, { title: 'Tools', lessons: ['Canva', 'Photoshop Basics'] }] },
+                        { id: 'security', title: 'Cyber Security', category: 'Security', price: 5499, duration: '6 Weeks', level: 'Intermediate', image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80', description: 'Defensive cybersecurity fundamentals, network security, and best practices.', modules: [{ title: 'Network Security', lessons: ['Firewalls', 'VPN'] }, { title: 'Threats', lessons: ['Malware', 'Phishing'] }] },
+                        { id: 'writing', title: 'Content Writing', category: 'Writing', price: 3999, duration: '5 Weeks', level: 'Beginner', image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800&q=80', description: 'Master blog writing, SEO, social media content, and AI-assisted writing.', modules: [{ title: 'SEO Basics', lessons: ['Keywords', 'On-page SEO'] }, { title: 'Writing', lessons: ['Blog Structure', 'Tone'] }] }
                     ]);
                 }
                 if (!db.get('users')) db.set('users', []);
                 if (!db.get('enrollments')) db.set('enrollments', []);
                 if (!db.get('payments')) db.set('payments', []);
                 if (!db.get('certificates')) db.set('certificates', []);
-                if (!db.get('cart')) db.set('cart', []);
             }
         };
 
@@ -775,35 +609,16 @@
             user: null,
             init: () => {
                 const session = db.get('session');
-                if (session) {
-                    auth.user = session;
-                    app.updateUIForAuth();
-                }
+                if (session) { auth.user = session; app.updateUIForAuth(); }
             },
             register: (e) => {
                 e.preventDefault();
                 const form = new FormData(e.target);
                 const data = Object.fromEntries(form);
-                
-                if (data.password !== data.confirmPassword) {
-                    alert('Passwords do not match');
-                    return;
-                }
-                
+                if (data.password !== data.confirmPassword) { alert('Passwords do not match'); return; }
                 const users = db.get('users');
-                if (users.find(u => u.email === data.email)) {
-                    alert('Email already registered');
-                    return;
-                }
-
-                const newUser = {
-                    id: 'user_' + Date.now(),
-                    ...data,
-                    role: data.email.includes('admin') ? 'admin' : 'student', // Simple admin check for demo
-                    cnicMasked: data.cnic.replace(/(\d{5}-)\d{7}(-\d{1})/, '$1*******$2'),
-                    createdAt: new Date().toISOString()
-                };
-                
+                if (users.find(u => u.email === data.email)) { alert('Email already registered'); return; }
+                const newUser = { id: 'u_' + Date.now(), ...data, role: data.email.includes('admin') ? 'admin' : 'student', cnicMasked: data.cnic.replace(/(\d{5}-)\d{7}(-\d{1})/, '$1*******$2') };
                 users.push(newUser);
                 db.set('users', users);
                 auth.loginUser(newUser);
@@ -811,34 +626,19 @@
             login: (e) => {
                 e.preventDefault();
                 const form = new FormData(e.target);
-                const email = form.get('email');
-                const password = form.get('password');
-                
-                const users = db.get('users');
-                const user = users.find(u => u.email === email && u.password === password);
-                
-                if (user) {
-                    auth.loginUser(user);
-                } else {
-                    alert('Invalid credentials');
-                }
+                const user = db.get('users').find(u => u.email === form.get('email') && u.password === form.get('password'));
+                if (user) auth.loginUser(user);
+                else alert('Invalid credentials');
             },
             googleLogin: () => {
-                // Simulated Google OAuth
-                const mockGoogleUser = {
-                    id: 'google_' + Date.now(),
-                    fullName: 'Google User',
-                    email: 'user@gmail.com',
-                    role: 'student',
-                    cnicMasked: 'XXXXX-*******-X',
-                    isGoogle: true
-                };
                 const users = db.get('users');
-                if (!users.find(u => u.email === mockGoogleUser.email)) {
-                    users.push(mockGoogleUser);
+                let user = users.find(u => u.email === 'google_user@skillbridge.pk');
+                if (!user) {
+                    user = { id: 'u_google_' + Date.now(), fullName: 'Google User', email: 'google_user@skillbridge.pk', role: 'student', cnicMasked: 'XXXXX-*******-X' };
+                    users.push(user);
                     db.set('users', users);
                 }
-                auth.loginUser(mockGoogleUser);
+                auth.loginUser(user);
             },
             loginUser: (user) => {
                 auth.user = user;
@@ -853,18 +653,11 @@
                 router.navigate('home');
             },
             requireAuth: () => {
-                if (!auth.user) {
-                    router.navigate('login');
-                    return false;
-                }
+                if (!auth.user) { router.navigate('login'); return false; }
                 return true;
             },
             requireAdmin: () => {
-                if (!auth.user || auth.user.role !== 'admin') {
-                    alert('Access denied. Admin only.');
-                    router.navigate('home');
-                    return false;
-                }
+                if (!auth.user || auth.user.role !== 'admin') { alert('Access denied. Admin only.'); router.navigate('home'); return false; }
                 return true;
             }
         };
@@ -874,22 +667,14 @@
         // ==========================================
         const router = {
             navigate: (viewId) => {
-                // Hide all views
                 document.querySelectorAll('.view').forEach(el => el.classList.add('hidden-view'));
-                
-                // Show target view
                 const target = document.getElementById(`view-${viewId}`);
                 if (target) {
                     target.classList.remove('hidden-view');
                     window.scrollTo(0, 0);
-                    
-                    // View-specific initialization
-                    if (viewId === 'courses') app.renderCourses();
-                    if (viewId === 'cart') app.renderCart();
+                    if (viewId === 'courses' || viewId === 'home') app.renderCourses();
                     if (viewId === 'dashboard') app.renderDashboard();
-                    if (viewId === 'admin') {
-                        if (auth.requireAdmin()) admin.render();
-                    }
+                    if (viewId === 'admin' && auth.requireAdmin()) admin.render();
                     if (viewId === 'certificates') app.renderCertificates();
                 }
             }
@@ -899,146 +684,120 @@
         // APPLICATION LOGIC
         // ==========================================
         const app = {
-            currentCourse: null,
-            currentLesson: 0,
-            
+            currentCourseId: null,
+            currentEnrollment: null,
+            currentM: 0,
+            currentL: 0,
+            currentLessonId: '',
+
             init: () => {
                 db.init();
                 auth.init();
-                app.renderHomeCourses();
+                app.renderCourses();
             },
 
             updateUIForAuth: () => {
                 const authBtns = document.getElementById('auth-buttons');
                 const userMenu = document.getElementById('user-menu');
-                const adminLink = document.getElementById('admin-link');
-                
                 if (auth.user) {
                     authBtns.classList.add('hidden');
                     userMenu.classList.remove('hidden');
                     userMenu.classList.add('flex');
                     document.getElementById('nav-profile-img').src = `https://ui-avatars.com/api/?name=${encodeURIComponent(auth.user.fullName)}&background=4F46E5&color=fff`;
                     document.getElementById('dash-user-name').textContent = auth.user.fullName;
-                    if (auth.user.role === 'admin') adminLink.classList.remove('hidden');
+                    if (auth.user.role === 'admin') document.getElementById('admin-link').classList.remove('hidden');
                 } else {
                     authBtns.classList.remove('hidden');
                     userMenu.classList.add('hidden');
                     userMenu.classList.remove('flex');
                 }
-                app.updateCartCount();
-            },
-
-            updateCartCount: () => {
-                const cart = db.get('cart') || [];
-                const badge = document.getElementById('cart-count');
-                if (cart.length > 0) {
-                    badge.textContent = cart.length;
-                    badge.classList.remove('hidden');
-                } else {
-                    badge.classList.add('hidden');
-                }
-            },
-
-            renderHomeCourses: () => {
-                const courses = db.get('courses');
-                const container = document.getElementById('home-courses-grid');
-                container.innerHTML = courses.slice(0, 4).map(c => app.createCourseCard(c)).join('');
             },
 
             renderCourses: () => {
                 const courses = db.get('courses');
-                const container = document.getElementById('courses-grid');
-                container.innerHTML = courses.map(c => app.createCourseCard(c)).join('');
+                const container = document.getElementById('courses-grid') || document.getElementById('home-courses-grid');
+                if (!container) return;
+                
+                // Filter logic
+                const search = document.getElementById('course-search')?.value.toLowerCase() || '';
+                const filter = document.getElementById('course-filter')?.value || 'all';
+                const filtered = courses.filter(c => {
+                    const matchesSearch = c.title.toLowerCase().includes(search) || c.description.toLowerCase().includes(search);
+                    const matchesFilter = filter === 'all' || c.category === filter;
+                    return matchesSearch && matchesFilter;
+                });
+
+                container.innerHTML = filtered.map(c => {
+                    const isEnrolled = app.isEnrolled(c.id);
+                    return `
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover-lift border border-gray-100 flex flex-col">
+                            <img src="${c.image}" class="w-full h-48 object-cover">
+                            <div class="p-6 flex-1 flex flex-col">
+                                <div class="flex justify-between items-start mb-2">
+                                    <span class="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full font-semibold">${c.category}</span>
+                                    <span class="text-gold font-bold">PKR ${c.price.toLocaleString()}</span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-2">${c.title}</h3>
+                                <p class="text-gray-600 text-sm mb-4 flex-1">${c.description}</p>
+                                <div class="flex items-center text-sm text-gray-500 mb-4 space-x-4">
+                                    <span><i class="far fa-clock mr-1"></i> ${c.duration}</span>
+                                    <span><i class="fas fa-signal mr-1"></i> ${c.level}</span>
+                                </div>
+                                ${isEnrolled ? 
+                                    `<button onclick="router.navigate('dashboard')" class="w-full bg-success text-white py-2 rounded-lg font-semibold cursor-default">Already Enrolled</button>` :
+                                    `<button onclick="app.initiateEnroll('${c.id}')" class="w-full bg-primary text-white py-2 rounded-lg font-semibold hover:bg-indigo-700 transition">Enroll Now</button>`
+                                }
+                            </div>
+                        </div>
+                    `;
+                }).join('');
             },
 
-            createCourseCard: (course) => {
-                const isEnrolled = app.isEnrolled(course.id);
-                return `
-                    <div class="bg-white rounded-xl shadow-lg overflow-hidden hover-lift border border-gray-100 flex flex-col">
-                        <img src="${course.image}" class="w-full h-48 object-cover">
-                        <div class="p-6 flex-1 flex flex-col">
-                            <div class="flex justify-between items-start mb-2">
-                                <span class="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full font-semibold">${course.category}</span>
-                                <span class="text-gold font-bold">PKR ${course.price.toLocaleString()}</span>
-                            </div>
-                            <h3 class="text-xl font-bold mb-2">${course.title}</h3>
-                            <p class="text-gray-600 text-sm mb-4 flex-1">${course.description}</p>
-                            <div class="flex items-center text-sm text-gray-500 mb-4 space-x-4">
-                                <span><i class="far fa-clock mr-1"></i> ${course.duration}</span>
-                                <span><i class="fas fa-signal mr-1"></i> ${course.level}</span>
-                            </div>
-                            ${isEnrolled ? 
-                                `<button onclick="router.navigate('dashboard')" class="w-full bg-success text-white py-2 rounded-lg font-semibold cursor-default">Already Enrolled</button>` :
-                                `<button onclick="app.addToCart('${course.id}')" class="w-full bg-primary text-white py-2 rounded-lg font-semibold hover:bg-indigo-700 transition">Add to Cart</button>`
-                            }
-                        </div>
-                    </div>
-                `;
-            },
+            filterCourses: () => { app.renderCourses(); },
 
             isEnrolled: (courseId) => {
                 if (!auth.user) return false;
-                const enrollments = db.get('enrollments') || [];
-                return enrollments.some(e => e.userId === auth.user.id && e.courseId === courseId && e.status === 'Active');
+                return (db.get('enrollments') || []).some(e => e.userId === auth.user.id && e.courseId === courseId && e.status !== 'Rejected');
             },
 
-            addToCart: (courseId) => {
+            initiateEnroll: (courseId) => {
                 if (!auth.requireAuth()) return;
-                let cart = db.get('cart') || [];
-                if (cart.find(c => c.id === courseId)) {
-                    alert('Course already in cart');
+                if (app.isEnrolled(courseId)) {
+                    alert('You are already enrolled in this course.');
+                    router.navigate('dashboard');
                     return;
                 }
-                const course = db.get('courses').find(c => c.id === courseId);
-                cart.push(course);
-                db.set('cart', cart);
-                app.updateCartCount();
-                alert('Added to cart!');
+                app.currentCourseId = courseId;
+                app.renderCheckout();
+                router.navigate('checkout');
             },
 
-            renderCart: () => {
-                if (!auth.requireAuth()) return;
-                const cart = db.get('cart') || [];
-                const container = document.getElementById('cart-content');
-                
-                if (cart.length === 0) {
-                    container.innerHTML = '<p class="text-center text-gray-500 py-8">Your cart is empty.</p>';
-                    return;
-                }
-
-                const total = cart.reduce((sum, c) => sum + c.price, 0);
-                container.innerHTML = `
-                    <div class="space-y-4 mb-6">
-                        ${cart.map(c => `
-                            <div class="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
-                                <div class="flex items-center gap-4">
-                                    <img src="${c.image}" class="w-16 h-16 rounded object-cover">
-                                    <div>
-                                        <h4 class="font-bold">${c.title}</h4>
-                                        <p class="text-sm text-gray-500">${c.duration}</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center gap-4">
-                                    <span class="font-bold">PKR ${c.price.toLocaleString()}</span>
-                                    <button onclick="app.removeFromCart('${c.id}')" class="text-red-500 hover:text-red-700"><i class="fas fa-trash"></i></button>
-                                </div>
-                            </div>
-                        `).join('')}
+            renderCheckout: () => {
+                const course = db.get('courses').find(c => c.id === app.currentCourseId);
+                document.getElementById('checkout-summary').innerHTML = `
+                    <img src="${course.image}" class="w-20 h-20 rounded-lg object-cover">
+                    <div>
+                        <h3 class="font-bold text-lg">${course.title}</h3>
+                        <p class="text-gray-600">Total Amount: <span class="text-primary font-bold text-xl">PKR ${course.price.toLocaleString()}</span></p>
                     </div>
-                    <div class="border-t pt-4 flex justify-between items-center mb-6">
-                        <span class="text-xl font-bold">Total</span>
-                        <span class="text-2xl font-bold text-primary">PKR ${total.toLocaleString()}</span>
-                    </div>
-                    <button onclick="router.navigate('checkout')" class="w-full bg-primary text-white py-3 rounded-lg font-bold hover:bg-indigo-700 transition">Proceed to Checkout</button>
                 `;
             },
 
-            removeFromCart: (courseId) => {
-                let cart = db.get('cart') || [];
-                cart = cart.filter(c => c.id !== courseId);
-                db.set('cart', cart);
-                app.renderCart();
-                app.updateCartCount();
+            togglePaymentFields: () => {
+                const method = document.querySelector('input[name="payment_method"]:checked')?.value;
+                const manualFields = document.getElementById('manual-payment-fields');
+                const trxInput = manualFields.querySelector('input[name="transaction_id"]');
+                const fileInput = manualFields.querySelector('input[name="payment_proof"]');
+                
+                if (method === 'manual') {
+                    manualFields.classList.remove('hidden');
+                    trxInput.required = true;
+                    fileInput.required = true;
+                } else {
+                    manualFields.classList.add('hidden');
+                    trxInput.required = false;
+                    fileInput.required = false;
+                }
             },
 
             handleFileSelect: (input) => {
@@ -1052,51 +811,59 @@
                 }
             },
 
-            processCheckout: (e) => {
+            processPayment: (e) => {
                 e.preventDefault();
-                if (!auth.requireAuth()) return;
+                const method = document.querySelector('input[name="payment_method"]:checked').value;
+                const course = db.get('courses').find(c => c.id === app.currentCourseId);
+                const btn = document.getElementById('pay-btn');
                 
-                const form = new FormData(e.target);
-                const cart = db.get('cart') || [];
-                if (cart.length === 0) return;
+                // Show loading
+                btn.innerHTML = '<span class="loader"></span> Processing...';
+                btn.disabled = true;
 
-                const total = cart.reduce((sum, c) => sum + c.price, 0);
-                const payment = {
-                    id: 'pay_' + Date.now(),
-                    userId: auth.user.id,
-                    amount: total,
-                    method: form.get('payment_method'),
-                    transactionId: form.get('transaction_id'),
-                    proof: document.getElementById('proof-preview').src,
-                    status: 'Pending',
-                    createdAt: new Date().toISOString()
-                };
+                setTimeout(() => {
+                    const payments = db.get('payments') || [];
+                    const enrollments = db.get('enrollments') || [];
+                    
+                    if (method === 'direct') {
+                        // Instant Approval Simulation
+                        const payment = {
+                            id: 'pay_' + Date.now(), userId: auth.user.id, courseId: course.id,
+                            amount: course.price, method: 'Direct Online', status: 'Approved',
+                            createdAt: new Date().toISOString()
+                        };
+                        payments.push(payment);
+                        enrollments.push({
+                            id: 'enr_' + Date.now(), userId: auth.user.id, courseId: course.id,
+                            paymentId: payment.id, status: 'Active', progress: 0, completedLessons: []
+                        });
+                        db.set('payments', payments);
+                        db.set('enrollments', enrollments);
+                        alert('Payment Successful! Your course is now active.');
+                    } else {
+                        // Manual Verification Flow
+                        const form = new FormData(e.target);
+                        const payment = {
+                            id: 'pay_' + Date.now(), userId: auth.user.id, courseId: course.id,
+                            amount: course.price, method: form.get('payment_method'),
+                            transactionId: form.get('transaction_id'),
+                            proof: document.getElementById('proof-preview').src,
+                            status: 'Pending', createdAt: new Date().toISOString()
+                        };
+                        payments.push(payment);
+                        enrollments.push({
+                            id: 'enr_' + Date.now(), userId: auth.user.id, courseId: course.id,
+                            paymentId: payment.id, status: 'Payment Pending', progress: 0, completedLessons: []
+                        });
+                        db.set('payments', payments);
+                        db.set('enrollments', enrollments);
+                        alert('Payment proof submitted. Waiting for Admin Verification (Usually within 24 hours).');
+                    }
 
-                const payments = db.get('payments') || [];
-                payments.push(payment);
-                db.set('payments', payments);
-
-                // Create pending enrollments
-                const enrollments = db.get('enrollments') || [];
-                cart.forEach(c => {
-                    enrollments.push({
-                        id: 'enr_' + Date.now() + Math.random(),
-                        userId: auth.user.id,
-                        courseId: c.id,
-                        paymentId: payment.id,
-                        status: 'Payment Pending',
-                        progress: 0,
-                        completedLessons: []
-                    });
-                });
-                db.set('enrollments', enrollments);
-
-                // Clear cart
-                db.set('cart', []);
-                app.updateCartCount();
-
-                alert('Payment submitted for verification. You will be notified once approved.');
-                router.navigate('dashboard');
+                    btn.innerHTML = '<span>Complete Enrollment</span>';
+                    btn.disabled = false;
+                    router.navigate('dashboard');
+                }, 1500); // 1.5s simulated delay
             },
 
             renderDashboard: () => {
@@ -1105,46 +872,52 @@
                 const courses = db.get('courses');
                 const payments = (db.get('payments') || []).filter(p => p.userId === auth.user.id);
                 
-                // Stats
                 document.getElementById('stat-enrolled').textContent = enrollments.length;
-                document.getElementById('stat-completed').textContent = enrollments.filter(e => e.status === 'Completed').length;
+                document.getElementById('stat-completed').textContent = enrollments.filter(e => e.status === 'Completed' || e.status === 'Certified').length;
                 document.getElementById('stat-certificates').textContent = (db.get('certificates') || []).filter(c => c.userId === auth.user.id).length;
-                document.getElementById('stat-pending').textContent = payments.filter(p => p.status === 'Pending').length;
+                document.getElementById('stat-pending').textContent = enrollments.filter(e => e.status === 'Payment Pending').length;
 
                 const container = document.getElementById('dashboard-courses');
                 if (enrollments.length === 0) {
-                    container.innerHTML = '<p class="text-gray-500">You are not enrolled in any courses yet. <a onclick="router.navigate(\'courses\')" class="text-primary cursor-pointer">Browse courses</a></p>';
+                    container.innerHTML = '<p class="text-gray-500">You are not enrolled in any courses yet. <a onclick="router.navigate(\'courses\')" class="text-primary cursor-pointer hover:underline">Browse courses</a></p>';
                     return;
                 }
 
                 container.innerHTML = enrollments.map(e => {
                     const course = courses.find(c => c.id === e.courseId);
-                    const payment = payments.find(p => p.id === e.paymentId);
                     let actionBtn = '';
+                    let statusColor = 'text-gray-600';
                     
                     if (e.status === 'Payment Pending') {
-                        actionBtn = `<span class="text-warning font-semibold">Payment Under Review</span>`;
+                        statusColor = 'text-warning';
+                        actionBtn = `<span class="text-warning font-semibold flex items-center gap-2"><i class="fas fa-clock"></i> Pending Admin Verification</span>`;
+                    } else if (e.status === 'Rejected') {
+                        statusColor = 'text-red-600';
+                        actionBtn = `<span class="text-red-600 font-semibold">Payment Rejected. Please contact support.</span>`;
                     } else if (e.status === 'Assessment Pending') {
+                        statusColor = 'text-primary';
                         actionBtn = `<button onclick="app.startEntryAssessment('${e.id}')" class="bg-warning text-dark px-4 py-2 rounded-lg font-semibold hover:bg-yellow-400">Take Entry Assessment</button>`;
                     } else if (e.status === 'Active') {
+                        statusColor = 'text-success';
                         actionBtn = `<button onclick="app.openCourse('${e.id}')" class="bg-primary text-white px-4 py-2 rounded-lg font-semibold hover:bg-indigo-700">Continue Learning</button>`;
-                    } else if (e.status === 'Completed') {
-                        actionBtn = `<button onclick="router.navigate('certificates')" class="bg-success text-white px-4 py-2 rounded-lg font-semibold">View Certificate</button>`;
+                    } else if (e.status === 'Completed' || e.status === 'Certified') {
+                        statusColor = 'text-success';
+                        actionBtn = `<button onclick="router.navigate('certificates')" class="bg-success text-white px-4 py-2 rounded-lg font-semibold hover:bg-green-700">View Certificate</button>`;
                     }
 
                     return `
                         <div class="bg-white p-6 rounded-xl shadow border border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4">
-                            <div class="flex items-center gap-4 flex-1">
+                            <div class="flex items-center gap-4 flex-1 w-full md:w-auto">
                                 <img src="${course.image}" class="w-20 h-20 rounded-lg object-cover">
-                                <div>
+                                <div class="flex-1">
                                     <h4 class="font-bold text-lg">${course.title}</h4>
-                                    <div class="w-48 bg-gray-200 rounded-full h-2 mt-2">
-                                        <div class="bg-primary h-2 rounded-full" style="width: ${e.progress}%"></div>
+                                    <div class="w-full md:w-48 bg-gray-200 rounded-full h-2 mt-2">
+                                        <div class="bg-primary h-2 rounded-full transition-all duration-500" style="width: ${e.progress}%"></div>
                                     </div>
-                                    <p class="text-sm text-gray-500 mt-1">${e.progress}% Complete • ${e.status}</p>
+                                    <p class="text-sm ${statusColor} mt-1 font-medium">${e.progress}% Complete • ${e.status}</p>
                                 </div>
                             </div>
-                            <div>${actionBtn}</div>
+                            <div class="w-full md:w-auto">${actionBtn}</div>
                         </div>
                     `;
                 }).join('');
@@ -1155,26 +928,25 @@
                 const enrollment = enrollments.find(e => e.id === enrollmentId);
                 const course = db.get('courses').find(c => c.id === enrollment.courseId);
                 
-                app.currentCourse = course;
                 app.currentEnrollment = enrollment;
+                app.currentCourse = course;
                 
                 document.getElementById('learn-course-title').textContent = course.title;
                 document.getElementById('learn-progress-bar').style.width = `${enrollment.progress}%`;
                 document.getElementById('learn-progress-text').textContent = enrollment.progress;
 
-                // Render modules
-                const modulesContainer = document.getElementById('learn-modules');
-                modulesContainer.innerHTML = course.modules.map((m, mIdx) => `
+                document.getElementById('learn-modules').innerHTML = course.modules.map((m, mIdx) => `
                     <div class="border rounded-lg overflow-hidden">
-                        <div class="bg-gray-50 p-3 font-semibold text-sm cursor-pointer hover:bg-gray-100" onclick="this.nextElementSibling.classList.toggle('hidden')">
-                            Module ${mIdx + 1}: ${m.title}
+                        <div class="bg-gray-50 p-3 font-semibold text-sm cursor-pointer hover:bg-gray-100 flex justify-between" onclick="this.nextElementSibling.classList.toggle('hidden')">
+                            <span>Module ${mIdx + 1}: ${m.title}</span>
+                            <i class="fas fa-chevron-down text-xs mt-1"></i>
                         </div>
                         <div class="hidden">
                             ${m.lessons.map((l, lIdx) => {
                                 const lessonId = `m${mIdx}_l${lIdx}`;
                                 const isCompleted = enrollment.completedLessons.includes(lessonId);
                                 return `
-                                    <div onclick="app.loadLesson(${mIdx}, ${lIdx}, '${lessonId}')" class="p-3 pl-6 text-sm border-t cursor-pointer hover:bg-primary/5 flex justify-between items-center ${isCompleted ? 'text-success' : 'text-gray-700'}">
+                                    <div onclick="app.loadLesson(${mIdx}, ${lIdx}, '${lessonId}')" class="p-3 pl-6 text-sm border-t cursor-pointer hover:bg-primary/5 flex justify-between items-center ${isCompleted ? 'text-success font-semibold' : 'text-gray-700'}">
                                         <span>${l}</span>
                                         ${isCompleted ? '<i class="fas fa-check-circle"></i>' : '<i class="far fa-circle"></i>'}
                                     </div>
@@ -1192,19 +964,16 @@
                 app.currentL = lIdx;
                 app.currentLessonId = lessonId;
                 
-                const course = app.currentCourse;
-                const lessonTitle = course.modules[mIdx].lessons[lIdx];
-                
+                const lessonTitle = app.currentCourse.modules[mIdx].lessons[lIdx];
                 document.getElementById('learn-lesson-title').textContent = lessonTitle;
-                document.getElementById('learn-lesson-desc').textContent = `Module ${mIdx + 1}, Lesson ${lIdx + 1} of ${course.title}. Watch the video and read the materials below.`;
+                document.getElementById('learn-lesson-desc').textContent = `Module ${mIdx + 1}, Lesson ${lIdx + 1}. Watch the video and read the materials below.`;
                 
-                // Check if final assessment should be unlocked
-                const totalLessons = course.modules.reduce((sum, m) => sum + m.lessons.length, 0);
-                const enrollments = db.get('enrollments');
-                const enrollment = enrollments.find(e => e.id === app.currentEnrollment.id);
-                
-                if (enrollment.completedLessons.length >= totalLessons * 0.8) { // 80% to unlock final
+                // Check if final assessment should be unlocked (e.g., 80% progress)
+                const totalLessons = app.currentCourse.modules.reduce((sum, m) => sum + m.lessons.length, 0);
+                if (app.currentEnrollment.completedLessons.length >= totalLessons * 0.8) {
                     document.getElementById('final-assessment-unlock').classList.remove('hidden');
+                } else {
+                    document.getElementById('final-assessment-unlock').classList.add('hidden');
                 }
             },
 
@@ -1215,29 +984,63 @@
                 
                 if (!enrollment.completedLessons.includes(app.currentLessonId)) {
                     enrollment.completedLessons.push(app.currentLessonId);
-                    
-                    // Calculate progress
                     const totalLessons = app.currentCourse.modules.reduce((sum, m) => sum + m.lessons.length, 0);
                     enrollment.progress = Math.round((enrollment.completedLessons.length / totalLessons) * 100);
-                    
-                    if (enrollment.progress === 100) {
-                        enrollment.status = 'Completed';
-                    }
-                    
+                    if (enrollment.progress === 100) enrollment.status = 'Completed';
                     db.set('enrollments', enrollments);
-                    app.openCourse(enrollment.id); // Refresh
+                    app.openCourse(enrollment.id);
+                }
+            },
+
+            nextLesson: () => {
+                const totalLessons = app.currentCourse.modules.reduce((sum, m) => sum + m.lessons.length, 0);
+                let currentFlatIdx = 0;
+                let targetM = 0, targetL = 0;
+                
+                app.currentCourse.modules.forEach((m, mIdx) => {
+                    m.lessons.forEach((l, lIdx) => {
+                        if (currentFlatIdx === app.currentM * 100 + app.currentL + 1) { // Simplified flat index logic
+                            targetM = mIdx; targetL = lIdx;
+                        }
+                        currentFlatIdx++;
+                    });
+                });
+                
+                // Better flat index calculation
+                let flatIdx = 0;
+                let found = false;
+                for(let m=0; m<app.currentCourse.modules.length; m++) {
+                    for(let l=0; l<app.currentCourse.modules[m].lessons.length; l++) {
+                        if(m === app.currentM && l === app.currentL) {
+                            if(m === app.currentCourse.modules.length - 1 && l === app.currentCourse.modules[m].lessons.length - 1) return; // Last lesson
+                            app.loadLesson(m, l + 1 < app.currentCourse.modules[m].lessons.length ? l + 1 : 0, `m${m}_l${l+1 < app.currentCourse.modules[m].lessons.length ? l+1 : 0}`);
+                            // Fix for crossing module boundary
+                            if(l + 1 >= app.currentCourse.modules[m].lessons.length) {
+                                app.loadLesson(m + 1, 0, `m${m+1}_l0`);
+                            }
+                            found = true; break;
+                        }
+                    }
+                    if(found) break;
+                }
+            },
+
+            prevLesson: () => {
+                if(app.currentM === 0 && app.currentL === 0) return;
+                if(app.currentL === 0) {
+                    app.loadLesson(app.currentM - 1, app.currentCourse.modules[app.currentM - 1].lessons.length - 1, `m${app.currentM - 1}_l${app.currentCourse.modules[app.currentM - 1].lessons.length - 1}`);
+                } else {
+                    app.loadLesson(app.currentM, app.currentL - 1, `m${app.currentM}_l${app.currentL - 1}`);
                 }
             },
 
             startEntryAssessment: (enrollmentId) => {
                 if (!auth.requireAuth()) return;
-                // Mock assessment questions
                 const questions = [
                     { q: "What does AI stand for?", options: ["Automated Intelligence", "Artificial Intelligence", "Advanced Integration", "Auto Input"], correct: 1 },
                     { q: "Which is a no-code automation tool?", options: ["Python", "Zapier", "C++", "SQL"], correct: 1 },
                     { q: "What is the primary goal of cybersecurity?", options: ["To hack systems", "To protect data", "To slow down computers", "To create viruses"], correct: 1 }
                 ];
-                
                 app.currentAssessment = { type: 'entry', enrollmentId, questions, answers: {} };
                 app.renderAssessment();
                 router.navigate('assessment');
@@ -1253,7 +1056,7 @@
                         <p class="font-semibold mb-3">${idx + 1}. ${q.q}</p>
                         <div class="space-y-2">
                             ${q.options.map((opt, optIdx) => `
-                                <label class="flex items-center space-x-3 cursor-pointer">
+                                <label class="flex items-center space-x-3 cursor-pointer p-2 rounded hover:bg-gray-50">
                                     <input type="radio" name="q${idx}" value="${optIdx}" class="text-primary" onchange="app.currentAssessment.answers[${idx}] = ${optIdx}">
                                     <span>${opt}</span>
                                 </label>
@@ -1266,26 +1069,23 @@
             submitAssessment: () => {
                 const { questions, answers, type, enrollmentId } = app.currentAssessment;
                 let correct = 0;
-                questions.forEach((q, idx) => {
-                    if (answers[idx] === q.correct) correct++;
-                });
+                questions.forEach((q, idx) => { if (answers[idx] === q.correct) correct++; });
                 
                 const score = Math.round((correct / questions.length) * 100);
-                const passed = score >= 60; // 60% passing
+                const passed = score >= 60;
                 
                 if (passed) {
                     alert(`Congratulations! You passed with ${score}%.`);
                     if (type === 'entry') {
                         const enrollments = db.get('enrollments');
-                        const enr = enrollments.find(e => e.id === enrollmentId);
-                        enr.status = 'Active';
+                        enrollments.find(e => e.id === enrollmentId).status = 'Active';
                         db.set('enrollments', enrollments);
                     } else if (type === 'final') {
                         app.generateCertificate(enrollmentId);
                     }
                     router.navigate('dashboard');
                 } else {
-                    alert(`You scored ${score}%. Passing score is 60%. Please try again.`);
+                    alert(`You scored ${score}%. Passing score is 60%. Please review the material and try again.`);
                 }
             },
 
@@ -1309,23 +1109,12 @@
                 const certId = `SBP-2026-${Math.random().toString(36).substr(2, 6).toUpperCase()}`;
                 const date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
                 
-                const certificate = {
-                    id: certId,
-                    userId: user.id,
-                    courseId: course.id,
-                    courseName: course.title,
-                    studentName: user.fullName,
-                    date: date,
-                    createdAt: new Date().toISOString()
-                };
-                
                 const certs = db.get('certificates') || [];
-                certs.push(certificate);
+                certs.push({ id: certId, userId: user.id, courseId: course.id, courseName: course.title, studentName: user.fullName, date: date });
                 db.set('certificates', certs);
                 
                 enrollment.status = 'Certified';
                 db.set('enrollments', enrollments);
-                
                 alert('Certificate generated successfully!');
             },
 
@@ -1335,7 +1124,7 @@
                 const container = document.getElementById('certificates-list');
                 
                 if (certs.length === 0) {
-                    container.innerHTML = '<p class="text-gray-500 col-span-2 text-center">No certificates earned yet.</p>';
+                    container.innerHTML = '<p class="text-gray-500 col-span-2 text-center">No certificates earned yet. Complete a course to get yours!</p>';
                     return;
                 }
 
@@ -1361,21 +1150,14 @@
                 const cert = (db.get('certificates') || []).find(c => c.id === certId);
                 if (!cert) return;
 
-                // Populate hidden template
                 document.getElementById('cert-student-name').textContent = cert.studentName;
                 document.getElementById('cert-course-name').textContent = cert.courseName;
                 document.getElementById('cert-id').textContent = cert.id;
                 document.getElementById('cert-date').textContent = cert.date;
                 
-                // Generate QR
                 document.getElementById('cert-qr').innerHTML = '';
-                new QRCode(document.getElementById('cert-qr'), {
-                    text: `${window.location.origin}/verify?id=${cert.id}`,
-                    width: 64,
-                    height: 64
-                });
+                new QRCode(document.getElementById('cert-qr'), { text: `${window.location.origin}?verify=${cert.id}`, width: 64, height: 64 });
 
-                // Show temporarily for capture
                 const template = document.getElementById('certificate-template');
                 template.classList.remove('hidden');
                 
@@ -1386,15 +1168,13 @@
                         link.download = `Certificate_${cert.id}.png`;
                         link.href = canvas.toDataURL();
                         link.click();
-                    } else if (format === 'pdf') {
+                    } else {
                         const { jsPDF } = window.jspdf;
                         const pdf = new jsPDF('l', 'mm', 'a4');
-                        const imgData = canvas.toDataURL('image/png');
-                        pdf.addImage(imgData, 'PNG', 10, 10, 277, 196);
+                        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 10, 10, 277, 196);
                         pdf.save(`Certificate_${cert.id}.pdf`);
                     }
                 } catch (err) {
-                    console.error(err);
                     alert('Error generating certificate');
                 } finally {
                     template.classList.add('hidden');
@@ -1402,53 +1182,39 @@
             },
 
             verifyCertificate: () => {
-                const input = document.getElementById('verify-input').value.trim().toUpperCase();
+                const urlParams = new URLSearchParams(window.location.search);
+                const input = (document.getElementById('verify-input').value || urlParams.get('verify') || '').trim().toUpperCase();
+                if(!input) return;
+
                 const certs = db.get('certificates') || [];
                 const cert = certs.find(c => c.id === input);
                 
                 const resultDiv = document.getElementById('verify-result');
                 const detailsDiv = document.getElementById('verify-details');
+                const icon = document.getElementById('verify-icon');
+                const title = document.getElementById('verify-title');
                 
+                resultDiv.classList.remove('hidden');
                 if (cert) {
-                    resultDiv.classList.remove('hidden');
                     resultDiv.classList.remove('border-red-500');
                     resultDiv.classList.add('border-success');
+                    icon.className = 'fas fa-check-circle text-success text-5xl mb-4';
+                    title.className = 'text-2xl font-bold text-success mb-2';
+                    title.textContent = 'Certificate Valid';
                     detailsDiv.innerHTML = `
                         <p><strong>Student:</strong> ${cert.studentName}</p>
                         <p><strong>Course:</strong> ${cert.courseName}</p>
                         <p><strong>Date:</strong> ${cert.date}</p>
-                        <p><strong>Status:</strong> <span class="text-success font-bold">VALID</span></p>
+                        <p><strong>Status:</strong> <span class="text-success font-bold">VERIFIED</span></p>
                     `;
                 } else {
-                    resultDiv.classList.remove('hidden');
                     resultDiv.classList.remove('border-success');
                     resultDiv.classList.add('border-red-500');
-                    resultDiv.querySelector('h3').textContent = 'Certificate Not Found';
-                    resultDiv.querySelector('h3').classList.remove('text-success');
-                    resultDiv.querySelector('h3').classList.add('text-red-600');
-                    resultDiv.querySelector('i').className = 'fas fa-times-circle text-red-600 text-5xl mb-4';
-                    detailsDiv.innerHTML = '';
+                    icon.className = 'fas fa-times-circle text-red-600 text-5xl mb-4';
+                    title.className = 'text-2xl font-bold text-red-600 mb-2';
+                    title.textContent = 'Certificate Not Found';
+                    detailsDiv.innerHTML = '<p class="text-gray-600">The certificate ID you entered does not exist in our records.</p>';
                 }
-            },
-
-            filterCourses: () => {
-                const search = document.getElementById('course-search').value.toLowerCase();
-                const filter = document.getElementById('course-filter').value;
-                const courses = db.get('courses');
-                
-                const filtered = courses.filter(c => {
-                    const matchesSearch = c.title.toLowerCase().includes(search) || c.description.toLowerCase().includes(search);
-                    const matchesFilter = filter === 'all' || c.category === filter;
-                    return matchesSearch && matchesFilter;
-                });
-                
-                document.getElementById('courses-grid').innerHTML = filtered.map(c => app.createCourseCard(c)).join('');
-            },
-
-            submitContact: (e) => {
-                e.preventDefault();
-                alert('Message sent successfully! We will contact you soon.');
-                e.target.reset();
             }
         };
 
@@ -1456,46 +1222,38 @@
         // ADMIN LOGIC
         // ==========================================
         const admin = {
-            render: () => {
-                admin.showTab('payments');
-            },
+            render: () => { admin.showTab('payments'); },
             showTab: (tab) => {
                 const container = document.getElementById('admin-content');
                 if (tab === 'payments') {
-                    const payments = db.get('payments') || [];
+                    const payments = (db.get('payments') || []).filter(p => p.method !== 'Direct Online');
                     const pending = payments.filter(p => p.status === 'Pending');
                     document.getElementById('admin-pending-badge').textContent = pending.length;
-                    document.getElementById('admin-pending-badge').classList.remove('hidden');
+                    document.getElementById('admin-pending-badge').classList.toggle('hidden', pending.length === 0);
                     
                     container.innerHTML = `
                         <h3 class="text-xl font-bold mb-4">Payment Verification</h3>
                         <div class="overflow-x-auto">
-                            <table class="w-full text-left">
+                            <table class="w-full text-left text-sm">
                                 <thead class="bg-gray-50">
-                                    <tr>
-                                        <th class="p-3">User</th>
-                                        <th class="p-3">Amount</th>
-                                        <th class="p-3">Method</th>
-                                        <th class="p-3">Transaction ID</th>
-                                        <th class="p-3">Proof</th>
-                                        <th class="p-3">Actions</th>
-                                    </tr>
+                                    <tr><th class="p-3">User</th><th class="p-3">Amount</th><th class="p-3">Method</th><th class="p-3">Trx ID</th><th class="p-3">Proof</th><th class="p-3">Actions</th></tr>
                                 </thead>
                                 <tbody>
+                                    ${payments.length === 0 ? '<tr><td colspan="6" class="p-4 text-center text-gray-500">No manual payments found.</td></tr>' : ''}
                                     ${payments.map(p => {
                                         const user = db.get('users').find(u => u.id === p.userId);
                                         return `
-                                            <tr class="border-b">
+                                            <tr class="border-b hover:bg-gray-50">
                                                 <td class="p-3">${user ? user.fullName : 'Unknown'}</td>
-                                                <td class="p-3">PKR ${p.amount}</td>
+                                                <td class="p-3 font-semibold">PKR ${p.amount}</td>
                                                 <td class="p-3 capitalize">${p.method}</td>
-                                                <td class="p-3 font-mono text-sm">${p.transactionId}</td>
-                                                <td class="p-3"><a href="${p.proof}" target="_blank" class="text-primary hover:underline">View</a></td>
+                                                <td class="p-3 font-mono">${p.transactionId || 'N/A'}</td>
+                                                <td class="p-3"><a href="${p.proof}" target="_blank" class="text-primary hover:underline font-semibold">View Screenshot</a></td>
                                                 <td class="p-3">
                                                     ${p.status === 'Pending' ? `
-                                                        <button onclick="admin.approvePayment('${p.id}')" class="text-success hover:text-green-700 mr-2">Approve</button>
-                                                        <button onclick="admin.rejectPayment('${p.id}')" class="text-red-500 hover:text-red-700">Reject</button>
-                                                    ` : `<span class="text-gray-500 capitalize">${p.status}</span>`}
+                                                        <button onclick="admin.approvePayment('${p.id}')" class="text-success hover:text-green-700 font-semibold mr-3">Approve</button>
+                                                        <button onclick="admin.rejectPayment('${p.id}')" class="text-red-500 hover:text-red-700 font-semibold">Reject</button>
+                                                    ` : `<span class="px-2 py-1 rounded text-xs font-bold ${p.status === 'Approved' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">${p.status}</span>`}
                                                 </td>
                                             </tr>
                                         `;
@@ -1509,19 +1267,10 @@
                     container.innerHTML = `
                         <h3 class="text-xl font-bold mb-4">User Management</h3>
                         <div class="overflow-x-auto">
-                            <table class="w-full text-left">
-                                <thead class="bg-gray-50">
-                                    <tr><th class="p-3">Name</th><th class="p-3">Email</th><th class="p-3">CNIC (Masked)</th><th class="p-3">Role</th></tr>
-                                </thead>
+                            <table class="w-full text-left text-sm">
+                                <thead class="bg-gray-50"><tr><th class="p-3">Name</th><th class="p-3">Email</th><th class="p-3">CNIC (Masked)</th><th class="p-3">Role</th></tr></thead>
                                 <tbody>
-                                    ${users.map(u => `
-                                        <tr class="border-b">
-                                            <td class="p-3">${u.fullName}</td>
-                                            <td class="p-3">${u.email}</td>
-                                            <td class="p-3 font-mono">${u.cnicMasked}</td>
-                                            <td class="p-3 capitalize"><span class="px-2 py-1 rounded ${u.role === 'admin' ? 'bg-primary text-white' : 'bg-gray-200'}">${u.role}</span></td>
-                                        </tr>
-                                    `).join('')}
+                                    ${users.map(u => `<tr class="border-b"><td class="p-3">${u.fullName}</td><td class="p-3">${u.email}</td><td class="p-3 font-mono">${u.cnicMasked}</td><td class="p-3 capitalize"><span class="px-2 py-1 rounded ${u.role === 'admin' ? 'bg-primary text-white' : 'bg-gray-200'}">${u.role}</span></td></tr>`).join('')}
                                 </tbody>
                             </table>
                         </div>
@@ -1530,29 +1279,25 @@
             },
             approvePayment: (paymentId) => {
                 const payments = db.get('payments');
-                const payment = payments.find(p => p.id === paymentId);
-                payment.status = 'Approved';
+                payments.find(p => p.id === paymentId).status = 'Approved';
                 db.set('payments', payments);
                 
-                // Update enrollments
                 const enrollments = db.get('enrollments');
-                enrollments.filter(e => e.paymentId === paymentId).forEach(e => {
-                    e.status = 'Assessment Pending';
-                });
+                enrollments.filter(e => e.paymentId === paymentId).forEach(e => e.status = 'Assessment Pending');
                 db.set('enrollments', enrollments);
                 
-                alert('Payment approved. Enrollment activated.');
+                alert('Payment approved. Student can now take the entry assessment.');
                 admin.showTab('payments');
             },
             rejectPayment: (paymentId) => {
-                const reason = prompt('Enter rejection reason:');
-                if (!reason) return;
-                
+                const reason = prompt('Enter rejection reason (optional):');
                 const payments = db.get('payments');
-                const payment = payments.find(p => p.id === paymentId);
-                payment.status = 'Rejected';
-                payment.rejectionReason = reason;
+                payments.find(p => p.id === paymentId).status = 'Rejected';
                 db.set('payments', payments);
+                
+                const enrollments = db.get('enrollments');
+                enrollments.filter(e => e.paymentId === paymentId).forEach(e => e.status = 'Rejected');
+                db.set('enrollments', enrollments);
                 
                 alert('Payment rejected.');
                 admin.showTab('payments');
@@ -1563,49 +1308,30 @@
         // AI CHATBOT
         // ==========================================
         const chatbot = {
-            toggle: () => {
-                const win = document.getElementById('chatbot-window');
-                win.classList.toggle('hidden');
-            },
+            toggle: () => document.getElementById('chatbot-window').classList.toggle('hidden'),
             send: (e) => {
                 e.preventDefault();
                 const input = document.getElementById('chat-input');
                 const msg = input.value.trim();
                 if (!msg) return;
                 
-                // Add user message
                 const container = document.getElementById('chat-messages');
                 container.innerHTML += `<div class="bg-primary text-white p-3 rounded-lg rounded-tr-none shadow-sm text-sm ml-8">${msg}</div>`;
                 input.value = '';
                 container.scrollTop = container.scrollHeight;
                 
-                // AI Response logic
                 setTimeout(() => {
-                    const response = chatbot.getResponse(msg.toLowerCase());
+                    let response = "I don't have that specific information. Please contact support@skillbridge.pk.";
+                    const m = msg.toLowerCase();
+                    if (m.includes('price') || m.includes('fee')) response = "Courses range from PKR 3,999 to PKR 5,499.";
+                    else if (m.includes('duration') || m.includes('week')) response = "Most courses run for 6 weeks. Content Writing is 5 weeks.";
+                    else if (m.includes('certificate') || m.includes('verify')) response = "Yes! You get a verifiable QR-coded certificate after passing the final assessment.";
+                    else if (m.includes('payment') || m.includes('jazzcash') || m.includes('easypaisa')) response = "We accept Direct Online Payment (instant), JazzCash, Easypaisa, and Bank Transfer. Manual payments require screenshot verification by our admin.";
+                    else if (m.includes('hello') || m.includes('hi')) response = "Hello! Welcome to SkillBridge Pakistan. How can I help you today?";
+                    
                     container.innerHTML += `<div class="bg-white p-3 rounded-lg rounded-tl-none shadow-sm text-sm border border-gray-100 mr-8">${response}</div>`;
                     container.scrollTop = container.scrollHeight;
                 }, 600);
-            },
-            getResponse: (msg) => {
-                if (msg.includes('price') || msg.includes('fee') || msg.includes('cost')) {
-                    return "Our courses are priced between PKR 3,999 and PKR 5,499. AI Automation is PKR 4,999, Graphic Designing is PKR 4,499, Cyber Security is PKR 5,499, and Content Writing is PKR 3,999.";
-                }
-                if (msg.includes('duration') || msg.includes('week') || msg.includes('time')) {
-                    return "Most courses run for 6 weeks, except Content Writing which is 5 weeks. You can learn at your own pace.";
-                }
-                if (msg.includes('certificate') || msg.includes('verify')) {
-                    return "Yes! Upon completing the course and passing the final assessment, you receive a verifiable QR-coded certificate. You can verify any certificate on our 'Verify Certificate' page.";
-                }
-                if (msg.includes('payment') || msg.includes('jazzcash') || msg.includes('easypaisa') || msg.includes('bank')) {
-                    return "We accept JazzCash, Easypaisa, and Bank Transfer. For bank transfers, please upload the payment screenshot during checkout for admin verification.";
-                }
-                if (msg.includes('refund')) {
-                    return "Refunds are processed according to our Refund Policy. Please contact support@skillbridge.pk with your transaction ID for assistance.";
-                }
-                if (msg.includes('hello') || msg.includes('hi')) {
-                    return "Hello! Welcome to SkillBridge Pakistan. How can I help you today?";
-                }
-                return "I don't have that specific information. Please contact SkillBridge Pakistan support at support@skillbridge.pk for detailed assistance.";
             }
         };
 
@@ -1614,39 +1340,13 @@
         // ==========================================
         window.addEventListener('DOMContentLoaded', () => {
             app.init();
-            
-            // Check URL params for certificate verification
             const urlParams = new URLSearchParams(window.location.search);
-            const certId = urlParams.get('id');
-            if (certId) {
-                document.getElementById('verify-input').value = certId;
+            if (urlParams.get('verify')) {
+                document.getElementById('verify-input').value = urlParams.get('verify');
                 router.navigate('verify');
                 app.verifyCertificate();
             }
         });
-
-        function toggleMobileMenu() {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
-        }
     </script>
-    
-    <!-- 
-    PRODUCTION DEPLOYMENT NOTES:
-    To convert this single-file simulation into a true production-ready application:
-    
-    1. FRONTEND: Migrate to Next.js 14+ (App Router) with TypeScript and Tailwind CSS.
-    2. DATABASE: Replace localStorage with Supabase PostgreSQL. Create tables:
-       - users (id, full_name, email, cnic_masked, role, created_at)
-       - courses (id, title, price, duration, modules [JSONB])
-       - enrollments (id, user_id, course_id, status, progress, completed_lessons [ARRAY])
-       - payments (id, user_id, amount, method, transaction_id, proof_url, status)
-       - certificates (id, user_id, course_id, certificate_id, issued_at)
-    3. AUTH: Replace mock auth with Supabase Auth (Email + Google OAuth).
-    4. STORAGE: Use Supabase Storage buckets for payment proofs (private) and course images (public).
-    5. PAYMENTS: Integrate official JazzCash/Easypaisa REST APIs on a secure Node.js/Next.js API route (never expose merchant credentials client-side).
-    6. AI: Replace the deterministic chatbot with Vercel AI SDK + OpenAI API, using a RAG (Retrieval-Augmented Generation) system fed with course data.
-    7. SECURITY: Implement Row Level Security (RLS) in Supabase so users can only read their own data.
-    8. CERTIFICATES: Generate server-side using Puppeteer or react-pdf for tamper-proof PDFs.
-    -->
 </body>
 </html>
