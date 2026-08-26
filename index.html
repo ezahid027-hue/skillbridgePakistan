@@ -43,10 +43,9 @@
 
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #F8FAFC; color: #0F172A; }
-        .fade-in { animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        .fade-in { animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         .glass { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.3); }
-        .glass-dark { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px); }
         .hover-lift { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
         .hover-lift:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.15); }
         .hidden-view { display: none !important; }
@@ -54,7 +53,6 @@
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         .modal-overlay { background-color: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); }
         
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #f1f5f9; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
@@ -140,7 +138,7 @@
                                 Explore Courses <i class="fas fa-arrow-right"></i>
                             </button>
                             <button onclick="router.navigate('signup')" class="border-2 border-white/30 text-white px-8 py-4 rounded-xl font-bold hover:bg-white/10 transition backdrop-blur-sm flex items-center justify-center gap-2">
-                                <i class="fas fa-play-circle"></i> Watch Demo
+                                <i class="fas fa-play-circle"></i> Get Started
                             </button>
                         </div>
                     </div>
@@ -151,27 +149,13 @@
                 </div>
             </div>
 
-            <!-- Stats Bar -->
-            <div class="bg-white border-b border-slate-100">
-                <div class="max-w-7xl mx-auto px-4 py-12 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-                    <div><p class="text-4xl font-extrabold text-primary">4+</p><p class="text-slate-500 font-medium mt-1">Premium Courses</p></div>
-                    <div><p class="text-4xl font-extrabold text-primary">100%</p><p class="text-slate-500 font-medium mt-1">Practical Learning</p></div>
-                    <div><p class="text-4xl font-extrabold text-primary">24/7</p><p class="text-slate-500 font-medium mt-1">Support & Access</p></div>
-                    <div><p class="text-4xl font-extrabold text-primary">QR</p><p class="text-slate-500 font-medium mt-1">Verified Certificates</p></div>
-                </div>
-            </div>
-
-            <!-- Featured Courses Preview -->
             <div class="py-24 bg-background">
                 <div class="max-w-7xl mx-auto px-4">
                     <div class="text-center mb-16">
                         <h2 class="text-4xl font-extrabold text-dark mb-4">Featured Courses</h2>
-                        <p class="text-slate-600 max-w-2xl mx-auto">Industry-relevant curriculum designed to take you from beginner to job-ready professional.</p>
+                        <p class="text-slate-600 max-w-2xl mx-auto">Click on any course to watch the trail video and view full details before enrolling.</p>
                     </div>
                     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8" id="home-courses-grid"></div>
-                    <div class="text-center mt-16">
-                        <button onclick="router.navigate('courses')" class="bg-dark text-white px-10 py-4 rounded-xl font-bold hover:bg-slate-800 transition shadow-lg">View All Courses</button>
-                    </div>
                 </div>
             </div>
         </section>
@@ -186,7 +170,6 @@
                 </div>
                 
                 <div class="grid md:grid-cols-3 gap-8">
-                    <!-- M. Wasif -->
                     <div class="bg-white p-8 rounded-3xl shadow-soft border border-slate-100 text-center hover-lift group">
                         <div class="w-24 h-24 bg-gradient-to-br from-primary to-indigo-400 rounded-full flex items-center justify-center text-3xl font-bold text-white mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform">MW</div>
                         <h3 class="text-2xl font-bold text-dark">M. Wasif</h3>
@@ -200,7 +183,6 @@
                         </ul>
                     </div>
 
-                    <!-- Muzamil -->
                     <div class="bg-white p-8 rounded-3xl shadow-soft border border-slate-100 text-center hover-lift group">
                         <div class="w-24 h-24 bg-gradient-to-br from-secondary to-cyan-400 rounded-full flex items-center justify-center text-3xl font-bold text-white mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform">MU</div>
                         <h3 class="text-2xl font-bold text-dark">Muzamil</h3>
@@ -214,7 +196,6 @@
                         </ul>
                     </div>
 
-                    <!-- Umar -->
                     <div class="bg-white p-8 rounded-3xl shadow-soft border border-slate-100 text-center hover-lift group">
                         <div class="w-24 h-24 bg-gradient-to-br from-gold to-yellow-400 rounded-full flex items-center justify-center text-3xl font-bold text-white mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform">UM</div>
                         <h3 class="text-2xl font-bold text-dark">Umar</h3>
@@ -236,7 +217,7 @@
             <div class="max-w-7xl mx-auto px-4">
                 <div class="text-center mb-12">
                     <h2 class="text-4xl font-extrabold text-dark mb-4">Our Premium Courses</h2>
-                    <p class="text-slate-600">Choose your path and start learning today.</p>
+                    <p class="text-slate-600">Watch the trail video, review the details, and enroll when you're ready.</p>
                 </div>
                 <div class="mb-10 flex flex-col md:flex-row gap-4 max-w-3xl mx-auto">
                     <div class="relative flex-1">
@@ -366,7 +347,6 @@
         <section id="view-learn" class="view hidden-view fade-in py-8 bg-dark min-h-screen">
             <div class="max-w-7xl mx-auto px-4 h-[calc(100vh-4rem)]">
                 <div class="grid lg:grid-cols-4 gap-6 h-full">
-                    <!-- Sidebar -->
                     <div class="lg:col-span-1 bg-slate-800 rounded-2xl border border-slate-700 overflow-y-auto flex flex-col">
                         <div class="p-5 border-b border-slate-700 bg-slate-800/50 sticky top-0 z-10">
                             <h3 class="font-bold text-white mb-3" id="learn-course-title">Course Title</h3>
@@ -378,7 +358,6 @@
                         <div id="learn-modules" class="p-3 space-y-2 flex-1"></div>
                     </div>
                     
-                    <!-- Content -->
                     <div class="lg:col-span-3 bg-slate-800 rounded-2xl border border-slate-700 p-8 overflow-y-auto">
                         <div id="learn-content-area">
                             <div class="aspect-video bg-slate-900 rounded-xl flex flex-col items-center justify-center text-white mb-8 border border-slate-700 shadow-inner">
@@ -570,6 +549,21 @@
         </section>
     </main>
 
+    <!-- ENROLLMENT CONFIRMATION MODAL -->
+    <div id="enroll-modal" class="fixed inset-0 z-[70] hidden modal-overlay flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-md p-8 fade-in text-center">
+            <div class="w-16 h-16 bg-primary/10 text-primary rounded-full flex items-center justify-center text-2xl mx-auto mb-4">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-dark mb-2">Confirm Enrollment</h3>
+            <p class="text-slate-600 mb-6">Are you sure you want to enroll in <br><span id="enroll-course-name" class="font-bold text-primary text-lg"></span> <br>for <span id="enroll-course-price" class="font-bold text-dark text-lg"></span>?</p>
+            <div class="flex gap-4">
+                <button onclick="app.cancelEnrollment()" class="flex-1 bg-slate-100 text-slate-700 py-3.5 rounded-xl font-bold hover:bg-slate-200 transition">No, Go Back</button>
+                <button id="confirm-enroll-btn" class="flex-1 bg-primary text-white py-3.5 rounded-xl font-bold hover:bg-indigo-700 transition shadow-lg shadow-indigo-500/30">Yes, Proceed to Payment</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="bg-dark text-white pt-20 pb-10">
         <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-4 gap-12 mb-16">
@@ -649,9 +643,6 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        // ==========================================
-        // DATABASE SIMULATION
-        // ==========================================
         const db = {
             get: (key) => JSON.parse(localStorage.getItem(`sb_${key}`) || 'null'),
             set: (key, value) => localStorage.setItem(`sb_${key}`, JSON.stringify(value)),
@@ -734,9 +725,6 @@
             }
         };
 
-        // ==========================================
-        // AUTHENTICATION
-        // ==========================================
         const auth = {
             user: null,
             init: () => {
@@ -794,9 +782,6 @@
             }
         };
 
-        // ==========================================
-        // ROUTER
-        // ==========================================
         const router = {
             navigate: (viewId) => {
                 document.querySelectorAll('.view').forEach(el => el.classList.add('hidden-view'));
@@ -812,9 +797,6 @@
             }
         };
 
-        // ==========================================
-        // APPLICATION LOGIC
-        // ==========================================
         const app = {
             currentCourseId: null,
             currentEnrollment: null,
@@ -864,10 +846,12 @@
                     const isEnrolled = app.isEnrolled(c.id);
                     return `
                         <div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden hover-lift flex flex-col group">
-                            <div class="relative overflow-hidden">
+                            <div class="relative overflow-hidden cursor-pointer" onclick="app.showCourseDetail('${c.id}')">
                                 <img src="${c.image}" class="w-full h-52 object-cover group-hover:scale-105 transition-transform duration-500">
-                                <div class="absolute top-3 right-3 bg-red-600 text-white text-xs px-3 py-1.5 rounded-full font-bold flex items-center gap-1.5 shadow-lg">
-                                    <i class="fas fa-play"></i> Trail Video
+                                <div class="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+                                    <div class="bg-white/95 backdrop-blur text-dark px-5 py-2.5 rounded-full font-bold flex items-center gap-2 shadow-xl transform group-hover:scale-105 transition-transform">
+                                        <i class="fas fa-play-circle text-red-600 text-xl"></i> Watch Trail Video
+                                    </div>
                                 </div>
                                 <div class="absolute top-3 left-3 bg-white/90 backdrop-blur text-dark text-xs px-3 py-1.5 rounded-full font-bold shadow-sm">
                                     ${c.category}
@@ -885,7 +869,7 @@
                                 </div>
                                 ${isEnrolled ? 
                                     `<button onclick="router.navigate('dashboard')" class="w-full bg-success/10 text-success py-3.5 rounded-xl font-bold cursor-default flex items-center justify-center gap-2"><i class="fas fa-check-circle"></i> Already Enrolled</button>` :
-                                    `<button onclick="app.initiateEnroll('${c.id}')" class="w-full bg-primary text-white py-3.5 rounded-xl font-bold hover:bg-indigo-700 transition shadow-lg shadow-indigo-500/20 flex items-center justify-center gap-2">Enroll Now <i class="fas fa-arrow-right"></i></button>`
+                                    `<button onclick="app.showCourseDetail('${c.id}')" class="w-full bg-primary text-white py-3.5 rounded-xl font-bold hover:bg-indigo-700 transition shadow-lg shadow-indigo-500/20 flex items-center justify-center gap-2">View Details & Enroll <i class="fas fa-arrow-right"></i></button>`
                                 }
                             </div>
                         </div>
@@ -900,16 +884,30 @@
                 return (db.get('enrollments') || []).some(e => e.userId === auth.user.id && e.courseId === courseId && e.status !== 'Rejected');
             },
 
-            initiateEnroll: (courseId) => {
+            confirmEnrollment: (courseId) => {
                 if (!auth.requireAuth()) return;
                 if (app.isEnrolled(courseId)) {
-                    alert('You are already enrolled in this course. Check your dashboard.');
+                    alert('You are already enrolled in this course.');
                     router.navigate('dashboard');
                     return;
                 }
-                app.currentCourseId = courseId;
-                app.renderCheckout();
-                router.navigate('checkout');
+                const course = db.get('courses').find(c => c.id === courseId);
+                document.getElementById('enroll-course-name').textContent = course.title;
+                document.getElementById('enroll-course-price').textContent = `PKR ${course.price.toLocaleString()}`;
+                
+                document.getElementById('confirm-enroll-btn').onclick = () => {
+                    document.getElementById('enroll-modal').classList.add('hidden');
+                    app.currentCourseId = courseId;
+                    app.renderCheckout();
+                    router.navigate('checkout');
+                };
+                
+                document.getElementById('enroll-modal').classList.remove('hidden');
+            },
+
+            cancelEnrollment: () => {
+                document.getElementById('enroll-modal').classList.add('hidden');
+                router.navigate('courses');
             },
 
             renderCheckout: () => {
@@ -1046,7 +1044,7 @@
                             </div>
                             ${isEnrolled ? 
                                 `<button onclick="router.navigate('dashboard')" class="w-full bg-success text-white py-4 rounded-xl font-bold cursor-default flex items-center justify-center gap-2"><i class="fas fa-check-circle"></i> Already Enrolled</button>` :
-                                `<button onclick="app.initiateEnroll('${course.id}')" class="w-full bg-primary text-white py-4 rounded-xl font-bold hover:bg-indigo-700 transition shadow-lg shadow-indigo-500/30 flex items-center justify-center gap-2">Enroll Now <i class="fas fa-arrow-right"></i></button>`
+                                `<button onclick="app.confirmEnrollment('${course.id}')" class="w-full bg-primary text-white py-4 rounded-xl font-bold hover:bg-indigo-700 transition shadow-lg shadow-indigo-500/30 flex items-center justify-center gap-2">Enroll Now <i class="fas fa-arrow-right"></i></button>`
                             }
                             <p class="text-xs text-center text-slate-400 mt-5 font-medium">30-Day Money-Back Guarantee • Secure Checkout</p>
                         </div>
@@ -1461,9 +1459,6 @@
             }
         };
 
-        // ==========================================
-        // ADMIN LOGIC
-        // ==========================================
         const admin = {
             render: () => { admin.showTab('payments'); },
             showTab: (tab) => {
@@ -1541,9 +1536,6 @@
             }
         };
 
-        // ==========================================
-        // INITIALIZATION
-        // ==========================================
         window.addEventListener('DOMContentLoaded', () => {
             app.init();
             const urlParams = new URLSearchParams(window.location.search);
