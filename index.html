@@ -4,38 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SkillBridge Pakistan | Learn Skills. Earn Certificates. Build Your Future.</title>
-    <meta name="description" content="Premium online skills and certification platform in Pakistan.">
-    
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#4F46E5', secondary: '#06B6D4', dark: '#0F172A',
-                        surface: '#FFFFFF', background: '#F8FAFC', success: '#10B981',
-                        warning: '#F59E0B', gold: '#D4AF37'
-                    },
-                    fontFamily: { sans: ['Inter', 'sans-serif'] },
-                    boxShadow: {
-                        'soft': '0 20px 40px -15px rgba(79, 70, 229, 0.15)',
-                        'glow': '0 0 20px rgba(79, 70, 229, 0.3)'
-                    }
-                }
-            }
+            theme: { extend: { colors: { primary: '#4F46E5', secondary: '#06B6D4', dark: '#0F172A', background: '#F8FAFC', success: '#10B981', warning: '#F59E0B', gold: '#D4AF37' }, fontFamily: { sans: ['Inter', 'sans-serif'] }, boxShadow: { 'soft': '0 20px 40px -15px rgba(79, 70, 229, 0.15)', 'glow': '0 0 20px rgba(79, 70, 229, 0.3)' } } }
         }
     </script>
-    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #F8FAFC; color: #0F172A; }
         .fade-in { animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .slide-up { animation: slideUp 0.3s ease-out; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .glass { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.3); }
         .hover-lift { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
         .hover-lift:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.15); }
@@ -46,12 +31,19 @@
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #f1f5f9; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .chatbot-pulse { animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(79, 70, 229, 0); } }
+        .typing-indicator span { display: inline-block; width: 8px; height: 8px; background: #94a3b8; border-radius: 50%; margin: 0 2px; animation: typing 1.4s infinite; }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typing { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-6px); } }
+        .admin-sidebar-link.active { background: linear-gradient(135deg, #4F46E5, #06B6D4); color: white; }
     </style>
 </head>
 <body class="antialiased">
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 glass transition-all duration-300" id="navbar">
+    <nav class="fixed w-full z-50 glass transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-20 items-center">
                 <div class="flex items-center cursor-pointer group" onclick="router.navigate('home')">
@@ -80,7 +72,7 @@
                         <div class="absolute right-0 mt-3 w-56 bg-white rounded-2xl shadow-soft py-2 hidden group-hover:block border border-slate-100 fade-in">
                             <a onclick="router.navigate('dashboard')" class="block px-5 py-3 hover:bg-slate-50 cursor-pointer text-sm font-medium text-slate-700">My Dashboard</a>
                             <a onclick="router.navigate('certificates')" class="block px-5 py-3 hover:bg-slate-50 cursor-pointer text-sm font-medium text-slate-700">Certificates</a>
-                            <a onclick="router.navigate('admin')" id="admin-link" class="hidden block px-5 py-3 hover:bg-slate-50 cursor-pointer text-sm font-bold text-primary">Admin Panel</a>
+                            <a onclick="router.navigate('admin')" id="admin-link" class="hidden block px-5 py-3 hover:bg-slate-50 cursor-pointer text-sm font-bold text-primary">🛡️ Admin Panel</a>
                             <div class="border-t border-slate-100 my-2"></div>
                             <a onclick="auth.logout()" class="block px-5 py-3 hover:bg-red-50 cursor-pointer text-sm font-semibold text-red-600">Logout</a>
                         </div>
@@ -113,7 +105,7 @@
                             <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-indigo-400">Earn Certificates.</span><br>
                             Build Your Future.
                         </h1>
-                        <p class="text-lg text-slate-300 max-w-xl leading-relaxed">SkillBridge Pakistan connects ambitious learners with practical, career-focused skills through structured courses, rigorous assessments, and industry-verified graded certificates.</p>
+                        <p class="text-lg text-slate-300 max-w-xl leading-relaxed">SkillBridge Pakistan connects ambitious learners with practical, career-focused skills through structured courses, rigorous assessments, and industry-verified certificates.</p>
                         <div class="flex flex-col sm:flex-row gap-4 pt-4">
                             <button onclick="router.navigate('courses')" class="bg-white text-primary px-8 py-4 rounded-xl font-bold hover:bg-slate-100 transition shadow-xl flex items-center justify-center gap-2">Explore Courses <i class="fas fa-arrow-right"></i></button>
                             <button onclick="router.navigate('signup')" class="border-2 border-white/30 text-white px-8 py-4 rounded-xl font-bold hover:bg-white/10 transition backdrop-blur-sm flex items-center justify-center gap-2"><i class="fas fa-play-circle"></i> Get Started</button>
@@ -125,8 +117,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Featured Courses -->
             <div class="py-24 bg-background">
                 <div class="max-w-7xl mx-auto px-4">
                     <div class="text-center mb-16">
@@ -134,54 +124,6 @@
                         <p class="text-slate-600 max-w-2xl mx-auto">Watch the trail video, review the full course outline, and enroll when you're ready.</p>
                     </div>
                     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8" id="home-courses-grid"></div>
-                </div>
-            </div>
-
-            <!-- NEW: Grading & Certification Section -->
-            <div class="py-24 bg-white">
-                <div class="max-w-7xl mx-auto px-4">
-                    <div class="text-center mb-16">
-                        <span class="text-gold font-bold tracking-wider uppercase text-sm">Our Grading System</span>
-                        <h2 class="text-4xl font-extrabold text-dark mt-2 mb-4">Earn a Graded, Verified Certificate</h2>
-                        <p class="text-slate-600 max-w-2xl mx-auto">Every course ends with a final graded assessment. Your certificate reflects your actual performance with a professional letter grade.</p>
-                    </div>
-                    <div class="grid md:grid-cols-4 gap-6 mb-12">
-                        <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-8 rounded-3xl border-2 border-green-200 text-center hover-lift">
-                            <div class="w-20 h-20 bg-success text-white rounded-2xl flex items-center justify-center text-4xl font-extrabold mx-auto mb-4 shadow-lg">A</div>
-                            <h3 class="text-xl font-bold text-dark mb-2">Excellent</h3>
-                            <p class="text-success font-bold text-lg mb-2">80% – 100%</p>
-                            <p class="text-slate-600 text-sm">Outstanding mastery of the subject</p>
-                        </div>
-                        <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-8 rounded-3xl border-2 border-blue-200 text-center hover-lift">
-                            <div class="w-20 h-20 bg-primary text-white rounded-2xl flex items-center justify-center text-4xl font-extrabold mx-auto mb-4 shadow-lg">B</div>
-                            <h3 class="text-xl font-bold text-dark mb-2">Good</h3>
-                            <p class="text-primary font-bold text-lg mb-2">60% – 79%</p>
-                            <p class="text-slate-600 text-sm">Strong understanding & passing grade</p>
-                        </div>
-                        <div class="bg-gradient-to-br from-yellow-50 to-amber-50 p-8 rounded-3xl border-2 border-yellow-200 text-center hover-lift">
-                            <div class="w-20 h-20 bg-warning text-white rounded-2xl flex items-center justify-center text-4xl font-extrabold mx-auto mb-4 shadow-lg">C</div>
-                            <h3 class="text-xl font-bold text-dark mb-2">Pass</h3>
-                            <p class="text-warning font-bold text-lg mb-2">50% – 59%</p>
-                            <p class="text-slate-600 text-sm">Minimum passing grade</p>
-                        </div>
-                        <div class="bg-gradient-to-br from-red-50 to-rose-50 p-8 rounded-3xl border-2 border-red-200 text-center hover-lift">
-                            <div class="w-20 h-20 bg-red-500 text-white rounded-2xl flex items-center justify-center text-4xl font-extrabold mx-auto mb-4 shadow-lg">F</div>
-                            <h3 class="text-xl font-bold text-dark mb-2">Fail</h3>
-                            <p class="text-red-600 font-bold text-lg mb-2">Below 50%</p>
-                            <p class="text-slate-600 text-sm">Retake the final assessment</p>
-                        </div>
-                    </div>
-                    <div class="bg-gradient-to-r from-primary to-secondary p-8 md:p-12 rounded-3xl text-white text-center shadow-2xl">
-                        <div class="flex flex-col md:flex-row items-center justify-center gap-6">
-                            <div class="w-20 h-20 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center">
-                                <i class="fas fa-qrcode text-4xl"></i>
-                            </div>
-                            <div class="text-left">
-                                <h3 class="text-2xl font-extrabold mb-2">QR-Verified Certificates</h3>
-                                <p class="text-white/90">Every certificate comes with a unique ID and scannable QR code. Employers and institutions can instantly verify authenticity on our official verification portal.</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
@@ -242,23 +184,6 @@
                     <h2 class="text-4xl font-extrabold text-dark mb-4">Our Premium Courses</h2>
                     <p class="text-slate-600">Watch the trail video, review the full outline, and enroll when you're ready.</p>
                 </div>
-
-                <!-- NEW: Grading Info Banner on Courses Page -->
-                <div class="bg-gradient-to-r from-gold/10 to-yellow-50 border-2 border-gold/30 rounded-3xl p-6 mb-10 flex flex-col md:flex-row items-center gap-6">
-                    <div class="w-16 h-16 bg-gold/20 rounded-2xl flex items-center justify-center flex-shrink-0">
-                        <i class="fas fa-award text-gold text-3xl"></i>
-                    </div>
-                    <div class="flex-1 text-center md:text-left">
-                        <h3 class="text-xl font-bold text-dark mb-1">Every Course Includes a Graded Certificate</h3>
-                        <p class="text-slate-600 text-sm">Complete all modules, pass the final assessment, and receive a professional certificate with your letter grade (A, B, or C) — verifiable via QR code.</p>
-                    </div>
-                    <div class="flex gap-2 flex-shrink-0">
-                        <span class="bg-success text-white px-3 py-1.5 rounded-lg text-sm font-bold">A</span>
-                        <span class="bg-primary text-white px-3 py-1.5 rounded-lg text-sm font-bold">B</span>
-                        <span class="bg-warning text-white px-3 py-1.5 rounded-lg text-sm font-bold">C</span>
-                    </div>
-                </div>
-
                 <div class="mb-10 flex flex-col md:flex-row gap-4 max-w-3xl mx-auto">
                     <div class="relative flex-1">
                         <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400"></i>
@@ -319,6 +244,7 @@
                                         <li class="flex justify-between border-b border-blue-200 pb-2"><span>Account Title:</span> <span class="font-bold">SkillBridge Pakistan</span></li>
                                         <li class="flex justify-between"><span>Punjab Bank:</span> <span class="font-mono font-bold">1234567890123</span></li>
                                     </ul>
+                                    <p class="text-xs text-blue-700 mt-3 italic">After payment, upload the screenshot below. Our admin will verify it within 24 hours and unlock your course.</p>
                                 </div>
                                 <div>
                                     <label class="block text-sm font-bold text-slate-700 mb-2">Transaction ID / Reference Number *</label>
@@ -360,6 +286,15 @@
                 <div class="mb-10">
                     <h2 class="text-3xl font-extrabold text-dark">Welcome back, <span id="dash-user-name" class="text-primary">Student</span></h2>
                     <p class="text-slate-500 mt-2">Track your learning progress and manage your certifications.</p>
+                </div>
+                <div id="pending-payment-alert" class="hidden mb-8 bg-gradient-to-r from-warning/10 to-yellow-50 border-l-4 border-warning p-6 rounded-2xl fade-in">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-warning/20 text-warning rounded-xl flex items-center justify-center flex-shrink-0"><i class="fas fa-hourglass-half text-xl"></i></div>
+                        <div class="flex-1">
+                            <h3 class="font-bold text-dark text-lg mb-1">Payment Under Review</h3>
+                            <p class="text-slate-600 text-sm leading-relaxed">Your payment screenshot has been submitted successfully. Our admin team is verifying it. <br><strong class="text-dark">You will be able to continue your course as soon as it is approved (usually within 24 hours).</strong></p>
+                        </div>
+                    </div>
                 </div>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100"><p class="text-slate-500 text-sm font-medium mb-1">Enrolled Courses</p><p class="text-3xl font-extrabold text-dark" id="stat-enrolled">0</p></div>
@@ -456,7 +391,7 @@
             <div class="max-w-2xl mx-auto px-4 text-center">
                 <div class="w-20 h-20 bg-primary/10 text-primary rounded-full flex items-center justify-center text-3xl mx-auto mb-6"><i class="fas fa-shield-alt"></i></div>
                 <h2 class="text-3xl font-extrabold text-dark mb-4">Verify Certificate</h2>
-                <p class="text-slate-600 mb-8">Enter the Certificate ID to instantly verify its authenticity and view the holder's details.</p>
+                <p class="text-slate-600 mb-8">Enter the Certificate ID to instantly verify its authenticity.</p>
                 <div class="flex gap-4 mb-8 max-w-md mx-auto">
                     <input type="text" id="verify-input" placeholder="e.g., SBP-2026-XXXX" class="flex-1 px-6 py-4 border border-slate-200 rounded-xl text-center text-lg uppercase tracking-widest font-mono focus:ring-2 focus:ring-primary outline-none">
                     <button onclick="app.verifyCertificate()" class="bg-primary text-white px-8 py-4 rounded-xl font-bold hover:bg-indigo-700 transition shadow-lg">Verify</button>
@@ -471,24 +406,41 @@
             </div>
         </section>
 
-        <!-- ADMIN VIEW -->
-        <section id="view-admin" class="view hidden-view fade-in py-24 bg-background">
+        <!-- ============================================ -->
+        <!-- ADMIN PANEL VIEW -->
+        <!-- ============================================ -->
+        <section id="view-admin" class="view hidden-view fade-in py-8 bg-slate-50 min-h-screen">
             <div class="max-w-7xl mx-auto px-4">
-                <h2 class="text-3xl font-extrabold text-dark mb-8">Admin Dashboard</h2>
-                <div class="grid md:grid-cols-3 gap-6 mb-8">
-                    <button onclick="admin.showTab('payments')" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:border-primary/30 hover:shadow-md transition text-left">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="font-bold text-dark">Payment Verification</span>
-                            <span id="admin-pending-badge" class="bg-red-500 text-white text-xs px-2.5 py-1 rounded-full hidden">0</span>
+                <div class="grid lg:grid-cols-5 gap-6">
+                    <!-- Sidebar -->
+                    <div class="lg:col-span-1">
+                        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-4 sticky top-24">
+                            <div class="flex items-center gap-3 p-3 mb-4 bg-gradient-to-br from-primary to-secondary rounded-xl text-white">
+                                <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center"><i class="fas fa-shield-alt"></i></div>
+                                <div>
+                                    <p class="text-xs opacity-80">Logged in as</p>
+                                    <p class="font-bold text-sm">Administrator</p>
+                                </div>
+                            </div>
+                            <nav class="space-y-1">
+                                <button onclick="admin.showTab('dashboard')" class="admin-sidebar-link active w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-100 transition"><i class="fas fa-chart-line w-5"></i> Dashboard</button>
+                                <button onclick="admin.showTab('courses')" class="admin-sidebar-link w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-100 transition"><i class="fas fa-book w-5"></i> Courses</button>
+                                <button onclick="admin.showTab('users')" class="admin-sidebar-link w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-100 transition"><i class="fas fa-users w-5"></i> Users</button>
+                                <button onclick="admin.showTab('payments')" class="admin-sidebar-link w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-100 transition relative">
+                                    <i class="fas fa-credit-card w-5"></i> Payments
+                                    <span id="admin-pending-badge" class="hidden absolute right-3 bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">0</span>
+                                </button>
+                                <button onclick="admin.showTab('certificates')" class="admin-sidebar-link w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-100 transition"><i class="fas fa-certificate w-5"></i> Certificates</button>
+                                <button onclick="admin.showTab('settings')" class="admin-sidebar-link w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-100 transition"><i class="fas fa-cog w-5"></i> Settings</button>
+                            </nav>
                         </div>
-                        <p class="text-sm text-slate-500">Review and approve manual payment proofs.</p>
-                    </button>
-                    <button onclick="admin.showTab('users')" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:border-primary/30 hover:shadow-md transition text-left">
-                        <span class="font-bold text-dark block mb-2">User Management</span>
-                        <p class="text-sm text-slate-500">View registered students and their roles.</p>
-                    </button>
+                    </div>
+                    
+                    <!-- Main Content -->
+                    <div class="lg:col-span-4">
+                        <div id="admin-content" class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8"></div>
+                    </div>
                 </div>
-                <div id="admin-content" class="bg-white rounded-3xl shadow-soft border border-slate-100 p-8"></div>
             </div>
         </section>
 
@@ -527,6 +479,15 @@
             <div class="max-w-md mx-auto px-4">
                 <div class="bg-white p-8 md:p-10 rounded-3xl shadow-soft border border-slate-100">
                     <h2 class="text-2xl font-extrabold text-center text-dark mb-2">Welcome Back</h2>
+                    <p class="text-center text-slate-500 mb-6">Continue your learning journey</p>
+                    
+                    <!-- Admin Credentials Info -->
+                    <div class="bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 rounded-xl p-4 mb-6">
+                        <p class="text-xs font-bold text-primary mb-2 flex items-center gap-1"><i class="fas fa-info-circle"></i> Admin Demo Credentials:</p>
+                        <p class="text-xs text-slate-700"><strong>Email:</strong> admin@skillbridge.pk</p>
+                        <p class="text-xs text-slate-700"><strong>Password:</strong> admin123</p>
+                    </div>
+                    
                     <button onclick="auth.googleLogin()" class="w-full flex items-center justify-center gap-3 border border-slate-200 py-3.5 rounded-xl mb-6 hover:bg-slate-50 transition font-medium text-slate-700"><i class="fab fa-google text-red-500 text-lg"></i> Continue with Google</button>
                     <form onsubmit="auth.login(event)">
                         <input type="email" name="email" placeholder="Email Address" required class="w-full px-4 py-3.5 border border-slate-200 rounded-xl mb-4 focus:ring-2 focus:ring-primary outline-none">
@@ -569,6 +530,139 @@
         </div>
     </div>
 
+    <!-- ADD/EDIT COURSE MODAL -->
+    <div id="course-modal" class="fixed inset-0 z-[70] hidden modal-overlay flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto fade-in">
+            <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50 sticky top-0 z-10">
+                <h3 id="course-modal-title" class="text-xl font-bold text-primary flex items-center gap-2"><i class="fas fa-book"></i> Add New Course</h3>
+                <button onclick="document.getElementById('course-modal').classList.add('hidden')" class="text-slate-400 hover:text-red-500 transition"><i class="fas fa-times text-xl"></i></button>
+            </div>
+            <div class="p-8">
+                <form id="course-form" onsubmit="admin.saveCourse(event)" class="grid md:grid-cols-2 gap-5">
+                    <input type="hidden" id="course-edit-id">
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Course Title *</label>
+                        <input type="text" id="course-title" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-primary outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Category *</label>
+                        <select id="course-category" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-primary outline-none">
+                            <option value="AI">AI Automation</option>
+                            <option value="Design">Graphic Designing</option>
+                            <option value="Security">Cyber Security</option>
+                            <option value="Writing">Content Writing</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Price (PKR) *</label>
+                        <input type="number" id="course-price" required min="0" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-primary outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Duration *</label>
+                        <input type="text" id="course-duration" required placeholder="e.g., 6 Weeks" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-primary outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Level *</label>
+                        <select id="course-level" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-primary outline-none">
+                            <option value="Beginner">Beginner</option>
+                            <option value="Intermediate">Intermediate</option>
+                            <option value="Advanced">Advanced</option>
+                        </select>
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Image URL *</label>
+                        <input type="url" id="course-image" required placeholder="https://..." class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-primary outline-none">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Description *</label>
+                        <textarea id="course-description" required rows="3" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-primary outline-none"></textarea>
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-bold text-slate-700 mb-2">YouTube Trail Video ID *</label>
+                        <input type="text" id="course-videoId" required placeholder="e.g., KCdurte9vp0 (from youtube.com/watch?v=KCdurte9vp0)" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-primary outline-none">
+                        <p class="text-xs text-slate-500 mt-1">Just the ID part from the YouTube URL (e.g., KCdurte9vp0)</p>
+                    </div>
+                    <div class="md:col-span-2 flex gap-3 mt-4">
+                        <button type="button" onclick="document.getElementById('course-modal').classList.add('hidden')" class="flex-1 bg-slate-100 text-slate-700 py-3 rounded-xl font-bold hover:bg-slate-200 transition">Cancel</button>
+                        <button type="submit" class="flex-1 bg-primary text-white py-3 rounded-xl font-bold hover:bg-indigo-700 transition shadow-lg">Save Course</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- MANAGE MODULES MODAL -->
+    <div id="modules-modal" class="fixed inset-0 z-[70] hidden modal-overlay flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto fade-in">
+            <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50 sticky top-0 z-10">
+                <h3 class="text-xl font-bold text-primary flex items-center gap-2"><i class="fas fa-layer-group"></i> Manage Modules & Lessons</h3>
+                <button onclick="document.getElementById('modules-modal').classList.add('hidden')" class="text-slate-400 hover:text-red-500 transition"><i class="fas fa-times text-xl"></i></button>
+            </div>
+            <div class="p-8">
+                <div class="bg-blue-50 border border-blue-200 p-4 rounded-xl mb-6 text-sm text-blue-800">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    <strong>Tip:</strong> Each lesson can have its own YouTube video URL. Students must pass a quiz after each lesson to proceed.
+                </div>
+                <div id="modules-list" class="space-y-4 mb-6"></div>
+                <button onclick="admin.addModule()" class="w-full bg-primary text-white py-3 rounded-xl font-bold hover:bg-indigo-700 transition shadow-lg flex items-center justify-center gap-2">
+                    <i class="fas fa-plus"></i> Add New Module
+                </button>
+                <div class="flex gap-3 mt-6">
+                    <button onclick="document.getElementById('modules-modal').classList.add('hidden')" class="flex-1 bg-slate-100 text-slate-700 py-3 rounded-xl font-bold hover:bg-slate-200 transition">Close</button>
+                    <button onclick="admin.saveModules()" class="flex-1 bg-success text-white py-3 rounded-xl font-bold hover:bg-green-700 transition shadow-lg">Save All Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI CHATBOT -->
+    <div id="chatbot-container" class="fixed bottom-6 right-6 z-[80]">
+        <div id="chatbot-window" class="hidden mb-4 w-[380px] h-[560px] bg-white rounded-3xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden slide-up">
+            <div class="bg-gradient-to-r from-primary to-secondary p-5 text-white flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center backdrop-blur"><i class="fas fa-robot text-lg"></i></div>
+                    <div>
+                        <h3 class="font-bold text-base">SkillBridge AI</h3>
+                        <p class="text-xs text-white/80 flex items-center gap-1"><span class="w-2 h-2 bg-green-400 rounded-full"></span>Online • Ready to help</p>
+                    </div>
+                </div>
+                <button onclick="chatbot.toggle()" class="w-8 h-8 rounded-full hover:bg-white/20 transition flex items-center justify-center"><i class="fas fa-times"></i></button>
+            </div>
+            <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50">
+                <div class="flex gap-3 items-start">
+                    <div class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0"><i class="fas fa-robot text-primary text-sm"></i></div>
+                    <div class="bg-white p-3 rounded-2xl rounded-tl-sm shadow-sm max-w-[85%] border border-slate-100">
+                        <p class="text-sm text-slate-700 leading-relaxed">Hi there! 👋 I'm <strong>SkillBridge AI</strong>. I can help you with:</p>
+                        <ul class="text-sm text-slate-600 mt-2 space-y-1">
+                            <li>• Course details & prices</li>
+                            <li>• Payment methods & verification</li>
+                            <li>• Certificates & verification</li>
+                            <li>• Enrollment process</li>
+                        </ul>
+                        <p class="text-sm text-slate-700 mt-2">What would you like to know?</p>
+                    </div>
+                </div>
+                <div class="flex flex-wrap gap-2 pl-11">
+                    <button onclick="chatbot.quickAsk('course prices')" class="text-xs bg-white border border-slate-200 text-slate-700 px-3 py-1.5 rounded-full hover:bg-primary hover:text-white hover:border-primary transition">💰 Course Prices</button>
+                    <button onclick="chatbot.quickAsk('how to pay')" class="text-xs bg-white border border-slate-200 text-slate-700 px-3 py-1.5 rounded-full hover:bg-primary hover:text-white hover:border-primary transition">💳 How to Pay</button>
+                    <button onclick="chatbot.quickAsk('certificate')" class="text-xs bg-white border border-slate-200 text-slate-700 px-3 py-1.5 rounded-full hover:bg-primary hover:text-white hover:border-primary transition">🎓 Certificates</button>
+                    <button onclick="chatbot.quickAsk('courses')" class="text-xs bg-white border border-slate-200 text-slate-700 px-3 py-1.5 rounded-full hover:bg-primary hover:text-white hover:border-primary transition">📚 Courses</button>
+                </div>
+            </div>
+            <div class="p-4 border-t border-slate-100 bg-white">
+                <form onsubmit="chatbot.send(event)" class="flex gap-2">
+                    <input type="text" id="chat-input" placeholder="Type your question..." class="flex-1 px-4 py-2.5 bg-slate-100 border-none rounded-xl text-sm focus:ring-2 focus:ring-primary outline-none" autocomplete="off">
+                    <button type="submit" class="bg-primary text-white w-11 h-11 rounded-xl hover:bg-indigo-700 transition flex items-center justify-center flex-shrink-0"><i class="fas fa-paper-plane text-sm"></i></button>
+                </form>
+                <p class="text-[10px] text-slate-400 text-center mt-2">Powered by SkillBridge AI • Responses are automated</p>
+            </div>
+        </div>
+        <button onclick="chatbot.toggle()" id="chatbot-toggle-btn" class="w-16 h-16 bg-gradient-to-br from-primary to-secondary text-white rounded-full shadow-2xl hover:scale-110 transition-all duration-300 flex items-center justify-center chatbot-pulse relative">
+            <i class="fas fa-comment-dots text-2xl"></i>
+        </button>
+    </div>
+
     <!-- Footer -->
     <footer class="bg-dark text-white pt-20 pb-10">
         <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-4 gap-12 mb-16">
@@ -577,7 +671,7 @@
                     <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white mr-3"><i class="fas fa-graduation-cap text-lg"></i></div>
                     <span class="text-xl font-bold">SkillBridge Pakistan</span>
                 </div>
-                <p class="text-slate-400 text-sm leading-relaxed">Empowering the youth of Pakistan with industry-ready digital skills and verified graded certifications.</p>
+                <p class="text-slate-400 text-sm leading-relaxed">Empowering the youth of Pakistan with industry-ready digital skills and verified certifications.</p>
             </div>
             <div>
                 <h4 class="font-bold mb-6 text-lg">Platform</h4>
@@ -641,6 +735,22 @@
             get: (key) => JSON.parse(localStorage.getItem(`sb_${key}`) || 'null'),
             set: (key, value) => localStorage.setItem(`sb_${key}`, JSON.stringify(value)),
             init: () => {
+                // Pre-seed admin account
+                const users = db.get('users') || [];
+                if (!users.find(u => u.email === 'admin@skillbridge.pk')) {
+                    users.push({
+                        id: 'admin_001',
+                        fullName: 'Administrator',
+                        email: 'admin@skillbridge.pk',
+                        password: 'admin123',
+                        role: 'admin',
+                        cnicMasked: '00000-*******-0',
+                        phone: '0300-0000000',
+                        createdAt: new Date().toISOString()
+                    });
+                    db.set('users', users);
+                }
+
                 const oldCourses = db.get('courses');
                 if (!oldCourses || !oldCourses[0].modules || oldCourses[0].modules.length < 6) localStorage.removeItem('sb_courses');
 
@@ -653,36 +763,26 @@
                             videoId: 'KCdurte9vp0',
                             modules: [
                                 { title: 'Module 1: Introduction to AI', duration: '1 Week', lessons: [
-                                    { id: 'ai_m1_l1', title: 'Artificial Intelligence Basics', duration: '20 mins', quiz: [{ q: 'What does AI stand for?', options: ['Automated Intelligence', 'Artificial Intelligence', 'Advanced Integration'], correct: 1 }] },
-                                    { id: 'ai_m1_l2', title: 'Generative AI', duration: '25 mins', quiz: [{ q: 'What is a primary use of Generative AI?', options: ['Hardware repair', 'Creating new content', 'Network routing'], correct: 1 }] },
-                                    { id: 'ai_m1_l3', title: 'AI Ecosystem', duration: '20 mins', quiz: [{ q: 'Which is a major AI ecosystem player?', options: ['OpenAI', 'Local Bakery', 'Woodworking'], correct: 0 }] },
-                                    { id: 'ai_m1_l4', title: 'Prompt Engineering', duration: '30 mins', quiz: [{ q: 'What is prompt engineering?', options: ['Building robots', 'Crafting effective AI inputs', 'Writing code'], correct: 1 }] }
+                                    { id: 'ai_m1_l1', title: 'Artificial Intelligence Basics', duration: '20 mins', videoUrl: '', quiz: [{ q: 'What does AI stand for?', options: ['Automated Intelligence', 'Artificial Intelligence', 'Advanced Integration'], correct: 1 }] },
+                                    { id: 'ai_m1_l2', title: 'Generative AI', duration: '25 mins', videoUrl: '', quiz: [{ q: 'What is a primary use of Generative AI?', options: ['Hardware repair', 'Creating new content', 'Network routing'], correct: 1 }] }
                                 ]},
                                 { title: 'Module 2: AI Productivity', duration: '1 Week', lessons: [
-                                    { id: 'ai_m2_l1', title: 'AI Assistants', duration: '20 mins', quiz: [{ q: 'What is an AI assistant?', options: ['A human helper', 'Software that performs tasks via AI', 'A type of computer'], correct: 1 }] },
-                                    { id: 'ai_m2_l2', title: 'Research Automation', duration: '25 mins', quiz: [{ q: 'How can AI help with research?', options: ['It cannot', 'By summarizing large texts quickly', 'By printing papers'], correct: 1 }] },
-                                    { id: 'ai_m2_l3', title: 'Document Automation', duration: '30 mins', quiz: [{ q: 'What can AI automate in documents?', options: ['Paper weight', 'Data extraction and formatting', 'Ink color'], correct: 1 }] }
+                                    { id: 'ai_m2_l1', title: 'AI Assistants', duration: '20 mins', videoUrl: '', quiz: [{ q: 'What is an AI assistant?', options: ['A human helper', 'Software that performs tasks via AI', 'A type of computer'], correct: 1 }] }
                                 ]},
                                 { title: 'Module 3: Automation Fundamentals', duration: '1 Week', lessons: [
-                                    { id: 'ai_m3_l1', title: 'What is Automation?', duration: '20 mins', quiz: [{ q: 'What is automation?', options: ['Making things manual', 'Using technology to perform tasks with minimal human input', 'Slowing down processes'], correct: 1 }] },
-                                    { id: 'ai_m3_l2', title: 'Triggers and Actions', duration: '25 mins', quiz: [{ q: 'What starts an automation workflow?', options: ['A Trigger', 'A Database', 'A User'], correct: 0 }] },
-                                    { id: 'ai_m3_l3', title: 'APIs and Webhooks', duration: '30 mins', quiz: [{ q: 'What does API stand for?', options: ['Application Programming Interface', 'Auto Program Input', 'Advanced Process Integration'], correct: 0 }] }
+                                    { id: 'ai_m3_l1', title: 'What is Automation?', duration: '20 mins', videoUrl: '', quiz: [{ q: 'What is automation?', options: ['Making things manual', 'Using technology to perform tasks with minimal human input', 'Slowing down processes'], correct: 1 }] }
                                 ]},
                                 { title: 'Module 4: No-Code Automation', duration: '1 Week', lessons: [
-                                    { id: 'ai_m4_l1', title: 'Workflow Builders', duration: '30 mins', quiz: [{ q: 'What is a workflow builder?', options: ['A construction tool', 'A visual tool to create automations', 'A coding language'], correct: 1 }] },
-                                    { id: 'ai_m4_l2', title: 'Application Integrations', duration: '25 mins', quiz: [{ q: 'What does app integration allow?', options: ['Apps to talk to each other', 'Apps to delete each other', 'Nothing'], correct: 0 }] }
+                                    { id: 'ai_m4_l1', title: 'Workflow Builders', duration: '30 mins', videoUrl: '', quiz: [{ q: 'What is a workflow builder?', options: ['A construction tool', 'A visual tool to create automations', 'A coding language'], correct: 1 }] }
                                 ]},
                                 { title: 'Module 5: AI Content Automation', duration: '1 Week', lessons: [
-                                    { id: 'ai_m5_l1', title: 'Text Generation', duration: '25 mins', quiz: [{ q: 'What is AI text generation used for?', options: ['Writing emails and blogs', 'Building houses', 'Driving cars'], correct: 0 }] },
-                                    { id: 'ai_m5_l2', title: 'Image Generation', duration: '25 mins', quiz: [{ q: 'Which AI generates images?', options: ['Midjourney/DALL-E', 'Calculator', 'Notepad'], correct: 0 }] }
+                                    { id: 'ai_m5_l1', title: 'Text Generation', duration: '25 mins', videoUrl: '', quiz: [{ q: 'What is AI text generation used for?', options: ['Writing emails and blogs', 'Building houses', 'Driving cars'], correct: 0 }] }
                                 ]},
                                 { title: 'Module 6: Business Automation', duration: '1 Week', lessons: [
-                                    { id: 'ai_m6_l1', title: 'Customer Support Bots', duration: '30 mins', quiz: [{ q: 'What is the role of AI in customer support?', options: ['Ignoring customers', 'Providing instant, 24/7 responses', 'Hanging up calls'], correct: 1 }] },
-                                    { id: 'ai_m6_l2', title: 'Lead Management', duration: '25 mins', quiz: [{ q: 'How does AI help with leads?', options: ['By losing them', 'By scoring and routing them automatically', 'By deleting them'], correct: 1 }] }
+                                    { id: 'ai_m6_l1', title: 'Customer Support Bots', duration: '30 mins', videoUrl: '', quiz: [{ q: 'What is the role of AI in customer support?', options: ['Ignoring customers', 'Providing instant, 24/7 responses', 'Hanging up calls'], correct: 1 }] }
                                 ]},
                                 { title: 'Module 7: Final Project', duration: '1 Week', lessons: [
-                                    { id: 'ai_m7_l1', title: 'Project Brief & Planning', duration: '15 mins', quiz: [{ q: 'What is the first step in a project?', options: ['Planning', 'Quitting', 'Ignoring'], correct: 0 }] },
-                                    { id: 'ai_m7_l2', title: 'Building the Solution', duration: '45 mins', quiz: [{ q: 'What should your final project demonstrate?', options: ['Nothing', 'Practical AI automation skills', 'How to turn off a computer'], correct: 1 }] }
+                                    { id: 'ai_m7_l1', title: 'Building the Solution', duration: '45 mins', videoUrl: '', quiz: [{ q: 'What should your final project demonstrate?', options: ['Nothing', 'Practical AI automation skills', 'How to turn off a computer'], correct: 1 }] }
                                 ]}
                             ]
                         },
@@ -693,30 +793,25 @@
                             videoId: 'CY25svrgxC0',
                             modules: [
                                 { title: 'Module 1: Design Fundamentals', duration: '1 Week', lessons: [
-                                    { id: 'des_m1_l1', title: 'Color Theory', duration: '25 mins', quiz: [{ q: 'Which color model is used for screens?', options: ['CMYK', 'RGB', 'Pantone'], correct: 1 }] },
-                                    { id: 'des_m1_l2', title: 'Typography Basics', duration: '25 mins', quiz: [{ q: 'What is kerning?', options: ['Line height', 'Space between characters', 'Font size'], correct: 1 }] },
-                                    { id: 'des_m1_l3', title: 'Layout & Composition', duration: '30 mins', quiz: [{ q: 'What is the rule of thirds?', options: ['A math equation', 'A composition guideline', 'A software tool'], correct: 1 }] }
+                                    { id: 'des_m1_l1', title: 'Color Theory', duration: '25 mins', videoUrl: '', quiz: [{ q: 'Which color model is used for screens?', options: ['CMYK', 'RGB', 'Pantone'], correct: 1 }] }
                                 ]},
                                 { title: 'Module 2: Canva Mastery', duration: '1 Week', lessons: [
-                                    { id: 'des_m2_l1', title: 'Interface & Basics', duration: '20 mins', quiz: [{ q: 'Is Canva free to start?', options: ['Yes', 'No', 'Only on Tuesdays'], correct: 0 }] },
-                                    { id: 'des_m2_l2', title: 'Templates & Brand Kits', duration: '25 mins', quiz: [{ q: 'What is a brand kit?', options: ['A box of paint', 'A collection of brand assets', 'A type of font'], correct: 1 }] }
+                                    { id: 'des_m2_l1', title: 'Interface & Basics', duration: '20 mins', videoUrl: '', quiz: [{ q: 'Is Canva free to start?', options: ['Yes', 'No', 'Only on Tuesdays'], correct: 0 }] }
                                 ]},
                                 { title: 'Module 3: Photoshop Essentials', duration: '1 Week', lessons: [
-                                    { id: 'des_m3_l1', title: 'Photo Editing', duration: '30 mins', quiz: [{ q: 'What is the main use of Photoshop?', options: ['Writing code', 'Raster image editing', 'Playing music'], correct: 1 }] },
-                                    { id: 'des_m3_l2', title: 'Compositing', duration: '35 mins', quiz: [{ q: 'What is compositing?', options: ['Combining multiple images', 'Deleting images', 'Printing images'], correct: 0 }] }
+                                    { id: 'des_m3_l1', title: 'Photo Editing', duration: '30 mins', videoUrl: '', quiz: [{ q: 'What is the main use of Photoshop?', options: ['Writing code', 'Raster image editing', 'Playing music'], correct: 1 }] }
                                 ]},
                                 { title: 'Module 4: Illustrator Basics', duration: '1 Week', lessons: [
-                                    { id: 'des_m4_l1', title: 'Vector Graphics', duration: '30 mins', quiz: [{ q: 'What is a vector graphic?', options: ['Made of pixels', 'Made of mathematical paths', 'A photograph'], correct: 1 }] },
-                                    { id: 'des_m4_l2', title: 'Logo Design', duration: '35 mins', quiz: [{ q: 'Why use Illustrator for logos?', options: ['Scalability without quality loss', 'It is cheaper', 'It has more filters'], correct: 0 }] }
+                                    { id: 'des_m4_l1', title: 'Vector Graphics', duration: '30 mins', videoUrl: '', quiz: [{ q: 'What is a vector graphic?', options: ['Made of pixels', 'Made of mathematical paths', 'A photograph'], correct: 1 }] }
                                 ]},
                                 { title: 'Module 5: Brand Identity', duration: '1 Week', lessons: [
-                                    { id: 'des_m5_l1', title: 'Brand Guidelines', duration: '30 mins', quiz: [{ q: 'What do brand guidelines ensure?', options: ['Chaos', 'Consistency', 'Confusion'], correct: 1 }] }
+                                    { id: 'des_m5_l1', title: 'Brand Guidelines', duration: '30 mins', videoUrl: '', quiz: [{ q: 'What do brand guidelines ensure?', options: ['Chaos', 'Consistency', 'Confusion'], correct: 1 }] }
                                 ]},
                                 { title: 'Module 6: Social Media Design', duration: '1 Week', lessons: [
-                                    { id: 'des_m6_l1', title: 'Post Design', duration: '25 mins', quiz: [{ q: 'What is a key element of a good social post?', options: ['Visual hierarchy', 'Too much text', 'Blurry images'], correct: 0 }] }
+                                    { id: 'des_m6_l1', title: 'Post Design', duration: '25 mins', videoUrl: '', quiz: [{ q: 'What is a key element of a good social post?', options: ['Visual hierarchy', 'Too much text', 'Blurry images'], correct: 0 }] }
                                 ]},
                                 { title: 'Module 7: Portfolio Project', duration: '1 Week', lessons: [
-                                    { id: 'des_m7_l1', title: 'Project Execution', duration: '45 mins', quiz: [{ q: 'What should a design portfolio show?', options: ['Your best work', 'Your grocery list', 'Nothing'], correct: 0 }] }
+                                    { id: 'des_m7_l1', title: 'Project Execution', duration: '45 mins', videoUrl: '', quiz: [{ q: 'What should a design portfolio show?', options: ['Your best work', 'Your grocery list', 'Nothing'], correct: 0 }] }
                                 ]}
                             ]
                         },
@@ -727,29 +822,25 @@
                             videoId: 'wUed_5EVDNg',
                             modules: [
                                 { title: 'Module 1: Cybersecurity Fundamentals', duration: '1 Week', lessons: [
-                                    { id: 'sec_m1_l1', title: 'The CIA Triad', duration: '25 mins', quiz: [{ q: 'What does CIA stand for in security?', options: ['Confidentiality, Integrity, Availability', 'Central Intelligence Agency', 'Computer Internet Access'], correct: 0 }] },
-                                    { id: 'sec_m1_l2', title: 'Threat Landscape', duration: '25 mins', quiz: [{ q: 'What is a threat actor?', options: ['A movie star', 'An individual or group that poses a security risk', 'A firewall'], correct: 1 }] }
+                                    { id: 'sec_m1_l1', title: 'The CIA Triad', duration: '25 mins', videoUrl: '', quiz: [{ q: 'What does CIA stand for in security?', options: ['Confidentiality, Integrity, Availability', 'Central Intelligence Agency', 'Computer Internet Access'], correct: 0 }] }
                                 ]},
                                 { title: 'Module 2: Network Security', duration: '1 Week', lessons: [
-                                    { id: 'sec_m2_l1', title: 'Firewalls', duration: '30 mins', quiz: [{ q: 'What does a firewall do?', options: ['Speeds up internet', 'Filters network traffic', 'Stores passwords'], correct: 1 }] },
-                                    { id: 'sec_m2_l2', title: 'VPNs', duration: '25 mins', quiz: [{ q: 'What does a VPN provide?', options: ['Faster gaming', 'Encrypted, private internet connection', 'Free software'], correct: 1 }] }
+                                    { id: 'sec_m2_l1', title: 'Firewalls', duration: '30 mins', videoUrl: '', quiz: [{ q: 'What does a firewall do?', options: ['Speeds up internet', 'Filters network traffic', 'Stores passwords'], correct: 1 }] }
                                 ]},
                                 { title: 'Module 3: Cyber Threats', duration: '1 Week', lessons: [
-                                    { id: 'sec_m3_l1', title: 'Malware Analysis', duration: '30 mins', quiz: [{ q: 'What is malware?', options: ['Malicious software', 'A type of hardware', 'A secure protocol'], correct: 0 }] },
-                                    { id: 'sec_m3_l2', title: 'Phishing & Social Engineering', duration: '25 mins', quiz: [{ q: 'What is phishing?', options: ['A fishing technique', 'Fraudulent attempt to obtain sensitive info', 'A type of firewall'], correct: 1 }] }
+                                    { id: 'sec_m3_l1', title: 'Malware Analysis', duration: '30 mins', videoUrl: '', quiz: [{ q: 'What is malware?', options: ['Malicious software', 'A type of hardware', 'A secure protocol'], correct: 0 }] }
                                 ]},
                                 { title: 'Module 4: Ethical Security Concepts', duration: '1 Week', lessons: [
-                                    { id: 'sec_m4_l1', title: 'White Hat Hacking', duration: '30 mins', quiz: [{ q: 'What is a white hat hacker?', options: ['A criminal', 'An ethical security professional', 'A virus creator'], correct: 1 }] },
-                                    { id: 'sec_m4_l2', title: 'Vulnerability Assessment', duration: '25 mins', quiz: [{ q: 'What is the goal of a vulnerability assessment?', options: ['To break things', 'To identify and fix weaknesses', 'To sell software'], correct: 1 }] }
+                                    { id: 'sec_m4_l1', title: 'White Hat Hacking', duration: '30 mins', videoUrl: '', quiz: [{ q: 'What is a white hat hacker?', options: ['A criminal', 'An ethical security professional', 'A virus creator'], correct: 1 }] }
                                 ]},
                                 { title: 'Module 5: Data Protection', duration: '1 Week', lessons: [
-                                    { id: 'sec_m5_l1', title: 'Encryption', duration: '30 mins', quiz: [{ q: 'What does encryption do?', options: ['Makes data readable to all', 'Scrambles data to protect it', 'Deletes data'], correct: 1 }] }
+                                    { id: 'sec_m5_l1', title: 'Encryption', duration: '30 mins', videoUrl: '', quiz: [{ q: 'What does encryption do?', options: ['Makes data readable to all', 'Scrambles data to protect it', 'Deletes data'], correct: 1 }] }
                                 ]},
                                 { title: 'Module 6: Security Best Practices', duration: '1 Week', lessons: [
-                                    { id: 'sec_m6_l1', title: 'Password Management & 2FA', duration: '20 mins', quiz: [{ q: 'What is 2FA?', options: ['Two-Factor Authentication', 'Two File Access', 'Two Firewall Architecture'], correct: 0 }] }
+                                    { id: 'sec_m6_l1', title: 'Password Management & 2FA', duration: '20 mins', videoUrl: '', quiz: [{ q: 'What is 2FA?', options: ['Two-Factor Authentication', 'Two File Access', 'Two Firewall Architecture'], correct: 0 }] }
                                 ]},
                                 { title: 'Module 7: Final Project/Assessment', duration: '1 Week', lessons: [
-                                    { id: 'sec_m7_l1', title: 'Security Audit Project', duration: '45 mins', quiz: [{ q: 'What is the final goal of this course?', options: ['To forget everything', 'To apply defensive security concepts practically', 'To become a hacker'], correct: 1 }] }
+                                    { id: 'sec_m7_l1', title: 'Security Audit Project', duration: '45 mins', videoUrl: '', quiz: [{ q: 'What is the final goal of this course?', options: ['To forget everything', 'To apply defensive security concepts practically', 'To become a hacker'], correct: 1 }] }
                                 ]}
                             ]
                         },
@@ -760,31 +851,27 @@
                             videoId: 'lzMLMYeqCpE',
                             modules: [
                                 { title: 'Module 1: Content Writing Fundamentals', duration: '1 Week', lessons: [
-                                    { id: 'wri_m1_l1', title: 'Grammar and Tone', duration: '25 mins', quiz: [{ q: 'What determines the tone of writing?', options: ['Font size', 'Word choice and attitude', 'Paragraph length'], correct: 1 }] },
-                                    { id: 'wri_m1_l2', title: 'Audience Analysis', duration: '25 mins', quiz: [{ q: 'Why analyze your audience?', options: ['To ignore them', 'To tailor content to their needs', 'To confuse them'], correct: 1 }] }
+                                    { id: 'wri_m1_l1', title: 'Grammar and Tone', duration: '25 mins', videoUrl: '', quiz: [{ q: 'What determines the tone of writing?', options: ['Font size', 'Word choice and attitude', 'Paragraph length'], correct: 1 }] }
                                 ]},
                                 { title: 'Module 2: Blog Writing', duration: '1 Week', lessons: [
-                                    { id: 'wri_m2_l1', title: 'Structure & Headlines', duration: '25 mins', quiz: [{ q: 'What makes a good headline?', options: ['Being boring', 'Being clear and compelling', 'Using all caps'], correct: 1 }] },
-                                    { id: 'wri_m2_l2', title: 'Drafting and Editing', duration: '30 mins', quiz: [{ q: 'What is the purpose of editing?', options: ['To make it longer', 'To improve clarity and fix errors', 'To add more jargon'], correct: 1 }] }
+                                    { id: 'wri_m2_l1', title: 'Structure & Headlines', duration: '25 mins', videoUrl: '', quiz: [{ q: 'What makes a good headline?', options: ['Being boring', 'Being clear and compelling', 'Using all caps'], correct: 1 }] }
                                 ]},
                                 { title: 'Module 3: SEO Writing', duration: '1 Week', lessons: [
-                                    { id: 'wri_m3_l1', title: 'Keyword Research', duration: '30 mins', quiz: [{ q: 'What is a keyword?', options: ['A password', 'A term users search for', 'A type of punctuation'], correct: 1 }] },
-                                    { id: 'wri_m3_l2', title: 'On-Page SEO', duration: '25 mins', quiz: [{ q: 'Where should primary keywords appear?', options: ['Only in the footer', 'Title, headings, and naturally in content', 'Nowhere'], correct: 1 }] }
+                                    { id: 'wri_m3_l1', title: 'Keyword Research', duration: '30 mins', videoUrl: '', quiz: [{ q: 'What is a keyword?', options: ['A password', 'A term users search for', 'A type of punctuation'], correct: 1 }] }
                                 ]},
                                 { title: 'Module 4: Social Media Content', duration: '1 Week', lessons: [
-                                    { id: 'wri_m4_l1', title: 'Captions & Hooks', duration: '25 mins', quiz: [{ q: 'What is a hook in social media?', options: ['A fishing tool', 'The first line that grabs attention', 'A hashtag'], correct: 1 }] }
+                                    { id: 'wri_m4_l1', title: 'Captions & Hooks', duration: '25 mins', videoUrl: '', quiz: [{ q: 'What is a hook in social media?', options: ['A fishing tool', 'The first line that grabs attention', 'A hashtag'], correct: 1 }] }
                                 ]},
                                 { title: 'Module 5: AI-Assisted Writing', duration: '1 Week', lessons: [
-                                    { id: 'wri_m5_l1', title: 'Prompting for Writers', duration: '25 mins', quiz: [{ q: 'How should writers use AI?', options: ['To replace themselves entirely', 'As a tool for brainstorming and drafting', 'To cheat on exams'], correct: 1 }] }
+                                    { id: 'wri_m5_l1', title: 'Prompting for Writers', duration: '25 mins', videoUrl: '', quiz: [{ q: 'How should writers use AI?', options: ['To replace themselves entirely', 'As a tool for brainstorming and drafting', 'To cheat on exams'], correct: 1 }] }
                                 ]},
                                 { title: 'Module 6: Portfolio Development', duration: '1 Week', lessons: [
-                                    { id: 'wri_m6_l1', title: 'Building a Portfolio', duration: '30 mins', quiz: [{ q: 'What should a writing portfolio contain?', options: ['Your best published work', 'Your shopping list', 'Random thoughts'], correct: 0 }] }
+                                    { id: 'wri_m6_l1', title: 'Building a Portfolio', duration: '30 mins', videoUrl: '', quiz: [{ q: 'What should a writing portfolio contain?', options: ['Your best published work', 'Your shopping list', 'Random thoughts'], correct: 0 }] }
                                 ]}
                             ]
                         }
                     ]);
                 }
-                if (!db.get('users')) db.set('users', []);
                 if (!db.get('enrollments')) db.set('enrollments', []);
                 if (!db.get('payments')) db.set('payments', []);
                 if (!db.get('certificates')) db.set('certificates', []);
@@ -804,7 +891,7 @@
                 if (data.password !== data.confirmPassword) { alert('Passwords do not match'); return; }
                 const users = db.get('users');
                 if (users.find(u => u.email === data.email)) { alert('Email already registered'); return; }
-                const newUser = { id: 'u_' + Date.now(), ...data, role: data.email.includes('admin') ? 'admin' : 'student', cnicMasked: data.cnic.replace(/(\d{5}-)\d{7}(-\d{1})/, '$1*******$2') };
+                const newUser = { id: 'u_' + Date.now(), ...data, role: data.email.includes('admin') ? 'admin' : 'student', cnicMasked: data.cnic.replace(/(\d{5}-)\d{7}(-\d{1})/, '$1*******$2'), createdAt: new Date().toISOString() };
                 users.push(newUser);
                 db.set('users', users);
                 auth.loginUser(newUser);
@@ -812,15 +899,17 @@
             login: (e) => {
                 e.preventDefault();
                 const form = new FormData(e.target);
-                const user = db.get('users').find(u => u.email === form.get('email') && u.password === form.get('password'));
+                const email = form.get('email');
+                const password = form.get('password');
+                const user = db.get('users').find(u => u.email === email && u.password === password);
                 if (user) auth.loginUser(user);
-                else alert('Invalid credentials. Try signing up first.');
+                else alert('Invalid credentials. Please check your email and password.');
             },
             googleLogin: () => {
                 const users = db.get('users');
                 let user = users.find(u => u.email === 'google_user@skillbridge.pk');
                 if (!user) {
-                    user = { id: 'u_google_' + Date.now(), fullName: 'Google User', email: 'google_user@skillbridge.pk', role: 'student', cnicMasked: 'XXXXX-*******-X' };
+                    user = { id: 'u_google_' + Date.now(), fullName: 'Google User', email: 'google_user@skillbridge.pk', password: '', role: 'student', cnicMasked: 'XXXXX-*******-X', createdAt: new Date().toISOString() };
                     users.push(user);
                     db.set('users', users);
                 }
@@ -830,7 +919,8 @@
                 auth.user = user;
                 db.set('session', user);
                 app.updateUIForAuth();
-                router.navigate('dashboard');
+                if (user.role === 'admin') router.navigate('admin');
+                else router.navigate('dashboard');
             },
             logout: () => {
                 auth.user = null;
@@ -863,12 +953,83 @@
             }
         };
 
+        // AI CHATBOT
+        const chatbot = {
+            isOpen: false,
+            toggle: () => {
+                this.isOpen = !this.isOpen;
+                const win = document.getElementById('chatbot-window');
+                const btn = document.getElementById('chatbot-toggle-btn');
+                if (this.isOpen) {
+                    win.classList.remove('hidden');
+                    btn.innerHTML = '<i class="fas fa-times text-2xl"></i>';
+                    btn.classList.remove('chatbot-pulse');
+                } else {
+                    win.classList.add('hidden');
+                    btn.innerHTML = '<i class="fas fa-comment-dots text-2xl"></i>';
+                }
+            },
+            quickAsk: (topic) => {
+                const messages = { 'course prices': 'What are the course prices?', 'how to pay': 'How do I make a payment?', 'certificate': 'How do I get a certificate?', 'courses': 'What courses do you offer?' };
+                document.getElementById('chat-input').value = messages[topic];
+                this.send(new Event('submit'));
+            },
+            send: (e) => {
+                e.preventDefault();
+                const input = document.getElementById('chat-input');
+                const msg = input.value.trim();
+                if (!msg) return;
+                this.addMessage(msg, 'user');
+                input.value = '';
+                const typingId = this.showTyping();
+                setTimeout(() => {
+                    this.removeTyping(typingId);
+                    this.addMessage(this.generateResponse(msg), 'bot');
+                }, 800 + Math.random() * 600);
+            },
+            addMessage: (text, sender) => {
+                const container = document.getElementById('chat-messages');
+                const msgDiv = document.createElement('div');
+                msgDiv.className = 'flex gap-3 items-start slide-up';
+                if (sender === 'user') {
+                    msgDiv.innerHTML = `<div class="ml-auto bg-primary text-white p-3 rounded-2xl rounded-tr-sm max-w-[85%] shadow-sm"><p class="text-sm leading-relaxed">${this.escapeHtml(text)}</p></div><div class="w-8 h-8 bg-slate-200 rounded-full flex items-center justify-center flex-shrink-0"><i class="fas fa-user text-slate-600 text-sm"></i></div>`;
+                } else {
+                    msgDiv.innerHTML = `<div class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0"><i class="fas fa-robot text-primary text-sm"></i></div><div class="bg-white p-3 rounded-2xl rounded-tl-sm shadow-sm max-w-[85%] border border-slate-100"><p class="text-sm text-slate-700 leading-relaxed">${text}</p></div>`;
+                }
+                container.appendChild(msgDiv);
+                container.scrollTop = container.scrollHeight;
+            },
+            showTyping: () => {
+                const container = document.getElementById('chat-messages');
+                const typingDiv = document.createElement('div');
+                const id = 'typing-' + Date.now();
+                typingDiv.id = id;
+                typingDiv.className = 'flex gap-3 items-start slide-up';
+                typingDiv.innerHTML = `<div class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0"><i class="fas fa-robot text-primary text-sm"></i></div><div class="bg-white p-3 rounded-2xl rounded-tl-sm shadow-sm border border-slate-100"><div class="typing-indicator"><span></span><span></span><span></span></div></div>`;
+                container.appendChild(typingDiv);
+                container.scrollTop = container.scrollHeight;
+                return id;
+            },
+            removeTyping: (id) => { const el = document.getElementById(id); if (el) el.remove(); },
+            escapeHtml: (text) => { const div = document.createElement('div'); div.textContent = text; return div.innerHTML; },
+            generateResponse: (msg) => {
+                const m = msg.toLowerCase();
+                if (m.includes('price') || m.includes('cost') || m.includes('fee')) return `Here are our course prices:<br><br>🤖 <strong>AI Automation:</strong> PKR 4,999 (6 Weeks)<br>🎨 <strong>Graphic Designing:</strong> PKR 4,499 (6 Weeks)<br>🔒 <strong>Cyber Security:</strong> PKR 5,499 (6 Weeks)<br>✍️ <strong>Content Writing:</strong> PKR 3,999 (5 Weeks)<br><br>All prices include lifetime access and a verified certificate! 🎓`;
+                if (m.includes('pay') || m.includes('payment') || m.includes('jazzcash') || m.includes('easypaisa')) return `We offer <strong>two payment methods</strong>:<br><br>💳 <strong>1. Direct Online Payment</strong> - Course unlocks instantly.<br><br>🏦 <strong>2. Manual Transfer</strong><br>JazzCash/Easypaisa: <strong>0300-1234567</strong><br>Punjab Bank: <strong>1234567890123</strong><br><br>📸 Upload screenshot + Transaction ID. Admin verifies within 24 hours!`;
+                if (m.includes('screenshot') || m.includes('verify') || m.includes('proof')) return `Here's how payment verification works:<br><br>1️⃣ Make the payment<br>2️⃣ Take a screenshot<br>3️⃣ Upload it with Transaction ID<br>4️⃣ Admin reviews within <strong>24 hours</strong><br>5️⃣ Course unlocks automatically! 🎉`;
+                if (m.includes('certificate') || m.includes('certification')) return `Yes! 🎓 Every course includes a <strong>verified QR-coded certificate</strong>.<br><br>To earn it:<br>✅ Complete all modules<br>✅ Pass all quizzes (50%+)<br>✅ Pass final assessment (60%+)<br><br>Your certificate shows your <strong>Grade (A/B/C)</strong> and can be downloaded as PDF or PNG!`;
+                if (m.includes('course') || m.includes('what do you offer')) return `We offer <strong>4 premium courses</strong>:<br><br>🤖 <strong>AI Automation</strong><br>🎨 <strong>Graphic Designing</strong><br>🔒 <strong>Cyber Security</strong><br>✍️ <strong>Content Writing</strong><br><br>Each includes video lessons, quizzes, and a verified certificate!`;
+                if (m.includes('duration') || m.includes('time') || m.includes('week')) return `Course durations:<br><br>🤖 AI Automation: <strong>6 Weeks</strong><br>🎨 Graphic Designing: <strong>6 Weeks</strong><br>🔒 Cyber Security: <strong>6 Weeks</strong><br>✍️ Content Writing: <strong>5 Weeks</strong><br><br>You get <strong>lifetime access</strong>! 📚`;
+                if (m.includes('hi') || m.includes('hello') || m.includes('hey')) return `Hello! 👋 Welcome to SkillBridge Pakistan. How can I help you today?`;
+                if (m.includes('thank')) return `You're welcome! 😊 Happy learning! 🎓`;
+                return `I'd be happy to help! For specific account questions, please contact <strong>support@skillbridge.pk</strong> or call <strong>+92 300 1234567</strong>.<br><br>Try asking about: Course prices, Payment methods, Certificates, or Enrollment process.`;
+            }
+        };
+
         const app = {
             currentCourseId: null, currentEnrollment: null, currentCourse: null,
             currentM: 0, currentL: 0, currentLessonId: '', currentQuizAnswers: {},
-
             init: () => { db.init(); auth.init(); app.renderCourses(); },
-
             updateUIForAuth: () => {
                 const authBtns = document.getElementById('auth-buttons');
                 const userMenu = document.getElementById('user-menu');
@@ -885,7 +1046,6 @@
                     userMenu.classList.remove('flex');
                 }
             },
-
             renderCourses: () => {
                 const courses = db.get('courses');
                 const container = document.getElementById('courses-grid') || document.getElementById('home-courses-grid');
@@ -897,53 +1057,37 @@
                     const matchesFilter = filter === 'all' || c.category === filter;
                     return matchesSearch && matchesFilter;
                 });
-
                 container.innerHTML = filtered.map(c => {
                     const isEnrolled = app.isEnrolled(c.id);
-                    const totalLessons = c.modules.reduce((sum, m) => sum + m.lessons.length, 0);
-                    return `
-                        <div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden hover-lift flex flex-col group">
-                            <div class="relative overflow-hidden cursor-pointer" onclick="app.showCourseDetail('${c.id}')">
-                                <img src="${c.image}" class="w-full h-52 object-cover group-hover:scale-105 transition-transform duration-500">
-                                <div class="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors flex items-center justify-center">
-                                    <div class="bg-white/95 backdrop-blur text-dark px-5 py-2.5 rounded-full font-bold flex items-center gap-2 shadow-xl transform group-hover:scale-105 transition-transform">
-                                        <i class="fas fa-play-circle text-red-600 text-xl"></i> Watch Trail Video
-                                    </div>
-                                </div>
-                                <div class="absolute top-3 left-3 bg-white/90 backdrop-blur text-dark text-xs px-3 py-1.5 rounded-full font-bold shadow-sm">${c.category}</div>
-                                <div class="absolute bottom-3 right-3 bg-gold text-dark text-xs px-3 py-1.5 rounded-full font-bold shadow-lg flex items-center gap-1"><i class="fas fa-award"></i> Graded Certificate</div>
+                    return `<div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden hover-lift flex flex-col group">
+                        <div class="relative overflow-hidden cursor-pointer" onclick="app.showCourseDetail('${c.id}')">
+                            <img src="${c.image}" class="w-full h-52 object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+                                <div class="bg-white/95 backdrop-blur text-dark px-5 py-2.5 rounded-full font-bold flex items-center gap-2 shadow-xl"><i class="fas fa-play-circle text-red-600 text-xl"></i> Watch Trail Video</div>
                             </div>
-                            <div class="p-6 flex-1 flex flex-col">
-                                <div class="flex justify-between items-start mb-3"><span class="text-gold font-extrabold text-lg">PKR ${c.price.toLocaleString()}</span></div>
-                                <h3 class="text-xl font-bold text-dark mb-3 cursor-pointer hover:text-primary transition" onclick="app.showCourseDetail('${c.id}')">${c.title}</h3>
-                                <p class="text-slate-500 text-sm mb-5 flex-1 leading-relaxed">${c.description}</p>
-                                <div class="flex items-center text-sm text-slate-500 mb-4 space-x-4 font-medium">
-                                    <span><i class="far fa-clock mr-1.5 text-primary"></i> ${c.duration}</span>
-                                    <span><i class="fas fa-signal mr-1.5 text-primary"></i> ${c.level}</span>
-                                </div>
-                                <div class="flex items-center text-xs text-slate-500 mb-5 space-x-4 pb-5 border-b border-slate-100">
-                                    <span><i class="fas fa-book-open mr-1.5 text-primary"></i> ${c.modules.length} Modules</span>
-                                    <span><i class="fas fa-play-circle mr-1.5 text-primary"></i> ${totalLessons} Lessons</span>
-                                </div>
-                                ${isEnrolled ? 
-                                    `<button onclick="router.navigate('dashboard')" class="w-full bg-success/10 text-success py-3.5 rounded-xl font-bold cursor-default flex items-center justify-center gap-2"><i class="fas fa-check-circle"></i> Already Enrolled</button>` :
-                                    `<button onclick="app.showCourseDetail('${c.id}')" class="w-full bg-primary text-white py-3.5 rounded-xl font-bold hover:bg-indigo-700 transition shadow-lg shadow-indigo-500/20 flex items-center justify-center gap-2">View Details & Enroll <i class="fas fa-arrow-right"></i></button>`
-                                }
-                            </div>
+                            <div class="absolute top-3 left-3 bg-white/90 backdrop-blur text-dark text-xs px-3 py-1.5 rounded-full font-bold shadow-sm">${c.category}</div>
                         </div>
-                    `;
+                        <div class="p-6 flex-1 flex flex-col">
+                            <div class="flex justify-between items-start mb-3"><span class="text-gold font-extrabold text-lg">PKR ${c.price.toLocaleString()}</span></div>
+                            <h3 class="text-xl font-bold text-dark mb-3 cursor-pointer hover:text-primary transition" onclick="app.showCourseDetail('${c.id}')">${c.title}</h3>
+                            <p class="text-slate-500 text-sm mb-5 flex-1 leading-relaxed">${c.description}</p>
+                            <div class="flex items-center text-sm text-slate-500 mb-6 space-x-4 font-medium">
+                                <span><i class="far fa-clock mr-1.5 text-primary"></i> ${c.duration}</span>
+                                <span><i class="fas fa-signal mr-1.5 text-primary"></i> ${c.level}</span>
+                            </div>
+                            ${isEnrolled ? `<button onclick="router.navigate('dashboard')" class="w-full bg-success/10 text-success py-3.5 rounded-xl font-bold cursor-default flex items-center justify-center gap-2"><i class="fas fa-check-circle"></i> Already Enrolled</button>` : `<button onclick="app.showCourseDetail('${c.id}')" class="w-full bg-primary text-white py-3.5 rounded-xl font-bold hover:bg-indigo-700 transition shadow-lg shadow-indigo-500/20 flex items-center justify-center gap-2">View Details & Enroll <i class="fas fa-arrow-right"></i></button>`}
+                        </div>
+                    </div>`;
                 }).join('');
             },
-
             filterCourses: () => { app.renderCourses(); },
             isEnrolled: (courseId) => {
                 if (!auth.user) return false;
                 return (db.get('enrollments') || []).some(e => e.userId === auth.user.id && e.courseId === courseId && e.status !== 'Rejected');
             },
-
             confirmEnrollment: (courseId) => {
                 if (!auth.requireAuth()) return;
-                if (app.isEnrolled(courseId)) { alert('You are already enrolled in this course.'); router.navigate('dashboard'); return; }
+                if (app.isEnrolled(courseId)) { alert('You are already enrolled.'); router.navigate('dashboard'); return; }
                 const course = db.get('courses').find(c => c.id === courseId);
                 document.getElementById('enroll-course-name').textContent = course.title;
                 document.getElementById('enroll-course-price').textContent = `PKR ${course.price.toLocaleString()}`;
@@ -955,48 +1099,28 @@
                 };
                 document.getElementById('enroll-modal').classList.remove('hidden');
             },
-
-            cancelEnrollment: () => {
-                document.getElementById('enroll-modal').classList.add('hidden');
-                router.navigate('courses');
-            },
-
+            cancelEnrollment: () => { document.getElementById('enroll-modal').classList.add('hidden'); router.navigate('courses'); },
             renderCheckout: () => {
                 const course = db.get('courses').find(c => c.id === app.currentCourseId);
-                document.getElementById('checkout-summary').innerHTML = `
-                    <div class="flex gap-4 mb-4">
-                        <img src="${course.image}" class="w-16 h-16 rounded-xl object-cover">
-                        <div><h4 class="font-bold text-dark">${course.title}</h4><p class="text-sm text-slate-500">${course.duration}</p></div>
-                    </div>`;
+                document.getElementById('checkout-summary').innerHTML = `<div class="flex gap-4 mb-4"><img src="${course.image}" class="w-16 h-16 rounded-xl object-cover"><div><h4 class="font-bold text-dark">${course.title}</h4><p class="text-sm text-slate-500">${course.duration}</p></div></div>`;
                 document.getElementById('checkout-subtotal').textContent = `PKR ${course.price.toLocaleString()}`;
                 document.getElementById('checkout-total').textContent = `PKR ${course.price.toLocaleString()}`;
             },
-
             togglePaymentFields: () => {
                 const method = document.querySelector('input[name="payment_method"]:checked')?.value;
                 const manualFields = document.getElementById('manual-payment-fields');
                 const trxInput = manualFields.querySelector('input[name="transaction_id"]');
                 const fileInput = manualFields.querySelector('input[name="payment_proof"]');
-                if (method === 'manual') {
-                    manualFields.classList.remove('hidden');
-                    trxInput.required = true; fileInput.required = true;
-                } else {
-                    manualFields.classList.add('hidden');
-                    trxInput.required = false; fileInput.required = false;
-                }
+                if (method === 'manual') { manualFields.classList.remove('hidden'); trxInput.required = true; fileInput.required = true; }
+                else { manualFields.classList.add('hidden'); trxInput.required = false; fileInput.required = false; }
             },
-
             handleFileSelect: (input) => {
                 if (input.files && input.files[0]) {
                     const reader = new FileReader();
-                    reader.onload = (e) => {
-                        document.getElementById('proof-preview').src = e.target.result;
-                        document.getElementById('proof-preview').classList.remove('hidden');
-                    };
+                    reader.onload = (e) => { document.getElementById('proof-preview').src = e.target.result; document.getElementById('proof-preview').classList.remove('hidden'); };
                     reader.readAsDataURL(input.files[0]);
                 }
             },
-
             processPayment: (e) => {
                 e.preventDefault();
                 const method = document.querySelector('input[name="payment_method"]:checked').value;
@@ -1004,19 +1128,18 @@
                 const btn = document.getElementById('pay-btn');
                 btn.innerHTML = '<span class="loader"></span> Processing Securely...';
                 btn.disabled = true;
-
                 setTimeout(() => {
                     const payments = db.get('payments') || [];
                     const enrollments = db.get('enrollments') || [];
                     if (method === 'direct') {
                         payments.push({ id: 'pay_' + Date.now(), userId: auth.user.id, courseId: course.id, amount: course.price, method: 'Direct Online', status: 'Approved', createdAt: new Date().toISOString() });
                         enrollments.push({ id: 'enr_' + Date.now(), userId: auth.user.id, courseId: course.id, paymentId: payments[payments.length-1].id, status: 'Active', progress: 0, completedLessons: [], quizScores: {} });
-                        alert('Payment Successful! Your course is now active and ready to learn.');
+                        alert('✅ Payment Successful! Your course is now active.');
                     } else {
                         const form = new FormData(e.target);
                         payments.push({ id: 'pay_' + Date.now(), userId: auth.user.id, courseId: course.id, amount: course.price, method: 'Manual Transfer', transactionId: form.get('transaction_id'), proof: document.getElementById('proof-preview').src, status: 'Pending', createdAt: new Date().toISOString() });
                         enrollments.push({ id: 'enr_' + Date.now(), userId: auth.user.id, courseId: course.id, paymentId: payments[payments.length-1].id, status: 'Payment Pending', progress: 0, completedLessons: [], quizScores: {} });
-                        alert('Payment proof submitted successfully. Our admin team will verify it within 24 hours.');
+                        alert('📸 Payment proof submitted! Admin will verify within 24 hours.');
                     }
                     db.set('payments', payments);
                     db.set('enrollments', enrollments);
@@ -1025,73 +1148,37 @@
                     router.navigate('dashboard');
                 }, 1500);
             },
-
             showCourseDetail: (courseId) => {
                 app.currentCourseId = courseId;
                 const course = db.get('courses').find(c => c.id === courseId);
                 const isEnrolled = app.isEnrolled(courseId);
-                const totalLessons = course.modules.reduce((sum, m) => sum + m.lessons.length, 0);
-                
-                // CHANGED: Modules are now EXPANDED by default (no 'hidden' class)
                 let curriculumHtml = course.modules.map((m, mIdx) => `
-                    <div class="border border-slate-200 rounded-2xl overflow-hidden mb-4 bg-white shadow-sm">
-                        <div class="bg-gradient-to-r from-slate-50 to-white p-5 font-bold flex justify-between items-center">
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 bg-primary/10 text-primary rounded-xl flex items-center justify-center font-extrabold">${mIdx + 1}</div>
-                                <span class="text-dark">${m.title}</span>
-                            </div>
-                            <span class="text-sm text-slate-500 font-normal bg-white px-3 py-1.5 rounded-full border border-slate-200"><i class="far fa-clock mr-1"></i> ${m.duration}</span>
+                    <div class="border border-slate-200 rounded-2xl overflow-hidden mb-4 bg-white">
+                        <div class="bg-slate-50 p-5 font-bold flex justify-between items-center cursor-pointer hover:bg-slate-100 transition" onclick="this.nextElementSibling.classList.toggle('hidden')">
+                            <span class="text-dark">${m.title}</span>
+                            <span class="text-sm text-slate-500 font-normal bg-white px-3 py-1 rounded-full border border-slate-200"><i class="far fa-clock mr-1"></i> ${m.duration}</span>
                         </div>
-                        <div class="p-5 space-y-3 bg-slate-50/50">
-                            ${m.lessons.map((l, lIdx) => `
-                                <div class="flex justify-between items-center text-sm text-slate-700 pl-5 border-l-4 border-primary/30 py-2 bg-white rounded-r-lg">
-                                    <div class="flex items-center gap-3">
-                                        <i class="fas fa-play-circle text-primary/60"></i>
-                                        <span class="font-medium">${l.title}</span>
-                                    </div>
-                                    <span class="text-slate-500 bg-slate-100 px-3 py-1 rounded-full text-xs font-semibold">${l.duration}</span>
-                                </div>
-                            `).join('')}
+                        <div class="p-5 space-y-4 hidden">
+                            ${m.lessons.map((l) => `<div class="flex justify-between items-center text-sm text-slate-700 pl-4 border-l-4 border-primary/30 py-2"><span class="font-medium">${l.title}</span><span class="text-slate-500 bg-slate-100 px-3 py-1 rounded-full text-xs font-semibold">${l.duration}</span></div>`).join('')}
                         </div>
-                    </div>
-                `).join('');
-
+                    </div>`).join('');
                 document.getElementById('course-detail-content').innerHTML = `
                     <div class="lg:col-span-2 space-y-8">
                         <div>
                             <span class="bg-primary/10 text-primary text-xs px-3 py-1.5 rounded-full font-bold uppercase tracking-wider">${course.category}</span>
                             <h1 class="text-4xl font-extrabold text-dark mt-4 mb-4 leading-tight">${course.title}</h1>
                             <p class="text-slate-600 text-lg leading-relaxed">${course.description}</p>
-                            <div class="flex flex-wrap gap-3 mt-5">
-                                <span class="bg-gold/10 text-gold px-4 py-2 rounded-full text-sm font-bold flex items-center gap-2"><i class="fas fa-award"></i> Graded Certificate (A, B, C)</span>
-                                <span class="bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-bold flex items-center gap-2"><i class="fas fa-book-open"></i> ${course.modules.length} Modules</span>
-                                <span class="bg-secondary/10 text-secondary px-4 py-2 rounded-full text-sm font-bold flex items-center gap-2"><i class="fas fa-play-circle"></i> ${totalLessons} Lessons</span>
-                            </div>
                         </div>
-                        
                         <div class="bg-dark rounded-3xl overflow-hidden shadow-2xl border border-slate-700">
-                            <div class="aspect-video">
-                                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/${course.videoId}" title="Course Trail Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                            </div>
-                            <div class="p-5 bg-slate-900 text-white flex items-center gap-3">
-                                <i class="fas fa-play-circle text-red-500 text-xl"></i>
-                                <span class="font-bold">Official Course Trail Video — Watch before enrolling</span>
-                            </div>
+                            <div class="aspect-video"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/${course.videoId}" title="Course Trail Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                            <div class="p-5 bg-slate-900 text-white flex items-center gap-3"><i class="fas fa-play-circle text-red-500 text-xl"></i><span class="font-bold">Official Course Trail Video</span></div>
                         </div>
-
                         <div>
-                            <div class="flex items-center justify-between mb-6">
-                                <h3 class="text-2xl font-extrabold text-dark flex items-center gap-2"><i class="fas fa-list-ul text-primary"></i> Full Course Outline</h3>
-                                <span class="bg-primary text-white px-4 py-2 rounded-full text-sm font-bold">${totalLessons} Total Lessons</span>
-                            </div>
-                            <p class="text-slate-600 mb-6 bg-blue-50 p-4 rounded-xl border border-blue-100 text-sm">
-                                <i class="fas fa-info-circle text-primary mr-2"></i>
-                                This comprehensive curriculum is designed to take you from beginner to job-ready. Each module includes practical lessons and knowledge-check quizzes. <strong>All modules are shown below so you know exactly what you'll learn.</strong>
-                            </p>
+                            <h3 class="text-2xl font-extrabold text-dark mb-6 flex items-center gap-2"><i class="fas fa-list-ul text-primary"></i> Full Course Outline</h3>
+                            <p class="text-slate-600 mb-6">This comprehensive curriculum is designed to take you from beginner to job-ready.</p>
                             ${curriculumHtml}
                         </div>
                     </div>
-                    
                     <div class="lg:col-span-1">
                         <div class="bg-white p-8 rounded-3xl shadow-soft border border-slate-100 sticky top-28">
                             <img src="${course.image}" class="w-full h-48 object-cover rounded-2xl mb-6">
@@ -1099,21 +1186,15 @@
                             <div class="space-y-4 mb-8 text-sm text-slate-600 font-medium">
                                 <div class="flex items-center"><i class="far fa-clock w-8 text-center mr-3 text-primary"></i> ${course.duration} Duration</div>
                                 <div class="flex items-center"><i class="fas fa-signal w-8 text-center mr-3 text-primary"></i> ${course.level} Level</div>
-                                <div class="flex items-center"><i class="fas fa-award w-8 text-center mr-3 text-gold"></i> <span>Graded Certificate (A, B, C)</span></div>
-                                <div class="flex items-center"><i class="fas fa-qrcode w-8 text-center mr-3 text-primary"></i> QR-Verified Authenticity</div>
+                                <div class="flex items-center"><i class="fas fa-certificate w-8 text-center mr-3 text-primary"></i> Verified QR Certificate</div>
                                 <div class="flex items-center"><i class="fas fa-infinity w-8 text-center mr-3 text-primary"></i> Lifetime Access</div>
                             </div>
-                            ${isEnrolled ? 
-                                `<button onclick="router.navigate('dashboard')" class="w-full bg-success text-white py-4 rounded-xl font-bold cursor-default flex items-center justify-center gap-2"><i class="fas fa-check-circle"></i> Already Enrolled</button>` :
-                                `<button onclick="app.confirmEnrollment('${course.id}')" class="w-full bg-primary text-white py-4 rounded-xl font-bold hover:bg-indigo-700 transition shadow-lg shadow-indigo-500/30 flex items-center justify-center gap-2">Enroll Now <i class="fas fa-arrow-right"></i></button>`
-                            }
+                            ${isEnrolled ? `<button onclick="router.navigate('dashboard')" class="w-full bg-success text-white py-4 rounded-xl font-bold cursor-default flex items-center justify-center gap-2"><i class="fas fa-check-circle"></i> Already Enrolled</button>` : `<button onclick="app.confirmEnrollment('${course.id}')" class="w-full bg-primary text-white py-4 rounded-xl font-bold hover:bg-indigo-700 transition shadow-lg shadow-indigo-500/30 flex items-center justify-center gap-2">Enroll Now <i class="fas fa-arrow-right"></i></button>`}
                             <p class="text-xs text-center text-slate-400 mt-5 font-medium">30-Day Money-Back Guarantee • Secure Checkout</p>
                         </div>
-                    </div>
-                `;
+                    </div>`;
                 router.navigate('course-detail');
             },
-
             renderDashboard: () => {
                 if (!auth.requireAuth()) return;
                 const enrollments = (db.get('enrollments') || []).filter(e => e.userId === auth.user.id);
@@ -1122,7 +1203,8 @@
                 document.getElementById('stat-completed').textContent = enrollments.filter(e => e.status === 'Completed' || e.status === 'Certified').length;
                 document.getElementById('stat-certificates').textContent = (db.get('certificates') || []).filter(c => c.userId === auth.user.id).length;
                 document.getElementById('stat-pending').textContent = enrollments.filter(e => e.status === 'Payment Pending').length;
-
+                const hasPending = enrollments.some(e => e.status === 'Payment Pending');
+                document.getElementById('pending-payment-alert').classList.toggle('hidden', !hasPending);
                 const container = document.getElementById('dashboard-courses');
                 if (enrollments.length === 0) {
                     container.innerHTML = '<div class="bg-white p-12 rounded-3xl shadow-sm border border-slate-100 text-center"><p class="text-slate-500 mb-4">You are not enrolled in any courses yet.</p><button onclick="router.navigate(\'courses\')" class="bg-primary text-white px-6 py-3 rounded-xl font-bold hover:bg-indigo-700 transition">Browse Courses</button></div>';
@@ -1131,30 +1213,23 @@
                 container.innerHTML = enrollments.map(e => {
                     const course = courses.find(c => c.id === e.courseId);
                     let actionBtn = '', statusColor = 'text-slate-500';
-                    if (e.status === 'Payment Pending') { statusColor = 'text-warning'; actionBtn = `<span class="text-warning font-bold flex items-center gap-2 bg-warning/10 px-4 py-2 rounded-xl"><i class="fas fa-clock"></i> Pending Admin Verification</span>`; }
-                    else if (e.status === 'Rejected') { statusColor = 'text-red-600'; actionBtn = `<span class="text-red-600 font-bold flex items-center gap-2 bg-red-50 px-4 py-2 rounded-xl"><i class="fas fa-times-circle"></i> Payment Rejected. Contact support.</span>`; }
-                    else if (e.status === 'Assessment Pending') { statusColor = 'text-primary'; actionBtn = `<button onclick="app.startEntryAssessment('${e.id}')" class="bg-warning text-dark px-6 py-3 rounded-xl font-bold hover:bg-yellow-400 transition shadow-sm">Take Entry Assessment</button>`; }
+                    if (e.status === 'Payment Pending') { statusColor = 'text-warning'; actionBtn = `<div class="text-center"><span class="text-warning font-bold flex items-center gap-2 bg-warning/10 px-4 py-2 rounded-xl mb-2"><i class="fas fa-hourglass-half"></i> Pending Verification</span><p class="text-xs text-slate-500">Admin will approve within 24 hours</p></div>`; }
+                    else if (e.status === 'Rejected') { statusColor = 'text-red-600'; actionBtn = `<span class="text-red-600 font-bold flex items-center gap-2 bg-red-50 px-4 py-2 rounded-xl"><i class="fas fa-times-circle"></i> Payment Rejected</span>`; }
                     else if (e.status === 'Active') { statusColor = 'text-success'; actionBtn = `<button onclick="app.openCourse('${e.id}')" class="bg-primary text-white px-6 py-3 rounded-xl font-bold hover:bg-indigo-700 transition shadow-lg shadow-indigo-500/20">Continue Learning</button>`; }
                     else if (e.status === 'Completed' || e.status === 'Certified') { statusColor = 'text-success'; actionBtn = `<button onclick="router.navigate('certificates')" class="bg-success text-white px-6 py-3 rounded-xl font-bold hover:bg-green-700 transition shadow-sm">View Certificate</button>`; }
-
-                    return `
-                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col md:flex-row justify-between items-center gap-6 hover:border-primary/20 transition">
-                            <div class="flex items-center gap-5 flex-1 w-full">
-                                <img src="${course.image}" class="w-24 h-24 rounded-xl object-cover shadow-sm">
-                                <div class="flex-1">
-                                    <h4 class="font-bold text-lg text-dark mb-2">${course.title}</h4>
-                                    <div class="w-full md:w-64 bg-slate-100 rounded-full h-3 mb-2 overflow-hidden">
-                                        <div class="bg-gradient-to-r from-primary to-secondary h-3 rounded-full transition-all duration-700" style="width: ${e.progress}%"></div>
-                                    </div>
-                                    <p class="text-sm ${statusColor} font-bold">${e.progress}% Complete • ${e.status}</p>
-                                </div>
+                    return `<div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col md:flex-row justify-between items-center gap-6 hover:border-primary/20 transition">
+                        <div class="flex items-center gap-5 flex-1 w-full">
+                            <img src="${course.image}" class="w-24 h-24 rounded-xl object-cover shadow-sm">
+                            <div class="flex-1">
+                                <h4 class="font-bold text-lg text-dark mb-2">${course.title}</h4>
+                                <div class="w-full md:w-64 bg-slate-100 rounded-full h-3 mb-2 overflow-hidden"><div class="bg-gradient-to-r from-primary to-secondary h-3 rounded-full transition-all duration-700" style="width: ${e.progress}%"></div></div>
+                                <p class="text-sm ${statusColor} font-bold">${e.progress}% Complete • ${e.status}</p>
                             </div>
-                            <div class="w-full md:w-auto">${actionBtn}</div>
                         </div>
-                    `;
+                        <div class="w-full md:w-auto">${actionBtn}</div>
+                    </div>`;
                 }).join('');
             },
-
             openCourse: (enrollmentId) => {
                 const enrollments = db.get('enrollments');
                 const enrollment = enrollments.find(e => e.id === enrollmentId);
@@ -1164,7 +1239,6 @@
                 document.getElementById('learn-course-title').textContent = course.title;
                 document.getElementById('learn-progress-bar').style.width = `${enrollment.progress}%`;
                 document.getElementById('learn-progress-text').textContent = enrollment.progress;
-
                 document.getElementById('learn-modules').innerHTML = course.modules.map((m, mIdx) => `
                     <div class="border border-slate-700 rounded-xl overflow-hidden bg-slate-800/50">
                         <div class="p-4 font-bold text-sm text-slate-200 cursor-pointer hover:bg-slate-700/50 transition flex justify-between items-center" onclick="this.nextElementSibling.classList.toggle('hidden')">
@@ -1178,25 +1252,17 @@
                                 else if (mIdx > 0) prevLessonId = course.modules[mIdx - 1].lessons[course.modules[mIdx - 1].lessons.length - 1].id;
                                 const actuallyLocked = prevLessonId && !enrollment.completedLessons.includes(prevLessonId);
                                 const isCompleted = enrollment.completedLessons.includes(l.id);
-                                return `
-                                    <div onclick="${actuallyLocked ? '' : `app.loadLesson(${mIdx}, ${lIdx}, '${l.id}')`}" class="p-4 pl-6 text-sm border-t border-slate-700 cursor-pointer hover:bg-slate-700/50 transition flex justify-between items-center ${actuallyLocked ? 'text-slate-500 bg-slate-900/50' : (isCompleted ? 'text-success font-bold' : 'text-slate-300')}">
-                                        <div class="flex items-center gap-3">
-                                            ${actuallyLocked ? '<i class="fas fa-lock text-xs"></i>' : (isCompleted ? '<i class="fas fa-check-circle"></i>' : '<i class="far fa-circle"></i>')}
-                                            <span>${l.title}</span>
-                                        </div>
-                                        <span class="text-xs text-slate-500 bg-slate-900 px-2 py-1 rounded">${l.duration}</span>
-                                    </div>
-                                `;
+                                return `<div onclick="${actuallyLocked ? '' : `app.loadLesson(${mIdx}, ${lIdx}, '${l.id}')`}" class="p-4 pl-6 text-sm border-t border-slate-700 cursor-pointer hover:bg-slate-700/50 transition flex justify-between items-center ${actuallyLocked ? 'text-slate-500 bg-slate-900/50' : (isCompleted ? 'text-success font-bold' : 'text-slate-300')}">
+                                    <div class="flex items-center gap-3">${actuallyLocked ? '<i class="fas fa-lock text-xs"></i>' : (isCompleted ? '<i class="fas fa-check-circle"></i>' : '<i class="far fa-circle"></i>')}<span>${l.title}</span></div>
+                                    <span class="text-xs text-slate-500 bg-slate-900 px-2 py-1 rounded">${l.duration}</span>
+                                </div>`;
                             }).join('')}
                         </div>
-                    </div>
-                `).join('');
-
+                    </div>`).join('');
                 const firstLesson = course.modules[0].lessons[0];
                 app.loadLesson(0, 0, firstLesson.id);
                 router.navigate('learn');
             },
-
             loadLesson: (mIdx, lIdx, lessonId) => {
                 app.currentM = mIdx; app.currentL = lIdx; app.currentLessonId = lessonId;
                 const lesson = app.currentCourse.modules[mIdx].lessons[lIdx];
@@ -1206,10 +1272,9 @@
                 const totalLessons = app.currentCourse.modules.reduce((sum, m) => sum + m.lessons.length, 0);
                 document.getElementById('final-assessment-unlock').classList.toggle('hidden', app.currentEnrollment.completedLessons.length < totalLessons);
             },
-
             triggerLessonQuiz: () => {
                 const lesson = app.currentCourse.modules[app.currentM].lessons[app.currentL];
-                if (app.currentEnrollment.completedLessons.includes(app.currentLessonId)) { alert('You have already completed and passed this lesson.'); return; }
+                if (app.currentEnrollment.completedLessons.includes(app.currentLessonId)) { alert('You have already completed this lesson.'); return; }
                 app.currentQuizAnswers = {};
                 const modal = document.getElementById('quiz-modal');
                 document.getElementById('quiz-result').classList.add('hidden');
@@ -1219,18 +1284,11 @@
                     <div class="border-b border-slate-100 pb-6 last:border-0">
                         <p class="font-bold text-dark mb-4 text-lg">${qIdx + 1}. ${q.q}</p>
                         <div class="space-y-3">
-                            ${q.options.map((opt, optIdx) => `
-                                <label class="flex items-center space-x-4 cursor-pointer p-4 rounded-xl border border-slate-200 hover:bg-primary/5 hover:border-primary/30 transition">
-                                    <input type="radio" name="q${qIdx}" value="${optIdx}" class="w-5 h-5 text-primary focus:ring-primary" onchange="app.currentQuizAnswers[${qIdx}] = ${optIdx}">
-                                    <span class="text-slate-700 font-medium">${opt}</span>
-                                </label>
-                            `).join('')}
+                            ${q.options.map((opt, optIdx) => `<label class="flex items-center space-x-4 cursor-pointer p-4 rounded-xl border border-slate-200 hover:bg-primary/5 hover:border-primary/30 transition"><input type="radio" name="q${qIdx}" value="${optIdx}" class="w-5 h-5 text-primary focus:ring-primary" onchange="app.currentQuizAnswers[${qIdx}] = ${optIdx}"><span class="text-slate-700 font-medium">${opt}</span></label>`).join('')}
                         </div>
-                    </div>
-                `).join('');
+                    </div>`).join('');
                 modal.classList.remove('hidden');
             },
-
             submitLessonQuiz: () => {
                 const lesson = app.currentCourse.modules[app.currentM].lessons[app.currentL];
                 let correct = 0;
@@ -1239,7 +1297,6 @@
                 const passed = score >= 50;
                 const resultDiv = document.getElementById('quiz-result');
                 resultDiv.classList.remove('hidden');
-                
                 if (passed) {
                     resultDiv.className = 'mt-6 p-5 rounded-xl text-center font-bold text-lg bg-green-100 text-green-800 border border-green-200';
                     resultDiv.innerHTML = `<i class="fas fa-check-circle mr-2"></i> Passed! Score: ${score}%. Next lesson unlocked.`;
@@ -1258,10 +1315,9 @@
                     setTimeout(() => { document.getElementById('quiz-modal').classList.add('hidden'); app.openCourse(app.currentEnrollment.id); }, 1500);
                 } else {
                     resultDiv.className = 'mt-6 p-5 rounded-xl text-center font-bold text-lg bg-red-100 text-red-800 border border-red-200';
-                    resultDiv.innerHTML = `<i class="fas fa-times-circle mr-2"></i> Failed. Score: ${score}%. You need 50% to proceed. Review the material and try again.`;
+                    resultDiv.innerHTML = `<i class="fas fa-times-circle mr-2"></i> Failed. Score: ${score}%. You need 50% to proceed.`;
                 }
             },
-
             nextLesson: () => {
                 for(let m=0; m<app.currentCourse.modules.length; m++) {
                     for(let l=0; l<app.currentCourse.modules[m].lessons.length; l++) {
@@ -1273,46 +1329,11 @@
                     }
                 }
             },
-
             prevLesson: () => {
                 if(app.currentM === 0 && app.currentL === 0) return;
-                if(app.currentL === 0) {
-                    const prevM = app.currentCourse.modules[app.currentM - 1];
-                    app.loadLesson(app.currentM - 1, prevM.lessons.length - 1, prevM.lessons[prevM.lessons.length - 1].id);
-                } else {
-                    app.loadLesson(app.currentM, app.currentL - 1, app.currentCourse.modules[app.currentM].lessons[app.currentL - 1].id);
-                }
+                if(app.currentL === 0) { const prevM = app.currentCourse.modules[app.currentM - 1]; app.loadLesson(app.currentM - 1, prevM.lessons.length - 1, prevM.lessons[prevM.lessons.length - 1].id); }
+                else app.loadLesson(app.currentM, app.currentL - 1, app.currentCourse.modules[app.currentM].lessons[app.currentL - 1].id);
             },
-
-            startEntryAssessment: (enrollmentId) => {
-                if (!auth.requireAuth()) return;
-                app.currentAssessment = { type: 'entry', enrollmentId, questions: [
-                    { q: "What is the main goal of SkillBridge Pakistan?", options: ["To sell hardware", "To provide practical skills and certificates", "To play games"], correct: 1 },
-                    { q: "Are the certificates verifiable?", options: ["Yes, via QR code", "No", "Only for admins"], correct: 0 }
-                ], answers: {} };
-                app.renderAssessment();
-                router.navigate('assessment');
-            },
-
-            renderAssessment: () => {
-                const { questions } = app.currentAssessment;
-                document.getElementById('assessment-title').textContent = app.currentAssessment.type === 'entry' ? 'Entry Assessment' : 'Final Graded Assessment';
-                document.getElementById('assessment-progress').textContent = `Question 1/${questions.length}`;
-                document.getElementById('assessment-questions').innerHTML = questions.map((q, idx) => `
-                    <div class="border-b border-slate-100 pb-6 last:border-0">
-                        <p class="font-bold text-dark mb-4 text-lg">${idx + 1}. ${q.q}</p>
-                        <div class="space-y-3">
-                            ${q.options.map((opt, optIdx) => `
-                                <label class="flex items-center space-x-4 cursor-pointer p-4 rounded-xl border border-slate-200 hover:bg-primary/5 hover:border-primary/30 transition">
-                                    <input type="radio" name="q${idx}" value="${optIdx}" class="w-5 h-5 text-primary focus:ring-primary" onchange="app.currentAssessment.answers[${idx}] = ${optIdx}">
-                                    <span class="text-slate-700 font-medium">${opt}</span>
-                                </label>
-                            `).join('')}
-                        </div>
-                    </div>
-                `).join('');
-            },
-
             startFinalAssessment: () => {
                 app.currentAssessment = { type: 'final', enrollmentId: app.currentEnrollment.id, questions: [
                     { q: "What is the core focus of SkillBridge Pakistan?", options: ["Gaming", "Practical career-focused skills", "Hardware manufacturing"], correct: 1 },
@@ -1324,17 +1345,25 @@
                 app.renderAssessment();
                 router.navigate('assessment');
             },
-
+            renderAssessment: () => {
+                const { questions } = app.currentAssessment;
+                document.getElementById('assessment-title').textContent = app.currentAssessment.type === 'entry' ? 'Entry Assessment' : 'Final Graded Assessment';
+                document.getElementById('assessment-progress').textContent = `Question 1/${questions.length}`;
+                document.getElementById('assessment-questions').innerHTML = questions.map((q, idx) => `
+                    <div class="border-b border-slate-100 pb-6 last:border-0">
+                        <p class="font-bold text-dark mb-4 text-lg">${idx + 1}. ${q.q}</p>
+                        <div class="space-y-3">
+                            ${q.options.map((opt, optIdx) => `<label class="flex items-center space-x-4 cursor-pointer p-4 rounded-xl border border-slate-200 hover:bg-primary/5 hover:border-primary/30 transition"><input type="radio" name="q${idx}" value="${optIdx}" class="w-5 h-5 text-primary focus:ring-primary" onchange="app.currentAssessment.answers[${idx}] = ${optIdx}"><span class="text-slate-700 font-medium">${opt}</span></label>`).join('')}
+                        </div>
+                    </div>`).join('');
+            },
             submitFinalAssessment: () => {
                 const { questions, answers, enrollmentId } = app.currentAssessment;
                 let correct = 0;
                 questions.forEach((q, idx) => { if (parseInt(answers[idx]) === q.correct) correct++; });
                 const score = Math.round((correct / questions.length) * 100);
                 let grade = 'F';
-                if (score >= 80) grade = 'A';
-                else if (score >= 60) grade = 'B';
-                else if (score >= 50) grade = 'C';
-                
+                if (score >= 80) grade = 'A'; else if (score >= 60) grade = 'B'; else if (score >= 50) grade = 'C';
                 if (score >= 60) {
                     alert(`Congratulations! You passed with ${score}%. Your Final Grade: ${grade}`);
                     const enrollments = db.get('enrollments');
@@ -1349,41 +1378,26 @@
                     enrollment.status = 'Certified';
                     db.set('enrollments', enrollments);
                     router.navigate('dashboard');
-                } else {
-                    alert(`You scored ${score}%. Passing score is 60%. Please review the course material and try again.`);
-                }
+                } else alert(`You scored ${score}%. Passing score is 60%.`);
             },
-
             renderCertificates: () => {
                 if (!auth.requireAuth()) return;
                 const certs = (db.get('certificates') || []).filter(c => c.userId === auth.user.id);
                 const container = document.getElementById('certificates-list');
-                if (certs.length === 0) {
-                    container.innerHTML = '<div class="col-span-2 bg-white p-12 rounded-3xl shadow-sm border border-slate-100 text-center"><p class="text-slate-500 mb-4">No certificates earned yet. Complete a course to get yours!</p><button onclick="router.navigate(\'courses\')" class="bg-primary text-white px-6 py-3 rounded-xl font-bold hover:bg-indigo-700 transition">Browse Courses</button></div>';
-                    return;
-                }
+                if (certs.length === 0) { container.innerHTML = '<div class="col-span-2 bg-white p-12 rounded-3xl shadow-sm border border-slate-100 text-center"><p class="text-slate-500 mb-4">No certificates earned yet.</p><button onclick="router.navigate(\'courses\')" class="bg-primary text-white px-6 py-3 rounded-xl font-bold hover:bg-indigo-700 transition">Browse Courses</button></div>'; return; }
                 container.innerHTML = certs.map(c => `
                     <div class="bg-white p-8 rounded-3xl shadow-soft border border-slate-100 hover-lift">
                         <div class="flex justify-between items-start mb-6">
-                            <div>
-                                <h3 class="font-bold text-xl text-dark mb-1">${c.courseName}</h3>
-                                <p class="text-sm text-slate-500">Completed: ${c.date}</p>
-                                <p class="text-lg font-extrabold text-gold mt-3">Grade: ${c.grade}</p>
-                            </div>
+                            <div><h3 class="font-bold text-xl text-dark mb-1">${c.courseName}</h3><p class="text-sm text-slate-500">Completed: ${c.date}</p><p class="text-lg font-extrabold text-gold mt-3">Grade: ${c.grade}</p></div>
                             <i class="fas fa-certificate text-gold text-4xl opacity-80"></i>
                         </div>
-                        <div class="bg-slate-50 p-4 rounded-xl mb-6 border border-slate-100">
-                            <p class="text-xs text-slate-500 font-bold uppercase tracking-wider mb-1">Certificate ID</p>
-                            <p class="font-mono text-lg font-bold text-dark">${c.id}</p>
-                        </div>
+                        <div class="bg-slate-50 p-4 rounded-xl mb-6 border border-slate-100"><p class="text-xs text-slate-500 font-bold uppercase tracking-wider mb-1">Certificate ID</p><p class="font-mono text-lg font-bold text-dark">${c.id}</p></div>
                         <div class="flex gap-3">
                             <button onclick="app.downloadCertificate('${c.id}', 'png')" class="flex-1 bg-primary text-white py-3.5 rounded-xl text-sm font-bold hover:bg-indigo-700 transition shadow-lg shadow-indigo-500/20">Download PNG</button>
                             <button onclick="app.downloadCertificate('${c.id}', 'pdf')" class="flex-1 border-2 border-primary text-primary py-3.5 rounded-xl text-sm font-bold hover:bg-primary/5 transition">Download PDF</button>
                         </div>
-                    </div>
-                `).join('');
+                    </div>`).join('');
             },
-
             downloadCertificate: async (certId, format) => {
                 const cert = (db.get('certificates') || []).find(c => c.id === certId);
                 if (!cert) return;
@@ -1398,21 +1412,11 @@
                 template.classList.remove('hidden');
                 try {
                     const canvas = await html2canvas(template, { scale: 2, backgroundColor: '#ffffff' });
-                    if (format === 'png') {
-                        const link = document.createElement('a');
-                        link.download = `SkillBridge_Certificate_${cert.id}.png`;
-                        link.href = canvas.toDataURL();
-                        link.click();
-                    } else {
-                        const { jsPDF } = window.jspdf;
-                        const pdf = new jsPDF('l', 'mm', 'a4');
-                        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 10, 10, 277, 196);
-                        pdf.save(`SkillBridge_Certificate_${cert.id}.pdf`);
-                    }
-                } catch (err) { alert('Error generating certificate. Please try again.'); }
+                    if (format === 'png') { const link = document.createElement('a'); link.download = `SkillBridge_Certificate_${cert.id}.png`; link.href = canvas.toDataURL(); link.click(); }
+                    else { const { jsPDF } = window.jspdf; const pdf = new jsPDF('l', 'mm', 'a4'); pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 10, 10, 277, 196); pdf.save(`SkillBridge_Certificate_${cert.id}.pdf`); }
+                } catch (err) { alert('Error generating certificate.'); }
                 finally { template.classList.add('hidden'); }
             },
-
             verifyCertificate: () => {
                 const urlParams = new URLSearchParams(window.location.search);
                 const input = (document.getElementById('verify-input').value || urlParams.get('verify') || '').trim().toUpperCase();
@@ -1428,13 +1432,7 @@
                     resultDiv.classList.remove('border-red-500'); resultDiv.classList.add('border-success');
                     icon.className = 'fas fa-check-circle text-success text-4xl';
                     title.className = 'text-2xl font-bold text-success'; title.textContent = 'Certificate Valid & Authentic';
-                    detailsDiv.innerHTML = `
-                        <div class="flex justify-between py-2 border-b border-slate-100"><span class="text-slate-500">Student Name</span><span class="font-bold text-dark">${cert.studentName}</span></div>
-                        <div class="flex justify-between py-2 border-b border-slate-100"><span class="text-slate-500">Course</span><span class="font-bold text-dark">${cert.courseName}</span></div>
-                        <div class="flex justify-between py-2 border-b border-slate-100"><span class="text-slate-500">Grade</span><span class="font-bold text-gold">${cert.grade}</span></div>
-                        <div class="flex justify-between py-2 border-b border-slate-100"><span class="text-slate-500">Date Issued</span><span class="font-bold text-dark">${cert.date}</span></div>
-                        <div class="flex justify-between py-2"><span class="text-slate-500">Status</span><span class="font-bold text-success bg-success/10 px-3 py-1 rounded-full text-sm">VERIFIED</span></div>
-                    `;
+                    detailsDiv.innerHTML = `<div class="flex justify-between py-2 border-b border-slate-100"><span class="text-slate-500">Student Name</span><span class="font-bold text-dark">${cert.studentName}</span></div><div class="flex justify-between py-2 border-b border-slate-100"><span class="text-slate-500">Course</span><span class="font-bold text-dark">${cert.courseName}</span></div><div class="flex justify-between py-2 border-b border-slate-100"><span class="text-slate-500">Grade</span><span class="font-bold text-gold">${cert.grade}</span></div><div class="flex justify-between py-2 border-b border-slate-100"><span class="text-slate-500">Date Issued</span><span class="font-bold text-dark">${cert.date}</span></div><div class="flex justify-between py-2"><span class="text-slate-500">Status</span><span class="font-bold text-success bg-success/10 px-3 py-1 rounded-full text-sm">VERIFIED</span></div>`;
                 } else {
                     resultDiv.classList.remove('border-success'); resultDiv.classList.add('border-red-500');
                     icon.className = 'fas fa-times-circle text-red-600 text-4xl';
@@ -1444,76 +1442,354 @@
             }
         };
 
+        // ==========================================
+        // ADMIN PANEL
+        // ==========================================
         const admin = {
-            render: () => { admin.showTab('payments'); },
+            currentEditCourseId: null,
+            render: () => { admin.showTab('dashboard'); },
             showTab: (tab) => {
+                document.querySelectorAll('.admin-sidebar-link').forEach(el => el.classList.remove('active'));
+                event?.target?.closest('.admin-sidebar-link')?.classList.add('active');
+                
+                const pending = (db.get('payments') || []).filter(p => p.status === 'Pending').length;
+                document.getElementById('admin-pending-badge').textContent = pending;
+                document.getElementById('admin-pending-badge').classList.toggle('hidden', pending === 0);
+                
                 const container = document.getElementById('admin-content');
-                if (tab === 'payments') {
-                    const payments = (db.get('payments') || []).filter(p => p.method !== 'Direct Online');
-                    const pending = payments.filter(p => p.status === 'Pending');
-                    document.getElementById('admin-pending-badge').textContent = pending.length;
-                    document.getElementById('admin-pending-badge').classList.toggle('hidden', pending.length === 0);
+                
+                if (tab === 'dashboard') {
+                    const users = db.get('users') || [];
+                    const courses = db.get('courses') || [];
+                    const enrollments = db.get('enrollments') || [];
+                    const payments = db.get('payments') || [];
+                    const certs = db.get('certificates') || [];
+                    const revenue = payments.filter(p => p.status === 'Approved').reduce((sum, p) => sum + p.amount, 0);
+                    
                     container.innerHTML = `
-                        <h3 class="text-xl font-bold mb-6 flex items-center gap-2"><i class="fas fa-shield-alt text-primary"></i> Payment Verification Queue</h3>
+                        <h2 class="text-2xl font-extrabold text-dark mb-6 flex items-center gap-2"><i class="fas fa-chart-line text-primary"></i> Admin Dashboard</h2>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                            <div class="bg-gradient-to-br from-primary to-indigo-600 p-6 rounded-2xl text-white">
+                                <p class="text-xs opacity-80 mb-1">Total Users</p>
+                                <p class="text-3xl font-extrabold">${users.length}</p>
+                            </div>
+                            <div class="bg-gradient-to-br from-secondary to-cyan-600 p-6 rounded-2xl text-white">
+                                <p class="text-xs opacity-80 mb-1">Active Courses</p>
+                                <p class="text-3xl font-extrabold">${courses.length}</p>
+                            </div>
+                            <div class="bg-gradient-to-br from-success to-green-600 p-6 rounded-2xl text-white">
+                                <p class="text-xs opacity-80 mb-1">Total Revenue</p>
+                                <p class="text-2xl font-extrabold">PKR ${revenue.toLocaleString()}</p>
+                            </div>
+                            <div class="bg-gradient-to-br from-gold to-yellow-600 p-6 rounded-2xl text-white">
+                                <p class="text-xs opacity-80 mb-1">Certificates Issued</p>
+                                <p class="text-3xl font-extrabold">${certs.length}</p>
+                            </div>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                                <h3 class="font-bold text-dark mb-4 flex items-center gap-2"><i class="fas fa-chart-pie text-primary"></i> Enrollment Stats</h3>
+                                <div class="space-y-3">
+                                    <div class="flex justify-between"><span class="text-slate-600">Total Enrollments</span><span class="font-bold text-dark">${enrollments.length}</span></div>
+                                    <div class="flex justify-between"><span class="text-slate-600">Active Learners</span><span class="font-bold text-success">${enrollments.filter(e => e.status === 'Active').length}</span></div>
+                                    <div class="flex justify-between"><span class="text-slate-600">Completed</span><span class="font-bold text-primary">${enrollments.filter(e => e.status === 'Completed' || e.status === 'Certified').length}</span></div>
+                                    <div class="flex justify-between"><span class="text-slate-600">Pending Payments</span><span class="font-bold text-warning">${enrollments.filter(e => e.status === 'Payment Pending').length}</span></div>
+                                </div>
+                            </div>
+                            <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                                <h3 class="font-bold text-dark mb-4 flex items-center gap-2"><i class="fas fa-bolt text-warning"></i> Quick Actions</h3>
+                                <div class="space-y-3">
+                                    <button onclick="admin.showTab('courses'); admin.openCourseModal()" class="w-full bg-primary text-white py-3 rounded-xl font-bold hover:bg-indigo-700 transition flex items-center justify-center gap-2"><i class="fas fa-plus"></i> Add New Course</button>
+                                    <button onclick="admin.showTab('payments')" class="w-full bg-warning text-dark py-3 rounded-xl font-bold hover:bg-yellow-500 transition flex items-center justify-center gap-2"><i class="fas fa-credit-card"></i> Verify Payments (${pending})</button>
+                                    <button onclick="admin.showTab('users')" class="w-full bg-slate-700 text-white py-3 rounded-xl font-bold hover:bg-slate-800 transition flex items-center justify-center gap-2"><i class="fas fa-users"></i> Manage Users</button>
+                                </div>
+                            </div>
+                        </div>`;
+                }
+                else if (tab === 'courses') {
+                    const courses = db.get('courses') || [];
+                    container.innerHTML = `
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-2xl font-extrabold text-dark flex items-center gap-2"><i class="fas fa-book text-primary"></i> Course Management</h2>
+                            <button onclick="admin.openCourseModal()" class="bg-primary text-white px-6 py-3 rounded-xl font-bold hover:bg-indigo-700 transition shadow-lg flex items-center gap-2"><i class="fas fa-plus"></i> Add New Course</button>
+                        </div>
                         <div class="overflow-x-auto rounded-2xl border border-slate-200">
                             <table class="w-full text-left text-sm">
                                 <thead class="bg-slate-50 border-b border-slate-200">
-                                    <tr><th class="p-4 font-bold text-slate-700">User</th><th class="p-4 font-bold text-slate-700">Amount</th><th class="p-4 font-bold text-slate-700">Trx ID</th><th class="p-4 font-bold text-slate-700">Proof</th><th class="p-4 font-bold text-slate-700">Actions</th></tr>
+                                    <tr>
+                                        <th class="p-4 font-bold text-slate-700">Course</th>
+                                        <th class="p-4 font-bold text-slate-700">Category</th>
+                                        <th class="p-4 font-bold text-slate-700">Price</th>
+                                        <th class="p-4 font-bold text-slate-700">Duration</th>
+                                        <th class="p-4 font-bold text-slate-700">Modules</th>
+                                        <th class="p-4 font-bold text-slate-700">Actions</th>
+                                    </tr>
                                 </thead>
                                 <tbody class="divide-y divide-slate-100">
-                                    ${payments.length === 0 ? '<tr><td colspan="5" class="p-8 text-center text-slate-500">No manual payments found.</td></tr>' : ''}
+                                    ${courses.map(c => `
+                                        <tr class="hover:bg-slate-50 transition">
+                                            <td class="p-4">
+                                                <div class="flex items-center gap-3">
+                                                    <img src="${c.image}" class="w-12 h-12 rounded-lg object-cover">
+                                                    <span class="font-bold text-dark">${c.title}</span>
+                                                </div>
+                                            </td>
+                                            <td class="p-4"><span class="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full font-semibold">${c.category}</span></td>
+                                            <td class="p-4 font-bold text-gold">PKR ${c.price.toLocaleString()}</td>
+                                            <td class="p-4 text-slate-600">${c.duration}</td>
+                                            <td class="p-4 text-slate-600">${c.modules.length} modules</td>
+                                            <td class="p-4">
+                                                <button onclick="admin.openModulesModal('${c.id}')" class="text-primary hover:text-indigo-700 font-bold mr-3" title="Manage Modules"><i class="fas fa-layer-group"></i></button>
+                                                <button onclick="admin.openCourseModal('${c.id}')" class="text-warning hover:text-yellow-600 font-bold mr-3" title="Edit"><i class="fas fa-edit"></i></button>
+                                                <button onclick="admin.deleteCourse('${c.id}')" class="text-red-500 hover:text-red-700 font-bold" title="Delete"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>`).join('')}
+                                </tbody>
+                            </table>
+                        </div>`;
+                }
+                else if (tab === 'users') {
+                    const users = db.get('users') || [];
+                    container.innerHTML = `
+                        <h2 class="text-2xl font-extrabold text-dark mb-6 flex items-center gap-2"><i class="fas fa-users text-primary"></i> User Management</h2>
+                        <div class="overflow-x-auto rounded-2xl border border-slate-200">
+                            <table class="w-full text-left text-sm">
+                                <thead class="bg-slate-50 border-b border-slate-200"><tr><th class="p-4 font-bold text-slate-700">Name</th><th class="p-4 font-bold text-slate-700">Email</th><th class="p-4 font-bold text-slate-700">Phone</th><th class="p-4 font-bold text-slate-700">CNIC (Masked)</th><th class="p-4 font-bold text-slate-700">Role</th><th class="p-4 font-bold text-slate-700">Joined</th></tr></thead>
+                                <tbody class="divide-y divide-slate-100">
+                                    ${users.map(u => `<tr class="hover:bg-slate-50 transition"><td class="p-4 font-medium text-dark">${u.fullName}</td><td class="p-4 text-slate-600">${u.email}</td><td class="p-4 text-slate-600">${u.phone || '-'}</td><td class="p-4 font-mono text-slate-600">${u.cnicMasked}</td><td class="p-4"><span class="px-3 py-1.5 rounded-lg text-xs font-bold ${u.role === 'admin' ? 'bg-primary text-white' : 'bg-slate-200 text-slate-700'} capitalize">${u.role}</span></td><td class="p-4 text-slate-500 text-xs">${u.createdAt ? new Date(u.createdAt).toLocaleDateString() : '-'}</td></tr>`).join('')}
+                                </tbody>
+                            </table>
+                        </div>`;
+                }
+                else if (tab === 'payments') {
+                    const payments = (db.get('payments') || []).filter(p => p.method !== 'Direct Online');
+                    container.innerHTML = `
+                        <h2 class="text-2xl font-extrabold text-dark mb-6 flex items-center gap-2"><i class="fas fa-credit-card text-primary"></i> Payment Verification</h2>
+                        <div class="bg-blue-50 border border-blue-200 p-4 rounded-xl mb-6 text-sm text-blue-800">
+                            <i class="fas fa-info-circle mr-2"></i>
+                            <strong>How it works:</strong> Review each student's payment screenshot. Click "Approve" to instantly unlock their course, or "Reject" if the proof is invalid.
+                        </div>
+                        <div class="overflow-x-auto rounded-2xl border border-slate-200">
+                            <table class="w-full text-left text-sm">
+                                <thead class="bg-slate-50 border-b border-slate-200">
+                                    <tr><th class="p-4 font-bold text-slate-700">User</th><th class="p-4 font-bold text-slate-700">Course</th><th class="p-4 font-bold text-slate-700">Amount</th><th class="p-4 font-bold text-slate-700">Trx ID</th><th class="p-4 font-bold text-slate-700">Proof</th><th class="p-4 font-bold text-slate-700">Actions</th></tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100">
+                                    ${payments.length === 0 ? '<tr><td colspan="6" class="p-8 text-center text-slate-500">No manual payments found.</td></tr>' : ''}
                                     ${payments.map(p => {
                                         const user = db.get('users').find(u => u.id === p.userId);
+                                        const course = db.get('courses').find(c => c.id === p.courseId);
                                         return `<tr class="hover:bg-slate-50 transition">
                                             <td class="p-4 font-medium text-dark">${user ? user.fullName : 'Unknown'}</td>
+                                            <td class="p-4 text-slate-600">${course ? course.title : 'Unknown'}</td>
                                             <td class="p-4 font-bold text-primary">PKR ${p.amount}</td>
                                             <td class="p-4 font-mono text-slate-600">${p.transactionId || 'N/A'}</td>
                                             <td class="p-4"><a href="${p.proof}" target="_blank" class="text-primary hover:underline font-bold flex items-center gap-1"><i class="fas fa-image"></i> View Screenshot</a></td>
                                             <td class="p-4">
-                                                ${p.status === 'Pending' ? `
-                                                    <button onclick="admin.approvePayment('${p.id}')" class="bg-success/10 text-success hover:bg-success hover:text-white px-4 py-2 rounded-lg font-bold transition mr-2">Approve</button>
-                                                    <button onclick="admin.rejectPayment('${p.id}')" class="bg-red-50 text-red-600 hover:bg-red-600 hover:text-white px-4 py-2 rounded-lg font-bold transition">Reject</button>
-                                                ` : `<span class="px-3 py-1.5 rounded-lg text-xs font-bold ${p.status === 'Approved' ? 'bg-success/10 text-success' : 'bg-red-100 text-red-800'}">${p.status}</span>`}
+                                                ${p.status === 'Pending' ? `<button onclick="admin.approvePayment('${p.id}')" class="bg-success/10 text-success hover:bg-success hover:text-white px-4 py-2 rounded-lg font-bold transition mr-2">Approve</button><button onclick="admin.rejectPayment('${p.id}')" class="bg-red-50 text-red-600 hover:bg-red-600 hover:text-white px-4 py-2 rounded-lg font-bold transition">Reject</button>` : `<span class="px-3 py-1.5 rounded-lg text-xs font-bold ${p.status === 'Approved' ? 'bg-success/10 text-success' : 'bg-red-100 text-red-800'}">${p.status}</span>`}
                                             </td>
                                         </tr>`;
                                     }).join('')}
                                 </tbody>
                             </table>
-                        </div>
-                    `;
-                } else if (tab === 'users') {
-                    const users = db.get('users') || [];
+                        </div>`;
+                }
+                else if (tab === 'certificates') {
+                    const certs = db.get('certificates') || [];
                     container.innerHTML = `
-                        <h3 class="text-xl font-bold mb-6 flex items-center gap-2"><i class="fas fa-users text-primary"></i> Registered Users</h3>
+                        <h2 class="text-2xl font-extrabold text-dark mb-6 flex items-center gap-2"><i class="fas fa-certificate text-primary"></i> Issued Certificates</h2>
                         <div class="overflow-x-auto rounded-2xl border border-slate-200">
                             <table class="w-full text-left text-sm">
-                                <thead class="bg-slate-50 border-b border-slate-200"><tr><th class="p-4 font-bold text-slate-700">Name</th><th class="p-4 font-bold text-slate-700">Email</th><th class="p-4 font-bold text-slate-700">CNIC (Masked)</th><th class="p-4 font-bold text-slate-700">Role</th></tr></thead>
+                                <thead class="bg-slate-50 border-b border-slate-200"><tr><th class="p-4 font-bold text-slate-700">Certificate ID</th><th class="p-4 font-bold text-slate-700">Student</th><th class="p-4 font-bold text-slate-700">Course</th><th class="p-4 font-bold text-slate-700">Grade</th><th class="p-4 font-bold text-slate-700">Date</th></tr></thead>
                                 <tbody class="divide-y divide-slate-100">
-                                    ${users.map(u => `<tr class="hover:bg-slate-50 transition"><td class="p-4 font-medium text-dark">${u.fullName}</td><td class="p-4 text-slate-600">${u.email}</td><td class="p-4 font-mono text-slate-600">${u.cnicMasked}</td><td class="p-4"><span class="px-3 py-1.5 rounded-lg text-xs font-bold ${u.role === 'admin' ? 'bg-primary text-white' : 'bg-slate-200 text-slate-700'} capitalize">${u.role}</span></td></tr>`).join('')}
+                                    ${certs.length === 0 ? '<tr><td colspan="5" class="p-8 text-center text-slate-500">No certificates issued yet.</td></tr>' : ''}
+                                    ${certs.map(c => `<tr class="hover:bg-slate-50 transition"><td class="p-4 font-mono font-bold text-primary">${c.id}</td><td class="p-4 font-medium text-dark">${c.studentName}</td><td class="p-4 text-slate-600">${c.courseName}</td><td class="p-4"><span class="bg-gold/10 text-gold px-3 py-1 rounded-full font-bold">${c.grade}</span></td><td class="p-4 text-slate-500">${c.date}</td></tr>`).join('')}
                                 </tbody>
                             </table>
-                        </div>
-                    `;
+                        </div>`;
+                }
+                else if (tab === 'settings') {
+                    container.innerHTML = `
+                        <h2 class="text-2xl font-extrabold text-dark mb-6 flex items-center gap-2"><i class="fas fa-cog text-primary"></i> Platform Settings</h2>
+                        <div class="space-y-6">
+                            <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                                <h3 class="font-bold text-dark mb-4">Payment Information</h3>
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div><label class="block text-sm font-bold text-slate-700 mb-2">JazzCash / Easypaisa Number</label><input type="text" value="0300-1234567" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-primary outline-none"></div>
+                                    <div><label class="block text-sm font-bold text-slate-700 mb-2">Account Title</label><input type="text" value="SkillBridge Pakistan" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-primary outline-none"></div>
+                                    <div><label class="block text-sm font-bold text-slate-700 mb-2">Bank Name</label><input type="text" value="Punjab Bank" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-primary outline-none"></div>
+                                    <div><label class="block text-sm font-bold text-slate-700 mb-2">Bank Account Number</label><input type="text" value="1234567890123" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-primary outline-none"></div>
+                                </div>
+                                <button onclick="alert('✅ Settings saved successfully!')" class="mt-4 bg-primary text-white px-6 py-3 rounded-xl font-bold hover:bg-indigo-700 transition">Save Settings</button>
+                            </div>
+                            <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                                <h3 class="font-bold text-dark mb-4">Admin Credentials</h3>
+                                <p class="text-sm text-slate-600 mb-2"><strong>Email:</strong> admin@skillbridge.pk</p>
+                                <p class="text-sm text-slate-600 mb-4"><strong>Password:</strong> admin123</p>
+                                <button onclick="if(confirm('Reset all data? This cannot be undone.')) { localStorage.clear(); location.reload(); }" class="bg-red-500 text-white px-6 py-3 rounded-xl font-bold hover:bg-red-600 transition">⚠️ Reset All Data</button>
+                            </div>
+                        </div>`;
                 }
             },
+            openCourseModal: (courseId = null) => {
+                const modal = document.getElementById('course-modal');
+                const form = document.getElementById('course-form');
+                form.reset();
+                document.getElementById('course-edit-id').value = '';
+                
+                if (courseId) {
+                    const course = db.get('courses').find(c => c.id === courseId);
+                    document.getElementById('course-modal-title').innerHTML = '<i class="fas fa-edit"></i> Edit Course';
+                    document.getElementById('course-edit-id').value = course.id;
+                    document.getElementById('course-title').value = course.title;
+                    document.getElementById('course-category').value = course.category;
+                    document.getElementById('course-price').value = course.price;
+                    document.getElementById('course-duration').value = course.duration;
+                    document.getElementById('course-level').value = course.level;
+                    document.getElementById('course-image').value = course.image;
+                    document.getElementById('course-description').value = course.description;
+                    document.getElementById('course-videoId').value = course.videoId;
+                } else {
+                    document.getElementById('course-modal-title').innerHTML = '<i class="fas fa-plus"></i> Add New Course';
+                }
+                modal.classList.remove('hidden');
+            },
+            saveCourse: (e) => {
+                e.preventDefault();
+                const courses = db.get('courses') || [];
+                const editId = document.getElementById('course-edit-id').value;
+                
+                const courseData = {
+                    title: document.getElementById('course-title').value,
+                    category: document.getElementById('course-category').value,
+                    price: parseInt(document.getElementById('course-price').value),
+                    duration: document.getElementById('course-duration').value,
+                    level: document.getElementById('course-level').value,
+                    image: document.getElementById('course-image').value,
+                    description: document.getElementById('course-description').value,
+                    videoId: document.getElementById('course-videoId').value
+                };
+                
+                if (editId) {
+                    const idx = courses.findIndex(c => c.id === editId);
+                    courses[idx] = { ...courses[idx], ...courseData };
+                    alert('✅ Course updated successfully!');
+                } else {
+                    courseData.id = 'course_' + Date.now();
+                    courseData.modules = [{ title: 'Module 1: Introduction', duration: '1 Week', lessons: [{ id: 'l1', title: 'Welcome Lesson', duration: '10 mins', videoUrl: '', quiz: [{ q: 'Sample question?', options: ['Option A', 'Option B', 'Option C'], correct: 0 }] }] }];
+                    courses.push(courseData);
+                    alert('✅ Course added successfully!');
+                }
+                
+                db.set('courses', courses);
+                document.getElementById('course-modal').classList.add('hidden');
+                admin.showTab('courses');
+            },
+            deleteCourse: (courseId) => {
+                if (!confirm('Are you sure you want to delete this course? This action cannot be undone.')) return;
+                let courses = db.get('courses') || [];
+                courses = courses.filter(c => c.id !== courseId);
+                db.set('courses', courses);
+                alert('✅ Course deleted successfully!');
+                admin.showTab('courses');
+            },
+            openModulesModal: (courseId) => {
+                admin.currentEditCourseId = courseId;
+                const course = db.get('courses').find(c => c.id === courseId);
+                admin.renderModulesList(course.modules);
+                document.getElementById('modules-modal').classList.remove('hidden');
+            },
+            renderModulesList: (modules) => {
+                const container = document.getElementById('modules-list');
+                container.innerHTML = modules.map((m, mIdx) => `
+                    <div class="border border-slate-200 rounded-2xl p-5 bg-slate-50" data-module-idx="${mIdx}">
+                        <div class="flex justify-between items-center mb-4">
+                            <input type="text" value="${m.title}" onchange="admin.updateModuleTitle(${mIdx}, this.value)" class="flex-1 px-4 py-2 rounded-lg border border-slate-200 font-bold text-dark mr-3">
+                            <input type="text" value="${m.duration}" onchange="admin.updateModuleDuration(${mIdx}, this.value)" class="w-32 px-3 py-2 rounded-lg border border-slate-200 text-sm mr-2">
+                            <button onclick="admin.deleteModule(${mIdx})" class="text-red-500 hover:text-red-700 p-2"><i class="fas fa-trash"></i></button>
+                        </div>
+                        <div class="space-y-3 pl-4 border-l-4 border-primary/30">
+                            ${m.lessons.map((l, lIdx) => `
+                                <div class="bg-white p-4 rounded-xl border border-slate-200">
+                                    <div class="flex gap-2 mb-2">
+                                        <input type="text" value="${l.title}" onchange="admin.updateLessonTitle(${mIdx}, ${lIdx}, this.value)" class="flex-1 px-3 py-2 rounded-lg border border-slate-200 text-sm font-medium">
+                                        <input type="text" value="${l.duration}" onchange="admin.updateLessonDuration(${mIdx}, ${lIdx}, this.value)" class="w-24 px-3 py-2 rounded-lg border border-slate-200 text-sm">
+                                        <button onclick="admin.deleteLesson(${mIdx}, ${lIdx})" class="text-red-500 hover:text-red-700 px-2"><i class="fas fa-trash"></i></button>
+                                    </div>
+                                    <div class="flex gap-2">
+                                        <input type="text" value="${l.videoUrl || ''}" onchange="admin.updateLessonVideo(${mIdx}, ${lIdx}, this.value)" placeholder="YouTube Video URL (optional)" class="flex-1 px-3 py-2 rounded-lg border border-slate-200 text-sm">
+                                        <button onclick="admin.editLessonQuiz(${mIdx}, ${lIdx})" class="bg-primary/10 text-primary px-3 py-2 rounded-lg text-sm font-bold hover:bg-primary/20"><i class="fas fa-question-circle mr-1"></i>Quiz</button>
+                                    </div>
+                                </div>`).join('')}
+                        </div>
+                        <button onclick="admin.addLesson(${mIdx})" class="mt-3 w-full bg-white border-2 border-dashed border-primary/30 text-primary py-2 rounded-xl font-semibold hover:bg-primary/5 transition flex items-center justify-center gap-2"><i class="fas fa-plus"></i> Add Lesson</button>
+                    </div>`).join('');
+            },
+            addModule: () => {
+                const course = db.get('courses').find(c => c.id === admin.currentEditCourseId);
+                course.modules.push({ title: 'New Module', duration: '1 Week', lessons: [] });
+                db.set('courses', db.get('courses'));
+                admin.renderModulesList(course.modules);
+            },
+            deleteModule: (mIdx) => {
+                if (!confirm('Delete this module and all its lessons?')) return;
+                const course = db.get('courses').find(c => c.id === admin.currentEditCourseId);
+                course.modules.splice(mIdx, 1);
+                db.set('courses', db.get('courses'));
+                admin.renderModulesList(course.modules);
+            },
+            addLesson: (mIdx) => {
+                const course = db.get('courses').find(c => c.id === admin.currentEditCourseId);
+                course.modules[mIdx].lessons.push({ id: 'l_' + Date.now(), title: 'New Lesson', duration: '15 mins', videoUrl: '', quiz: [{ q: 'Question?', options: ['A', 'B', 'C'], correct: 0 }] });
+                db.set('courses', db.get('courses'));
+                admin.renderModulesList(course.modules);
+            },
+            deleteLesson: (mIdx, lIdx) => {
+                if (!confirm('Delete this lesson?')) return;
+                const course = db.get('courses').find(c => c.id === admin.currentEditCourseId);
+                course.modules[mIdx].lessons.splice(lIdx, 1);
+                db.set('courses', db.get('courses'));
+                admin.renderModulesList(course.modules);
+            },
+            updateModuleTitle: (mIdx, val) => { const c = db.get('courses').find(c => c.id === admin.currentEditCourseId); c.modules[mIdx].title = val; db.set('courses', db.get('courses')); },
+            updateModuleDuration: (mIdx, val) => { const c = db.get('courses').find(c => c.id === admin.currentEditCourseId); c.modules[mIdx].duration = val; db.set('courses', db.get('courses')); },
+            updateLessonTitle: (mIdx, lIdx, val) => { const c = db.get('courses').find(c => c.id === admin.currentEditCourseId); c.modules[mIdx].lessons[lIdx].title = val; db.set('courses', db.get('courses')); },
+            updateLessonDuration: (mIdx, lIdx, val) => { const c = db.get('courses').find(c => c.id === admin.currentEditCourseId); c.modules[mIdx].lessons[lIdx].duration = val; db.set('courses', db.get('courses')); },
+            updateLessonVideo: (mIdx, lIdx, val) => { const c = db.get('courses').find(c => c.id === admin.currentEditCourseId); c.modules[mIdx].lessons[lIdx].videoUrl = val; db.set('courses', db.get('courses')); },
+            editLessonQuiz: (mIdx, lIdx) => {
+                const course = db.get('courses').find(c => c.id === admin.currentEditCourseId);
+                const lesson = course.modules[mIdx].lessons[lIdx];
+                const newQuiz = prompt('Enter quiz question (current: ' + (lesson.quiz[0]?.q || 'none') + '):', lesson.quiz[0]?.q || '');
+                if (newQuiz === null) return;
+                lesson.quiz[0].q = newQuiz;
+                db.set('courses', db.get('courses'));
+                alert('✅ Quiz updated!');
+            },
+            saveModules: () => {
+                alert('✅ All changes saved successfully!');
+                document.getElementById('modules-modal').classList.add('hidden');
+            },
             approvePayment: (paymentId) => {
+                if (!confirm('Approve this payment? The student\'s course will be unlocked immediately.')) return;
                 const payments = db.get('payments');
                 payments.find(p => p.id === paymentId).status = 'Approved';
                 db.set('payments', payments);
                 const enrollments = db.get('enrollments');
                 enrollments.filter(e => e.paymentId === paymentId).forEach(e => e.status = 'Active');
                 db.set('enrollments', enrollments);
-                alert('Payment approved. Course unlocked for student.');
+                alert('✅ Payment approved! Course unlocked.');
                 admin.showTab('payments');
             },
             rejectPayment: (paymentId) => {
+                const reason = prompt('Enter reason for rejection (optional):');
+                if (reason === null) return;
                 const payments = db.get('payments');
                 payments.find(p => p.id === paymentId).status = 'Rejected';
                 db.set('payments', payments);
                 const enrollments = db.get('enrollments');
                 enrollments.filter(e => e.paymentId === paymentId).forEach(e => e.status = 'Rejected');
                 db.set('enrollments', enrollments);
-                alert('Payment rejected. Student has been notified.');
+                alert('❌ Payment rejected.');
                 admin.showTab('payments');
             }
         };
